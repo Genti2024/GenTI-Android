@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setStatusBarColor
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
@@ -107,13 +105,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     private fun observeGenerateStatus() {
         viewModel.getGenerateStatusState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
-                is UiState.Success -> {
-                    with(binding) {
-                        layoutProfileWaiting.isVisible = state.data == true
-                        layoutProfileNormal.isVisible = state.data != true
-                    }
-                }
-
+                is UiState.Success -> binding.ivProfileMaking.isVisible = state.data == true
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))
                 else -> return@onEach
             }
