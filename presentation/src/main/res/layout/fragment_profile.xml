@@ -27,7 +27,7 @@
             android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="4dp"
             android:padding="12dp"
             android:src="@drawable/ic_setting"
             app:layout_constraintBottom_toBottomOf="@id/tv_profile_title"
@@ -42,6 +42,7 @@
             android:adjustViewBounds="true"
             android:background="@color/black"
             android:src="@drawable/img_profile_making"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_profile_title" />
@@ -53,7 +54,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
             android:background="@color/black"
-            android:paddingHorizontal="-1dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,20 +72,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_profile_making">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@color/grey_6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/iv_profile_empty"
-                android:layout_width="44dp"
+                android:layout_width="32dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_profile_empty"
+                android:src="@drawable/ic_info_white_40"
                 app:layout_constraintBottom_toTopOf="@id/tv_profile_empty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,17 +86,32 @@
 
             <TextView
                 android:id="@+id/tv_profile_empty"
-                style="@style/TextAppearance.Genti.Headline1"
+                style="@style/TextAppearance.Genti.Title_20_Bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/profile_tv_empty"
-                android:textColor="@color/grey_3"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_profile_empty_guide"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_profile_empty" />
+
+            <TextView
+                android:id="@+id/tv_profile_empty_guide"
+                style="@style/TextAppearance.Genti.Body_14_Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="70dp"
+                android:gravity="center"
+                android:text="@string/profile_tv_empty_guide"
+                android:textColor="@color/white_60"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_empty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

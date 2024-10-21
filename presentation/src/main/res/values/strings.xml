@@ -116,7 +116,8 @@
     <string name="profile_tv_title">마이페이지</string>
     <string name="profile_tv_waiting">세상에 없던 나만의 사진 찍는 중 ⋯</string>
     <string name="profile_tv_list_title">내가 만든 사진</string>
-    <string name="profile_tv_empty">아직 내가 만든 사진이 없어요</string>
+    <string name="profile_tv_empty">아직 내가 만든 사진이 없어요.</string>
+    <string name="profile_tv_empty_guide">세상에 하나뿐인 나만의 사진을 만들어보세요!</string>
     <string name="profile_image_download_success">사진이 저장되었어요\n친구들에게 공유해보세요!</string>
 
     <string name="setting_tv_title">설정 및 개인정보</string>
