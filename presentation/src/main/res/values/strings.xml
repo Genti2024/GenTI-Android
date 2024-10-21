@@ -120,7 +120,7 @@
     <string name="profile_tv_empty_guide">세상에 하나뿐인 나만의 사진을 만들어보세요!</string>
     <string name="profile_image_download_success">사진이 저장되었어요\n친구들에게 공유해보세요!</string>
 
-    <string name="setting_tv_title">설정 및 개인정보</string>
+    <string name="setting_tv_title">설정</string>
     <string name="setting_btn_terms_of_service">이용 약관</string>
     <string name="setting_btn_privacy_policy">개인정보처리방침</string>
     <string name="setting_btn_android_version">앱 버전</string>

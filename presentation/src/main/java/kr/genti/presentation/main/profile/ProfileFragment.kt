@@ -57,24 +57,19 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
 
     private fun initSettingBtnListener() {
         binding.btnSetting.setOnSingleClickListener {
-            Intent(requireActivity(), SettingActivity::class.java).apply {
-                startActivity(this)
-            }
+            startActivity(Intent(requireActivity(), SettingActivity::class.java))
         }
     }
 
     private fun initAdapter() {
-        _adapter =
-            ProfileAdapter(
-                imageClick = ::initImageClickListener,
-            )
+        _adapter = ProfileAdapter(imageClick = ::initImageClickListener)
         binding.rvProfilePictureList.adapter = adapter
     }
 
     private fun initImageClickListener(item: ImageModel) {
         AmplitudeManager.trackEvent("enlarge_mypage_picture")
         profileImageDialog =
-            ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name ?: "")
+            ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name.orEmpty())
         profileImageDialog?.show(parentFragmentManager, IMAGE_VIEWER)
     }
 

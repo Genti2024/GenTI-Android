@@ -19,7 +19,6 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initView()
         initBackBtnListener()
         initInfoBtnsListener()
         initLogoutBtnListener()
@@ -27,14 +26,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>(R.layout.activity_s
         setAndroidVersion()
     }
 
-    private fun initView() {
-        setStatusBarColorFromResource(R.color.green_3)
-    }
-
     private fun initBackBtnListener() {
-        binding.btnBack.setOnSingleClickListener {
-            finish()
-        }
+        binding.btnBack.setOnSingleClickListener { finish() }
     }
 
     private fun initInfoBtnsListener() {
