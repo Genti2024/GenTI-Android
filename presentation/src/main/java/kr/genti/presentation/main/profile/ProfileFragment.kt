@@ -20,6 +20,7 @@ import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageModel
 import kr.genti.presentation.R
+import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.FragmentProfileBinding
 import kr.genti.presentation.setting.SettingActivity
 import kr.genti.presentation.util.AmplitudeManager
@@ -62,7 +63,11 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     }
 
     private fun initAdapter() {
-        _adapter = ProfileAdapter(imageClick = ::initImageClickListener)
+        _adapter = ProfileAdapter(
+            imageClick = ::initImageClickListener,
+            moveClick = ::initMoveClickListener,
+            isMaking = false,
+        )
         binding.rvProfilePictureList.adapter = adapter
     }
 
@@ -71,6 +76,10 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         profileImageDialog =
             ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name.orEmpty())
         profileImageDialog?.show(parentFragmentManager, IMAGE_VIEWER)
+    }
+
+    private fun initMoveClickListener(x: Boolean) {
+        startActivity(Intent(requireActivity(), CreateActivity::class.java))
     }
 
     private fun setListWithInfinityScroll() {
