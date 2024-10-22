@@ -10,9 +10,14 @@ import kr.genti.presentation.databinding.ItemProfileImageBinding
 
 class ProfileAdapter(
     private val imageClick: (ImageModel) -> Unit,
-    private val moveClick: (Boolean) -> Unit,
-    private val isMaking: Boolean
+    private val moveClick: (Boolean) -> Unit
 ) : ListAdapter<ImageModel, RecyclerView.ViewHolder>(diffUtil) {
+
+    var isMaking: Boolean = false
+        set(value) {
+            field = value
+            notifyItemChanged(currentList.size)
+        }
 
     override fun getItemViewType(position: Int): Int {
         return if (position == currentList.size) VIEW_TYPE_FOOTER else VIEW_TYPE_ITEM
@@ -45,7 +50,7 @@ class ProfileAdapter(
     }
 
     override fun getItemCount(): Int {
-        return currentList.size + 1
+        return if (currentList.isNotEmpty()) currentList.size + 1 else currentList.size
     }
 
     fun addList(newItems: List<ImageModel>) {

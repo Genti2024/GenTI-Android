@@ -66,7 +66,6 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         _adapter = ProfileAdapter(
             imageClick = ::initImageClickListener,
             moveClick = ::initMoveClickListener,
-            isMaking = false,
         )
         binding.rvProfilePictureList.adapter = adapter
     }
@@ -109,7 +108,11 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     private fun observeGenerateStatus() {
         viewModel.getGenerateStatusState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
-                is UiState.Success -> binding.ivProfileMaking.isVisible = state.data == true
+                is UiState.Success -> {
+                    binding.ivProfileMaking.isVisible = state.data == true
+                    _adapter?.isMaking = state.data == true
+                }
+
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))
                 else -> return@onEach
             }

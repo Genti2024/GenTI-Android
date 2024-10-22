@@ -18,9 +18,7 @@ class ProfileMoveViewHolder(
             } else {
                 ivProfileItemImage.load(R.drawable.img_profile_create_active)
             }
-            root.setOnSingleClickListener {
-                moveClick(isMaking)
-            }
+            root.setOnSingleClickListener { moveClick(isMaking) }
         }
     }
 }
