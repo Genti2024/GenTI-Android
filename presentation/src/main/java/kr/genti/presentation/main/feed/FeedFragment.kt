@@ -42,7 +42,6 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
 
         initView()
         initAdapter()
-        initUpwardBtnListener()
         initTooltipCloseBtnListener()
         setScrollAmplitude()
         observeGetExampleItemsState()
@@ -60,12 +59,6 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
     private fun initGenBtnListener(x: Boolean) {
         feedInfoBottomSheet = FeedInfoBottomSheet()
         feedInfoBottomSheet?.show(parentFragmentManager, BOTTOM_SHEET_INFO)
-    }
-
-    private fun initUpwardBtnListener() {
-        binding.ivFeedLogo.setOnSingleClickListener {
-            binding.rvFeed.scrollToPosition(0)
-        }
     }
 
     private fun initTooltipCloseBtnListener() {
@@ -133,6 +126,10 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
 
         _adapter = null
         feedInfoBottomSheet = null
+    }
+
+    fun scrollFeedListToTop() {
+        binding.rvFeed.smoothScrollToPosition(0)
     }
 
     companion object {

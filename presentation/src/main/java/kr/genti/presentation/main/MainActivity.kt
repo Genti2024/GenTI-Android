@@ -75,7 +75,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding.bnvMain.setOnItemSelectedListener { menu ->
             if (binding.bnvMain.selectedItemId == menu.itemId) {
+                if (menu.itemId == R.id.menu_feed) {
+                    (supportFragmentManager.findFragmentById(R.id.fcv_main) as FeedFragment).scrollFeedListToTop()
+                }
                 return@setOnItemSelectedListener false
+
             }
             when (menu.itemId) {
                 R.id.menu_feed -> navigateTo<FeedFragment>("click_maintab")
