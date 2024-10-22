@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.dpToPx
-import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
@@ -23,6 +22,7 @@ import kr.genti.core.util.RvItemLastDecoration
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentFeedBinding
 import kr.genti.presentation.util.AmplitudeManager
+import kotlin.math.max
 
 @AndroidEntryPoint
 class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed) {
@@ -43,7 +43,7 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
         initView()
         initAdapter()
         initTooltipCloseBtnListener()
-        setScrollAmplitude()
+        initListScrollListener()
         observeGetExampleItemsState()
     }
 
@@ -68,7 +68,7 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
         }
     }
 
-    private fun setScrollAmplitude() {
+    private fun initListScrollListener() {
         binding.rvFeed.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 var accumScrollY = 0
@@ -79,8 +79,13 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
                     dy: Int,
                 ) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (!viewModel.isTooltipClosed && accumScrollY > 250) binding.tvFeedTooltip.isVisible = true
+
                     accumScrollY += dy
+
+                    if (!viewModel.isTooltipClosed && accumScrollY > 250) {
+                        binding.tvFeedTooltip.isVisible = true
+                    }
+
                     if (accumScrollY > 4500 && !viewModel.isAmplitudeScrollTracked) {
                         AmplitudeManager.apply {
                             trackEvent("scroll_main_3pic")
@@ -88,6 +93,9 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
                         }
                         viewModel.isAmplitudeScrollTracked = true
                     }
+
+                    binding.ivFeedBlurTop.alpha =
+                        1 - max(0.0, (1 - accumScrollY / 300f).toDouble()).toFloat()
                 }
             }
         )

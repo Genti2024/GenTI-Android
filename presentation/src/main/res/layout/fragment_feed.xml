@@ -53,10 +53,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
+            android:id="@+id/iv_feed_blur_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/img_gradation_main"
+            android:alpha="0"
+            android:src="@drawable/img_gradation_main_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_feed_blur_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_gradation_main_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -65,10 +77,10 @@
             android:id="@+id/tv_feed_tooltip"
             android:layout_width="174dp"
             android:layout_height="0dp"
-            android:visibility="gone"
             android:adjustViewBounds="true"
             android:paddingBottom="14dp"
             android:src="@drawable/img_tooltip_feed"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
