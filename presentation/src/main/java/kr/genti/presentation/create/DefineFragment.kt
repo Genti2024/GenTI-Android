@@ -1,25 +1,12 @@
 package kr.genti.presentation.create
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.Companion.isPhotoPickerAvailable
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.getFileName
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.toast
-import kr.genti.domain.entity.response.ImageFileModel
-import kr.genti.domain.entity.response.ImageFileModel.Companion.emptyImageFileModel
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentDefineBinding
 import kr.genti.presentation.util.AmplitudeManager
@@ -72,4 +59,5 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
             binding.tvCreateRandomExample.text = viewModel.getRandomPrompt()
         }
     }
+
 }
