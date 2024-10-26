@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setStatusBarColorFromResource
 import kr.genti.core.state.UiState
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityCreateBinding
@@ -96,6 +95,7 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
                 interpolator = LinearInterpolator()
                 start()
             }
+            binding.tvCreatePhase.text = getString(R.string.create_phase_text, percent / 33)
         }.launchIn(lifecycleScope)
     }
 

@@ -39,6 +39,7 @@
     <string name="onboarding_btn_finish">젠티하러 가기</string>
 
     <string name="create_tv_title">사진 만들기</string>
+    <string name="create_phase_text">%1$d/3</string>
     <string name="create_tv_script_title">만들고 싶은 사진을 설명해주세요✏️</string>
     <string name="create_tv_script_subtitle">성적이거나 폭력적인 사진은 만들어지지 않아요</string>
     <string name="create_et_script_hint">의상과 배경을 포함해서 설명해 주세요!\n\n*헤어스타일을 변경하는 기능은 준비 중이에요\n*너무 특정한 배경과 의상은 어려울 수 있어요\n(반포 한강 공원, 나이키 티셔츠 등)</string>
