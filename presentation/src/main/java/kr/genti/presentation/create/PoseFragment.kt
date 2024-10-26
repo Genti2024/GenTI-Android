@@ -19,8 +19,6 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose) {
     private val viewModel by activityViewModels<CreateViewModel>()
 
-    private var createGuideDialog: CreateGuideDialog? = null
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -30,7 +28,6 @@ class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose)
         initView()
         initNextBtnListener()
         initBackPressedListener()
-        initGuideIfNeeded()
     }
 
     private fun initView() {
@@ -58,23 +55,5 @@ class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose)
                     findNavController().popBackStack()
                 }
             })
-    }
-
-    private fun initGuideIfNeeded() {
-        if (viewModel.getIsGuideNeeded()) {
-            createGuideDialog = CreateGuideDialog()
-            createGuideDialog?.show(childFragmentManager, DIALOG_GUIDE)
-            viewModel.setIsGuideNeeded(false)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        createGuideDialog = null
-    }
-
-    companion object {
-        const val DIALOG_GUIDE = "DIALOG_GUIDE"
     }
 }
