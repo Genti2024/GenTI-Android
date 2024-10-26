@@ -16,6 +16,9 @@
     <string name="btn_next">다음으로</string>
     <string name="btn_done">사진 생성하기</string>
 
+    <string name="btn_share">공유하기</string>
+    <string name="btn_download">저장하기</string>
+
     <string name="menu_feed">피드</string>
     <string name="menu_create">생성</string>
     <string name="menu_profile">프로필</string>

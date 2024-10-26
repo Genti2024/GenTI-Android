@@ -35,7 +35,7 @@ class ProfileImageDialog :
         dialog?.window?.apply {
             setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
@@ -52,7 +52,6 @@ class ProfileImageDialog :
         initExitBtnListener()
         initDownloadBtnListener()
         initShareBtnListener()
-        setImage()
     }
 
     private fun getBundleArgs() {
@@ -60,6 +59,7 @@ class ProfileImageDialog :
         imageId = arguments?.getLong(ARGS_IMAGE_ID) ?: -1
         imageUrl = arguments?.getString(ARGS_IMAGE_URL) ?: ""
         imageRatio = arguments?.getString(ARGS_IMAGE_RATIO) ?: ""
+        binding.ivProfile.load(imageUrl)
     }
 
     private fun initExitBtnListener() {
@@ -96,19 +96,6 @@ class ProfileImageDialog :
                 type = IMAGE_TYPE
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 startActivity(Intent.createChooser(this, SHARE_IMAGE_CHOOSER))
-            }
-        }
-    }
-
-    private fun setImage() {
-        with(binding) {
-            ivProfile.load(imageUrl)
-            if (imageRatio.toPictureRatio() == PictureRatio.RATIO_GARO) {
-                (ivProfile.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "3:2"
-                (ivProfileBg.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "3:2"
-            } else {
-                (ivProfile.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "2:3"
-                (ivProfileBg.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "2:3"
             }
         }
     }
