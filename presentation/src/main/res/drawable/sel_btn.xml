@@ -4,7 +4,7 @@
     <item android:state_enabled="false">
         <shape>
             <corners android:radius="10dp" />
-            <solid android:color="@color/grey_5" />
+            <solid android:color="@color/disabled" />
         </shape>
     </item>
 
@@ -12,7 +12,10 @@
     <item android:state_enabled="true">
         <shape>
             <corners android:radius="10dp" />
-            <solid android:color="@color/green_1" />
+            <gradient
+                android:startColor="@color/genti_gradation_start"
+                android:endColor="@color/genti_gradation_end"
+                android:angle="45" />
         </shape>
     </item>
 
