@@ -39,14 +39,13 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
     }
 
     private fun initView() {
-        setStatusBarColorFromResource(R.color.white)
         navController = binding.fcvCreate.getFragment<NavHostFragment>().navController
     }
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener {
             when (navController.currentDestination?.id) {
-                R.id.defineFragment -> return@setOnSingleClickListener
+                R.id.defineFragment -> finish()
 
                 R.id.poseFragment -> {
                     AmplitudeManager.trackEvent(
@@ -97,19 +96,12 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
                 interpolator = LinearInterpolator()
                 start()
             }
-            binding.btnBack.isVisible = viewModel.currentPercent.value > 33
         }.launchIn(lifecycleScope)
     }
 
     private fun observeGeneratingState() {
         viewModel.totalGeneratingState.flowWithLifecycle(lifecycle).onEach { state ->
-            if (state == UiState.Loading) {
-                setStatusBarColorFromResource(R.color.background_white)
-                binding.layoutLoading.isVisible = true
-            } else {
-                setStatusBarColorFromResource(R.color.white)
-                binding.layoutLoading.isVisible = false
-            }
+            binding.layoutLoading.isVisible = state == UiState.Loading
         }.launchIn(lifecycleScope)
     }
 
