@@ -34,7 +34,6 @@ import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentSelfieBinding
 import kr.genti.presentation.generate.waiting.WaitingActivity
-import kr.genti.presentation.main.MainActivity
 import kr.genti.presentation.main.feed.FeedFragment
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
@@ -45,6 +44,7 @@ import kotlin.math.max
 @AndroidEntryPoint
 class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_selfie) {
     private val viewModel by activityViewModels<CreateViewModel>()
+
     private lateinit var photoPickerResult: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var galleryPickerResult: ActivityResultLauncher<Intent>
     private lateinit var waitingResult: ActivityResultLauncher<Intent>
@@ -78,19 +78,14 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     }
 
     private fun initBackPressedListener() {
-        val onBackPressedCallback =
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (isAdded) {
-                        findNavController().popBackStack()
-                        viewModel.modCurrentPercent(-34)
-                    }
+                    viewModel.modCurrentPercent(-34)
+                    findNavController().popBackStack()
                 }
-            }
-        activity?.onBackPressedDispatcher?.addCallback(
-            requireActivity(),
-            onBackPressedCallback,
-        )
+            })
     }
 
     private fun initAddImageBtnListener() {

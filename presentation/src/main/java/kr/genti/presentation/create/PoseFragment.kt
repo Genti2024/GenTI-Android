@@ -50,21 +50,14 @@ class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose)
     }
 
     private fun initBackPressedListener() {
-        val onBackPressedCallback =
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (isAdded) {
-                        findNavController().popBackStack()
-                        viewModel.modCurrentPercent(-33)
-                    } else {
-                        requireActivity().onBackPressedDispatcher.onBackPressed()
-                    }
+                    viewModel.modCurrentPercent(-33)
+                    findNavController().popBackStack()
                 }
-            }
-        activity?.onBackPressedDispatcher?.addCallback(
-            requireActivity(),
-            onBackPressedCallback,
-        )
+            })
     }
 
     private fun initGuideIfNeeded() {

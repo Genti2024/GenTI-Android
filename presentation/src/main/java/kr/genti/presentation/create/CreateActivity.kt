@@ -25,14 +25,13 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 @AndroidEntryPoint
 class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_create) {
     private val viewModel by viewModels<CreateViewModel>()
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initView()
         initBackBtnListener()
-        setCurrentFragment()
         observeProgressBar()
         observeGeneratingState()
     }
@@ -45,42 +44,20 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
         binding.btnBack.setOnSingleClickListener {
             when (navController.currentDestination?.id) {
                 R.id.defineFragment -> finish()
-
-                R.id.poseFragment -> {
-                    AmplitudeManager.trackEvent(
-                        EVENT_CLICK_BTN,
-                        mapOf(PROPERTY_PAGE to "create2"),
-                        mapOf(PROPERTY_BTN to "back"),
-                    )
-                    navController.popBackStack()
-                    viewModel.modCurrentPercent(-33)
-                }
-
-                R.id.selfieFragment -> {
-                    AmplitudeManager.trackEvent(
-                        EVENT_CLICK_BTN,
-                        mapOf(PROPERTY_PAGE to "create3"),
-                        mapOf(PROPERTY_BTN to "back"),
-                    )
-                    navController.popBackStack()
-                    viewModel.modCurrentPercent(-34)
-                }
+                R.id.poseFragment -> navigateBackFragment("create2", -33)
+                R.id.selfieFragment -> navigateBackFragment("create3", -34)
             }
         }
     }
 
-    private fun setCurrentFragment() {
-        if (::navController.isInitialized) {
-            when (viewModel.currentPercent.value) {
-                66 -> navController.navigate(R.id.poseFragment)
-                100 -> {
-                    navController.navigate(R.id.poseFragment)
-                    navController.navigate(R.id.selfieFragment)
-                }
-
-                else -> return
-            }
-        }
+    private fun navigateBackFragment(tag: String, amount: Int) {
+        AmplitudeManager.trackEvent(
+            EVENT_CLICK_BTN,
+            mapOf(PROPERTY_PAGE to tag),
+            mapOf(PROPERTY_BTN to "back"),
+        )
+        navController.popBackStack()
+        viewModel.modCurrentPercent(amount)
     }
 
     private fun observeProgressBar() {
