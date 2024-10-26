@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="kr.genti.presentation.main.create.CreateViewModel" />
+            type="kr.genti.presentation.create.CreateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

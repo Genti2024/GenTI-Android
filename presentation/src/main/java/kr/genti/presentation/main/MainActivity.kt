@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -15,18 +14,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.setStatusBarColorFromResource
+import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.domain.enums.GenerateStatus
 import kr.genti.presentation.R
+import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.ActivityMainBinding
 import kr.genti.presentation.generate.finished.FinishedActivity
 import kr.genti.presentation.generate.openchat.OpenchatActivity
 import kr.genti.presentation.generate.verify.VerifyActivity
 import kr.genti.presentation.generate.waiting.WaitingActivity
-import kr.genti.presentation.main.create.CreateFragment
 import kr.genti.presentation.main.feed.FeedFragment
 import kr.genti.presentation.main.profile.ProfileFragment
 import kr.genti.presentation.util.AmplitudeManager
@@ -42,10 +41,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initOnBackPressedListener(binding.root)
         initBnvItemIconTintList()
         initBnvItemSelectedListener()
         initCreateBtnListener()
-        setStatusBarColor()
         getNotificationIntent()
         observeStatusResult()
         observeNotificationState()
@@ -63,7 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    fun initBnvItemIconTintList() {
+    private fun initBnvItemIconTintList() {
         with(binding.bnvMain) {
             itemIconTintList = null
             selectedItemId = R.id.menu_feed
@@ -76,18 +75,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding.bnvMain.setOnItemSelectedListener { menu ->
             if (binding.bnvMain.selectedItemId == menu.itemId) {
+                if (menu.itemId == R.id.menu_feed) {
+                    (supportFragmentManager.findFragmentById(R.id.fcv_main) as FeedFragment).scrollFeedListToTop()
+                }
                 return@setOnItemSelectedListener false
+
             }
             when (menu.itemId) {
                 R.id.menu_feed -> navigateTo<FeedFragment>("click_maintab")
 
-                R.id.menu_create -> navigateTo<CreateFragment>("click_createpictab")
+                R.id.menu_create -> return@setOnItemSelectedListener false
 
                 R.id.menu_profile -> navigateTo<ProfileFragment>("click_mypagetab")
 
                 else -> return@setOnItemSelectedListener false
             }
-            binding.btnMenuCreate.isVisible = menu.itemId != R.id.menu_create
             true
         }
     }
@@ -96,10 +98,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.btnMenuCreate.setOnClickListener {
             navigateByGenerateStatus()
         }
-    }
-
-    private fun setStatusBarColor() {
-        setStatusBarColorFromResource(R.color.background_white)
     }
 
     private fun getNotificationIntent() {
@@ -123,9 +121,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             GenerateStatus.IN_PROGRESS -> {
-                Intent(this, WaitingActivity::class.java).apply {
-                    startActivity(this)
-                }
+                startActivity(Intent(this, WaitingActivity::class.java))
             }
 
             GenerateStatus.CANCELED -> {
@@ -138,116 +134,100 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun observeStatusResult() {
-        viewModel.getStatusResult
-            .flowWithLifecycle(lifecycle)
-            .onEach { result ->
-                if (!result) toast(stringOf(R.string.error_msg))
-            }.launchIn(lifecycleScope)
+        viewModel.getStatusResult.flowWithLifecycle(lifecycle).onEach { result ->
+            if (!result) toast(stringOf(R.string.error_msg))
+        }.launchIn(lifecycleScope)
     }
 
     private fun observeNotificationState() {
-        viewModel.notificationState
-            .flowWithLifecycle(lifecycle)
-            .onEach { status ->
-                when (status) {
-                    GenerateStatus.AWAIT_USER_VERIFICATION -> {
-                        if (viewModel.checkNewPictureInitialized()) {
-                            AmplitudeManager.trackEvent(
-                                "click_push_notification",
-                                mapOf("push_type" to "creating_success"),
-                            )
-                            with(viewModel.newPicture.pictureGenerateResponse) {
-                                FinishedActivity
-                                    .createIntent(
-                                        this@MainActivity,
-                                        this?.pictureGenerateResponseId ?: -1,
-                                        this?.pictureCompleted?.url.orEmpty(),
-                                        this
-                                            ?.pictureCompleted
-                                            ?.pictureRatio
-                                            ?.name
-                                            .orEmpty(),
-                                    ).apply { startActivity(this) }
-                            }
-                        } else {
-                            toast(stringOf(R.string.error_msg))
-                        }
-                    }
-
-                    GenerateStatus.CANCELED -> {
+        viewModel.notificationState.flowWithLifecycle(lifecycle).onEach { status ->
+            when (status) {
+                GenerateStatus.AWAIT_USER_VERIFICATION -> {
+                    if (viewModel.checkNewPictureInitialized()) {
                         AmplitudeManager.trackEvent(
                             "click_push_notification",
-                            mapOf("push_type" to "creating_fail"),
+                            mapOf("push_type" to "creating_success"),
                         )
-                        createErrorDialog = CreateErrorDialog()
-                        createErrorDialog?.show(supportFragmentManager, DIALOG_ERROR)
+                        with(viewModel.newPicture.pictureGenerateResponse) {
+                            FinishedActivity.createIntent(
+                                this@MainActivity,
+                                this?.pictureGenerateResponseId ?: -1,
+                                this?.pictureCompleted?.url.orEmpty(),
+                                this?.pictureCompleted?.pictureRatio?.name.orEmpty(),
+                            ).apply { startActivity(this) }
+                        }
+                    } else {
+                        toast(stringOf(R.string.error_msg))
                     }
-
-                    else -> return@onEach
                 }
-                viewModel.resetNotificationState()
-            }.launchIn(lifecycleScope)
+
+                GenerateStatus.CANCELED -> {
+                    AmplitudeManager.trackEvent(
+                        "click_push_notification",
+                        mapOf("push_type" to "creating_fail"),
+                    )
+                    createErrorDialog = CreateErrorDialog()
+                    createErrorDialog?.show(supportFragmentManager, DIALOG_ERROR)
+                }
+
+                else -> return@onEach
+            }
+            viewModel.resetNotificationState()
+        }.launchIn(lifecycleScope)
     }
 
     private fun observeResetResult() {
-        viewModel.postResetResult
-            .flowWithLifecycle(lifecycle)
-            .onEach { result ->
-                if (!result) {
-                    toast(stringOf(R.string.error_msg))
-                } else {
-                    binding.bnvMain.selectedItemId = R.id.menu_create
-                }
-            }.launchIn(lifecycleScope)
+        viewModel.postResetResult.flowWithLifecycle(lifecycle).onEach { result ->
+            if (!result) {
+                toast(stringOf(R.string.error_msg))
+            } else {
+                navigateToCreate()
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun observeServerAvailableState() {
-        viewModel.serverAvailableState
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        if (state.data.status) {
-                            viewModel.getIsUserVerifiedFromServer()
-                        } else {
-                            createUnableDialog = CreateUnableDialog.newInstance(state.data.message.orEmpty())
-                            createUnableDialog?.show(supportFragmentManager, DIALOG_UNABLE)
-                        }
+        viewModel.serverAvailableState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    if (state.data.status) {
+                        navigateToCreate()
+                    } else {
+                        createUnableDialog =
+                            CreateUnableDialog.newInstance(state.data.message.orEmpty())
+                        createUnableDialog?.show(supportFragmentManager, DIALOG_UNABLE)
                     }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
                 }
-                viewModel.resetIsUserVerified()
-            }.launchIn(lifecycleScope)
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+            viewModel.resetIsServerAvailable()
+        }.launchIn(lifecycleScope)
     }
 
     private fun observeUserVerifyState() {
-        viewModel.userVerifyState
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        if (!viewModel.isUserTryingVerify) {
-                            if (state.data) {
-                                binding.bnvMain.selectedItemId = R.id.menu_create
-                            } else {
-                                viewModel.isUserTryingVerify = true
-                                startActivity(Intent(this, VerifyActivity::class.java))
-                            }
+        viewModel.userVerifyState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    if (!viewModel.isUserTryingVerify) {
+                        if (state.data) {
+                            navigateToCreate()
                         } else {
-                            viewModel.isUserTryingVerify = false
-                            if (state.data) {
-                                binding.bnvMain.selectedItemId = R.id.menu_create
-                            }
+                            viewModel.isUserTryingVerify = true
+                            startActivity(Intent(this, VerifyActivity::class.java))
                         }
+                    } else {
+                        viewModel.isUserTryingVerify = false
+                        if (state.data) navigateToCreate()
                     }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
                 }
-                viewModel.resetIsUserVerified()
-            }.launchIn(lifecycleScope)
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+            viewModel.resetIsUserVerified()
+        }.launchIn(lifecycleScope)
     }
 
     private inline fun <reified T : Fragment> navigateTo(page: String?) {
@@ -255,6 +235,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         supportFragmentManager.commit {
             replace<T>(R.id.fcv_main, T::class.java.canonicalName)
         }
+    }
+
+    private fun navigateToCreate() {
+        AmplitudeManager.trackEvent("click_createpictab")
+        startActivity(Intent(this, CreateActivity::class.java))
     }
 
     override fun onDestroy() {

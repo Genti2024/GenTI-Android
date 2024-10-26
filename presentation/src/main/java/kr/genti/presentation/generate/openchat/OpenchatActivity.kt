@@ -2,8 +2,6 @@ package kr.genti.presentation.generate.openchat
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.LinearGradient
-import android.graphics.Shader
 import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
@@ -19,6 +17,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.colorOf
+import kr.genti.core.extension.setGradientText
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
@@ -76,21 +76,10 @@ class OpenchatActivity : BaseActivity<ActivityOpenchatBinding>(R.layout.activity
     }
 
     private fun setTitleTextGradation() {
-        binding.tvOpenchatTitleUp.apply {
-            paint.shader =
-                LinearGradient(
-                    0f,
-                    0f,
-                    paint.measureText(text.toString()),
-                    textSize,
-                    intArrayOf(
-                        Color.parseColor("#6CEE2A"),
-                        Color.parseColor("#1CF48B"),
-                    ),
-                    null,
-                    Shader.TileMode.CLAMP,
-                )
-        }
+        binding.tvOpenchatTitleUp.setGradientText(
+            colorOf(R.color.genti_gradation_start),
+            colorOf(R.color.genti_gradation_end),
+        )
     }
 
     private fun setBackPressed() {
@@ -134,7 +123,7 @@ class OpenchatActivity : BaseActivity<ActivityOpenchatBinding>(R.layout.activity
         binding.tvOpenchatGuide.text =
             SpannableString(getString(R.string.openchat_tv_guide, count)).apply {
                 setSpan(
-                    ForegroundColorSpan(Color.parseColor("#49F155")),
+                    ForegroundColorSpan(colorOf(R.color.genti_green)),
                     3,
                     7 + count.toString().length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,

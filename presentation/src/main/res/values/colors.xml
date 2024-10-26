@@ -2,7 +2,6 @@
 <resources>
 
     <!-- Monochrome -->
-    <color name="black">#000000</color>
     <color name="grey_1">#121212</color>
     <color name="grey_2">#6F6F6F</color>
     <color name="grey_3">#949494</color>
@@ -14,12 +13,10 @@
     <color name="grey_1_70">#B3121212</color>
     <color name="grey_1_50">#80121212</color>
 
-    <color name="white">#FFFFFF</color>
     <color name="background_white">#F9F9F9</color>
     <color name="background_50">#7D7D7D</color>
 
     <!-- Green -->
-    <color name="genti_green">#00FF20</color>
     <color name="green_1">#1CE718</color>
     <color name="green_2">#83FF92</color>
     <color name="green_3">#C7FACE</color>
@@ -35,7 +32,31 @@
 
     <!-- Etc. -->
     <color name="error">#FE0D0D</color>
+
+    <!-- 아래에서부터 새로운 디자인 시스템-->
+
+    <!-- Brand Color -->
+    <color name="genti_green">#49F155</color>
+    <color name="genti_gradation_start">#6CEE2A</color>
+    <color name="genti_gradation_end">#1CF48B</color>
+
+    <!-- System Color -->
+    <color name="black">#030F0F</color>
+    <color name="gray">#192222</color>
+    <color name="gray_btn">#0D2D2B</color>
+    <color name="disabled">#495959</color>
+
+    <!-- Etc. -->
     <color name="kakao_yellow">#FFFEE500</color>
+
+    <!-- White -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
 
     <!-- Transparent -->
     <color name="transparent">#00000000</color>
@@ -43,9 +64,5 @@
     <color name="transparent_60">#99000000</color>
     <color name="transparent_50">#80000000</color>
     <color name="transparent_30">#4D000000</color>
-
-    <!-- 임시 -->
-    <color name="verify_bg">#030F0F</color>
-    <color name="green_new">#49F155</color>
 
 </resources>

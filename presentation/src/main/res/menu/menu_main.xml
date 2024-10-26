@@ -6,7 +6,7 @@
         android:title="@string/menu_feed" />
     <item
         android:id="@+id/menu_create"
-        android:icon="@drawable/menu_create_selected"
+        android:icon="@drawable/sel_bnv_menu_feed"
         android:title="@string/menu_create" />
     <item
         android:id="@+id/menu_profile"

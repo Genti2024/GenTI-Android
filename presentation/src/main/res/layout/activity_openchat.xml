@@ -25,33 +25,35 @@
 
         <TextView
             android:id="@+id/tv_openchat_title_up"
-            style="@style/TextAppearance.Genti.Headline1"
+            style="@style/TextAppearance.Genti.Title_20_Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:gravity="center"
             android:text="@string/openchat_tv_title_up"
-            android:textColor="@color/green_1"
+            android:textColor="@color/genti_green"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_exit" />
 
         <TextView
             android:id="@+id/tv_openchat_title_down"
-            style="@style/TextAppearance.Genti.Headline1"
+            style="@style/TextAppearance.Genti.Title_20_Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="-3dp"
             android:gravity="center"
             android:text="@string/openchat_tv_title_down"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_openchat_title_up" />
 
         <TextView
             android:id="@+id/tv_openchat_subtitle"
-            style="@style/TextAppearance.Genti.Headline5"
+            style="@style/TextAppearance.Genti.Body_14_Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -77,13 +79,12 @@
 
         <TextView
             android:id="@+id/tv_openchat_guide"
-            style="@style/TextAppearance.Genti.BodySmall"
+            style="@style/TextAppearance.Genti.Caption_12_Regular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:textColor="#990D2D2B"
-            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/btn_enter_openchat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,17 +92,16 @@
 
         <TextView
             android:id="@+id/btn_enter_openchat"
-            style="@style/TextAppearance.Genti.Headline5"
+            style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="12dp"
-            android:background="@drawable/shape_green_new_fill_10_rect"
+            android:background="@drawable/shape_green_fill_10_rect"
             android:gravity="center"
             android:paddingVertical="14dp"
             android:text="@string/openchat_btn_enter"
             android:textColor="#0D2D2B"
-            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/btn_access_again"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -119,27 +119,26 @@
             <ImageView
                 android:id="@+id/iv_access_again"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="1dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:layout_marginEnd="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_check_unchecked"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/ic_check_unchecked" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_access_again"
-                style="@style/TextAppearance.Genti.BodyNormal"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="@string/openchat_btn_access"
+                android:textColor="#990D2D2B"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="30dp"
-                android:layout_height="wrap_content"
-                android:text="@string/openchat_btn_access"
-                android:textColor="#990D2D2B"
-                android:textSize="16sp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

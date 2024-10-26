@@ -10,31 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_white">
-
-        <ImageView
-            android:id="@+id/iv_feed_logo"
-            android:layout_width="77dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:adjustViewBounds="true"
-            android:paddingBottom="8dp"
-            android:src="@drawable/logo_genti_2d"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_feed_lightning"
-            android:layout_width="wrap_content"
-            android:layout_height="76dp"
-            android:layout_marginStart="28dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/img_lightning"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+        android:background="@color/black">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_feed"
@@ -48,7 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_feed_logo"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_feed_item"
             tools:visibility="visible" />
 
@@ -75,6 +51,39 @@
                 app:lottie_rawRes="@raw/lottie_loading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_feed_blur_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:alpha="0"
+            android:src="@drawable/img_gradation_main_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_feed_blur_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_gradation_main_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/tv_feed_tooltip"
+            android:layout_width="174dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:paddingBottom="14dp"
+            android:src="@drawable/img_tooltip_feed"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

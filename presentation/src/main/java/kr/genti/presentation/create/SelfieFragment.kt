@@ -1,4 +1,4 @@
-package kr.genti.presentation.main.create
+package kr.genti.presentation.create
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
@@ -253,7 +253,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                             .beginTransaction()
                             .replace(R.id.fcv_main, FeedFragment())
                             .commit()
-                        (requireActivity() as? MainActivity)?.initBnvItemIconTintList()
                     }
                 }
         }

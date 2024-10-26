@@ -3,11 +3,13 @@
 
     <style name="TextAppearance.Genti" parent="">
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
+
+    <!-- 여기서부터 -->
 
     <style name="TextAppearance.Genti.Headline1">
         <item name="fontFamily">@font/font_pretendard_bold</item>
@@ -69,9 +71,53 @@
         <item name="android:paddingVertical">2sp</item>
     </style>
 
+    <!-- 여기까지 삭제 -->
+
     <style name="TextAppearance.Genti.Kakao">
         <item name="fontFamily">@font/font_pretendard_regular</item>
         <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Title_20_Bold">
+        <item name="fontFamily">@font/font_pretendard_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingVertical">4sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Subtitle1_18_Bold">
+        <item name="fontFamily">@font/font_pretendard_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingVertical">4sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Subtitle2_16_Bold">
+        <item name="fontFamily">@font/font_pretendard_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingVertical">2sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Body_14_Bold">
+        <item name="fontFamily">@font/font_pretendard_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingVertical">3sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Body_14_Medium">
+        <item name="fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingVertical">3sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Caption_12_Semibold">
+        <item name="fontFamily">@font/font_pretendard_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingVertical">2sp</item>
+    </style>
+
+    <style name="TextAppearance.Genti.Caption_12_Regular">
+        <item name="fontFamily">@font/font_pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingVertical">2sp</item>
     </style>
 
 </resources>

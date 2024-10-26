@@ -16,6 +16,9 @@
     <string name="btn_next">다음으로</string>
     <string name="btn_done">사진 생성하기</string>
 
+    <string name="btn_share">공유하기</string>
+    <string name="btn_download">저장하기</string>
+
     <string name="menu_feed">피드</string>
     <string name="menu_create">생성</string>
     <string name="menu_profile">프로필</string>
@@ -105,18 +108,22 @@
     <string name="finished_rating_tv_btn_submit">제출하기</string>
     <string name="finished_rating_tv_btn_skip"><u>건너뛰기</u></string>
 
-    <string name="feed_tv_title">젠플루언서들이 만든 사진이에요</string>
+    <string name="feed_tv_title">젠플루언서들이 만든 사진들을 둘러보세요.</string>
     <string name="feed_btn_genfluencer"><u>젠플루언서란?</u></string>
-    <string name="feed_tv_genfluencer_guide">*여러분이 만든 사진은 자동으로 업로드 되지 않아요️</string>
+    <string name="feed_tv_genfluencer_guide">여러분이 만든 사진은 자동으로 업로드되지 않습니다.</string>
     <string name="feed_tv_item_title">사진 설명</string>
+    <string name="feed_info_tv_title">젠플루언서란?</string>
+    <string name="feed_info_tv_subtitle">젠티로 자신만의 독창적인 사진을 만드는 사람들로,\n다른 사용자들이 자신만의 사진을 잘 만들 수 있도록\n영감을 주는 역할을 합니다.</string>
+    <string name="feed_info_btn_more">어떤 혜택이 있나요?</string>
 
     <string name="profile_tv_title">마이페이지</string>
     <string name="profile_tv_waiting">세상에 없던 나만의 사진 찍는 중 ⋯</string>
     <string name="profile_tv_list_title">내가 만든 사진</string>
-    <string name="profile_tv_empty">아직 내가 만든 사진이 없어요</string>
+    <string name="profile_tv_empty">아직 내가 만든 사진이 없어요.</string>
+    <string name="profile_tv_empty_guide">세상에 하나뿐인 나만의 사진을 만들어보세요!</string>
     <string name="profile_image_download_success">사진이 저장되었어요\n친구들에게 공유해보세요!</string>
 
-    <string name="setting_tv_title">설정 및 개인정보</string>
+    <string name="setting_tv_title">설정</string>
     <string name="setting_btn_terms_of_service">이용 약관</string>
     <string name="setting_btn_privacy_policy">개인정보처리방침</string>
     <string name="setting_btn_android_version">앱 버전</string>

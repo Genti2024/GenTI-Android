@@ -6,7 +6,7 @@ import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.domain.entity.response.ImageModel
 import kr.genti.presentation.databinding.ItemProfileImageBinding
 
-class ProfileViewHolder(
+class ProfileItemViewHolder(
     val binding: ItemProfileImageBinding,
     val imageClick: (ImageModel) -> Unit,
 ) :

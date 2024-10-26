@@ -66,8 +66,8 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding>(R.layout.activity_ver
 
     private fun initView() {
         AmplitudeManager.trackEvent("view_verifyme1")
-        setStatusBarColorFromResource(R.color.verify_bg)
-        setNavigationBarColorFromResource(R.color.verify_bg)
+        setStatusBarColorFromResource(R.color.black)
+        setNavigationBarColorFromResource(R.color.black)
     }
 
     private fun initExitBtnListener() {

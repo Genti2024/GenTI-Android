@@ -1,4 +1,4 @@
-package kr.genti.presentation.main.create
+package kr.genti.presentation.create
 
 import android.os.Bundle
 import android.view.View

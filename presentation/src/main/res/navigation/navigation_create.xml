@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/defineFragment"
-        android:name="kr.genti.presentation.main.create.DefineFragment"
+        android:name="kr.genti.presentation.create.DefineFragment"
         android:label="DefineFragment">
         <action
             android:id="@+id/action_define_to_pose"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/poseFragment"
-        android:name="kr.genti.presentation.main.create.PoseFragment"
+        android:name="kr.genti.presentation.create.PoseFragment"
         android:label="PoseFragment">
         <action
             android:id="@+id/action_pose_to_selfie"
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/selfieFragment"
-        android:name="kr.genti.presentation.main.create.SelfieFragment"
+        android:name="kr.genti.presentation.create.SelfieFragment"
         android:label="SelfieFragment" />
 
 </navigation>

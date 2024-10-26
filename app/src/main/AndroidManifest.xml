@@ -54,6 +54,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="kr.genti.presentation.create.CreateActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="kr.genti.presentation.generate.waiting.WaitingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

@@ -91,6 +91,10 @@ class MainViewModel
             }
         }
 
+        fun resetIsServerAvailable() {
+            _serverAvailableState.value = UiState.Empty
+        }
+
         fun getIsUserVerifiedFromServer() {
             _userVerifyState.value = UiState.Loading
             viewModelScope.launch {

@@ -1,4 +1,4 @@
-package kr.genti.presentation.main.create
+package kr.genti.presentation.create
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

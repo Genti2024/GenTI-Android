@@ -14,14 +14,13 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setStatusBarColor
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageModel
 import kr.genti.presentation.R
+import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.FragmentProfileBinding
 import kr.genti.presentation.setting.SettingActivity
 import kr.genti.presentation.util.AmplitudeManager
@@ -51,8 +50,6 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     }
 
     private fun initView() {
-        initOnBackPressedListener(binding.root)
-        setStatusBarColor(R.color.green_3)
         with(viewModel) {
             getGenerateStatusFromServer()
             getPictureListFromServer()
@@ -61,25 +58,27 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
 
     private fun initSettingBtnListener() {
         binding.btnSetting.setOnSingleClickListener {
-            Intent(requireActivity(), SettingActivity::class.java).apply {
-                startActivity(this)
-            }
+            startActivity(Intent(requireActivity(), SettingActivity::class.java))
         }
     }
 
     private fun initAdapter() {
-        _adapter =
-            ProfileAdapter(
-                imageClick = ::initImageClickListener,
-            )
+        _adapter = ProfileAdapter(
+            imageClick = ::initImageClickListener,
+            moveClick = ::initMoveClickListener,
+        )
         binding.rvProfilePictureList.adapter = adapter
     }
 
     private fun initImageClickListener(item: ImageModel) {
         AmplitudeManager.trackEvent("enlarge_mypage_picture")
         profileImageDialog =
-            ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name ?: "")
+            ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name.orEmpty())
         profileImageDialog?.show(parentFragmentManager, IMAGE_VIEWER)
+    }
+
+    private fun initMoveClickListener(x: Boolean) {
+        startActivity(Intent(requireActivity(), CreateActivity::class.java))
     }
 
     private fun setListWithInfinityScroll() {
@@ -110,10 +109,8 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         viewModel.getGenerateStatusState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    with(binding) {
-                        layoutProfileWaiting.isVisible = state.data == true
-                        layoutProfileNormal.isVisible = state.data != true
-                    }
+                    binding.ivProfileMaking.isVisible = state.data == true
+                    _adapter?.isMaking = state.data == true
                 }
 
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))

@@ -18,3 +18,5 @@ fun String.getGraphemeLength(): Int {
 
     return count
 }
+
+fun String.breakLines(): String = this.replace(Regex("\\s+"), " ")
