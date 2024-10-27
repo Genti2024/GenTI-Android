@@ -15,8 +15,6 @@ class UserRepositoryImpl
 
         override fun getUserRole(): String = userSharedPref.userRole
 
-        override fun getIsGuideNeeded(): Boolean = userSharedPref.isGuideNeeded
-
         override fun getIsChatAccessible(): Boolean = userSharedPref.isChatAccessible
 
         override fun setTokens(
@@ -29,10 +27,6 @@ class UserRepositoryImpl
 
         override fun setUserRole(userRole: String) {
             userSharedPref.userRole = userRole
-        }
-
-        override fun setIsGuideNeeded(isGuideNeeded: Boolean) {
-            userSharedPref.isGuideNeeded = isGuideNeeded
         }
 
         override fun setIsChatAccessible(isChatAccessible: Boolean) {

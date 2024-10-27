@@ -19,8 +19,6 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose) {
     private val viewModel by activityViewModels<CreateViewModel>()
 
-    private var createGuideDialog: CreateGuideDialog? = null
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -30,7 +28,6 @@ class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose)
         initView()
         initNextBtnListener()
         initBackPressedListener()
-        initGuideIfNeeded()
     }
 
     private fun initView() {
@@ -50,38 +47,13 @@ class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose)
     }
 
     private fun initBackPressedListener() {
-        val onBackPressedCallback =
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (isAdded) {
-                        findNavController().popBackStack()
-                        viewModel.modCurrentPercent(-33)
-                    } else {
-                        requireActivity().onBackPressedDispatcher.onBackPressed()
-                    }
+                    viewModel.modCurrentPercent(-33)
+                    findNavController().popBackStack()
                 }
-            }
-        activity?.onBackPressedDispatcher?.addCallback(
-            requireActivity(),
-            onBackPressedCallback,
-        )
-    }
-
-    private fun initGuideIfNeeded() {
-        if (viewModel.getIsGuideNeeded()) {
-            createGuideDialog = CreateGuideDialog()
-            createGuideDialog?.show(childFragmentManager, DIALOG_GUIDE)
-            viewModel.setIsGuideNeeded(false)
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        createGuideDialog = null
-    }
-
-    companion object {
-        const val DIALOG_GUIDE = "DIALOG_GUIDE"
+            })
     }
 }

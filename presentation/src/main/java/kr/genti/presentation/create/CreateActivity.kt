@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setStatusBarColorFromResource
 import kr.genti.core.state.UiState
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityCreateBinding
@@ -26,63 +25,39 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 @AndroidEntryPoint
 class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_create) {
     private val viewModel by viewModels<CreateViewModel>()
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initView()
         initBackBtnListener()
-        setCurrentFragment()
         observeProgressBar()
         observeGeneratingState()
     }
 
     private fun initView() {
-        setStatusBarColorFromResource(R.color.white)
         navController = binding.fcvCreate.getFragment<NavHostFragment>().navController
     }
 
     private fun initBackBtnListener() {
         binding.btnBack.setOnSingleClickListener {
             when (navController.currentDestination?.id) {
-                R.id.defineFragment -> return@setOnSingleClickListener
-
-                R.id.poseFragment -> {
-                    AmplitudeManager.trackEvent(
-                        EVENT_CLICK_BTN,
-                        mapOf(PROPERTY_PAGE to "create2"),
-                        mapOf(PROPERTY_BTN to "back"),
-                    )
-                    navController.popBackStack()
-                    viewModel.modCurrentPercent(-33)
-                }
-
-                R.id.selfieFragment -> {
-                    AmplitudeManager.trackEvent(
-                        EVENT_CLICK_BTN,
-                        mapOf(PROPERTY_PAGE to "create3"),
-                        mapOf(PROPERTY_BTN to "back"),
-                    )
-                    navController.popBackStack()
-                    viewModel.modCurrentPercent(-34)
-                }
+                R.id.defineFragment -> finish()
+                R.id.poseFragment -> navigateBackFragment("create2", -33)
+                R.id.selfieFragment -> navigateBackFragment("create3", -34)
             }
         }
     }
 
-    private fun setCurrentFragment() {
-        if (::navController.isInitialized) {
-            when (viewModel.currentPercent.value) {
-                66 -> navController.navigate(R.id.poseFragment)
-                100 -> {
-                    navController.navigate(R.id.poseFragment)
-                    navController.navigate(R.id.selfieFragment)
-                }
-
-                else -> return
-            }
-        }
+    private fun navigateBackFragment(tag: String, amount: Int) {
+        AmplitudeManager.trackEvent(
+            EVENT_CLICK_BTN,
+            mapOf(PROPERTY_PAGE to tag),
+            mapOf(PROPERTY_BTN to "back"),
+        )
+        navController.popBackStack()
+        viewModel.modCurrentPercent(amount)
     }
 
     private fun observeProgressBar() {
@@ -97,19 +72,13 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
                 interpolator = LinearInterpolator()
                 start()
             }
-            binding.btnBack.isVisible = viewModel.currentPercent.value > 33
+            binding.tvCreatePhase.text = getString(R.string.create_phase_text, percent / 33)
         }.launchIn(lifecycleScope)
     }
 
     private fun observeGeneratingState() {
         viewModel.totalGeneratingState.flowWithLifecycle(lifecycle).onEach { state ->
-            if (state == UiState.Loading) {
-                setStatusBarColorFromResource(R.color.background_white)
-                binding.layoutLoading.isVisible = true
-            } else {
-                setStatusBarColorFromResource(R.color.white)
-                binding.layoutLoading.isVisible = false
-            }
+            binding.layoutLoading.isVisible = state == UiState.Loading
         }.launchIn(lifecycleScope)
     }
 
