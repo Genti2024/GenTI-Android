@@ -25,11 +25,14 @@ class DefineAdapter : ListAdapter<String, DefineViewHolder>(diffUtil) {
         holder.onBind(item)
     }
 
+    override fun getItemCount(): Int = TOTAL_VIEW_COUNT
+
     companion object {
+        const val TOTAL_VIEW_COUNT = 5
 
         private val diffUtil =
             ItemDiffCallback<String>(
-                onItemsTheSame = { old, new -> old.length == new.length },
+                onItemsTheSame = { old, new -> old == new },
                 onContentsTheSame = { old, new -> old == new },
             )
     }

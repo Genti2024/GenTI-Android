@@ -60,7 +60,7 @@
             android:layout_height="16dp"
             android:layout_marginBottom="98dp"
             app:ci_drawable="@drawable/ic_indicator_green"
-            app:ci_drawable_unselected="@drawable/ic_indicator_grey5"
+            app:ci_drawable_unselected="@drawable/ic_indicator_white_30"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

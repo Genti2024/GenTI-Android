@@ -20,7 +20,7 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 @AndroidEntryPoint
 class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(R.layout.activity_onboarding) {
     private var _onboardingAdapter: OnboardingAdapter? = null
-    val onboardingAdapter
+    private val onboardingAdapter
         get() = requireNotNull(_onboardingAdapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

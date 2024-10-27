@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black">
+        android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -20,6 +19,7 @@
             android:shadowColor="@color/black"
             app:cardCornerRadius="10dp"
             app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +27,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/gray">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/iv_define_example"
@@ -45,6 +44,7 @@
                     android:id="@+id/tv_define_example"
                     style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="0dp"
+                    android:minLines="3"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:textSize="14dp"
