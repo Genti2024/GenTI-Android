@@ -14,16 +14,12 @@ import kr.genti.domain.entity.request.CreateRequestModel
 import kr.genti.domain.entity.request.KeyRequestModel
 import kr.genti.domain.entity.request.S3RequestModel
 import kr.genti.domain.entity.response.ImageFileModel
-import kr.genti.domain.entity.response.ImageFileModel.Companion.emptyImageFileModel
 import kr.genti.domain.entity.response.S3PresignedUrlModel
-import kr.genti.domain.enums.CameraAngle
 import kr.genti.domain.enums.FileType
 import kr.genti.domain.enums.PictureRatio
-import kr.genti.domain.enums.ShotCoverage
 import kr.genti.domain.repository.CreateRepository
 import kr.genti.domain.repository.UploadRepository
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class CreateViewModel
@@ -33,12 +29,9 @@ constructor(
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
     val prompt = MutableLiveData<String>()
-    var plusImage = emptyImageFileModel()
     val isWritten = MutableLiveData(false)
 
     val selectedRatio = MutableLiveData<PictureRatio>()
-    val selectedAngle = MutableLiveData<CameraAngle>()
-    val selectedCoverage = MutableLiveData<ShotCoverage>()
     val isSelected = MutableLiveData(false)
 
     var imageList = listOf<ImageFileModel>()
@@ -47,12 +40,9 @@ constructor(
     private val _currentPercent = MutableStateFlow<Int>(33)
     val currentPercent: StateFlow<Int> = _currentPercent
 
-    private var currentPrompt: String = ""
-
     private val _totalGeneratingState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val totalGeneratingState: StateFlow<UiState<Boolean>> = _totalGeneratingState
 
-    private var plusImageS3Key = KeyRequestModel(null)
     private var imageS3KeyList = listOf<KeyRequestModel>()
 
     fun modCurrentPercent(amount: Int) {
@@ -65,50 +55,20 @@ constructor(
 
     fun selectRatio(item: PictureRatio) {
         selectedRatio.value = item
-        checkSelected()
-    }
-
-    fun selectAngle(item: CameraAngle) {
-        selectedAngle.value = item
-        checkSelected()
-    }
-
-    fun selectFrame(item: ShotCoverage) {
-        selectedCoverage.value = item
-        checkSelected()
-    }
-
-    private fun checkSelected() {
-        isSelected.value =
-            selectedRatio.value != null && selectedAngle.value != null && selectedCoverage.value != null
+        isSelected.value = selectedRatio.value != null
     }
 
     fun startSendingImages() {
         _totalGeneratingState.value = UiState.Loading
         viewModelScope.launch {
             runCatching {
-                listOfNotNull(
-                    if (plusImage.id != (-1).toLong()) async { getSingleS3Url() } else null,
-                    async { getMultiS3Urls() },
-                ).awaitAll()
+                getMultiS3Urls()
             }.onSuccess {
                 postToGenerateImage()
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
             }
         }
-    }
-
-    private suspend fun getSingleS3Url() {
-        createRepository.getS3SingleUrl(
-            S3RequestModel(FileType.USER_UPLOADED_IMAGE, plusImage.name),
-        )
-            .onSuccess { uriModel ->
-                plusImageS3Key = KeyRequestModel(uriModel.s3Key)
-                postSingleImage(uriModel)
-            }.onFailure {
-                _totalGeneratingState.value = UiState.Failure(it.message.toString())
-            }
     }
 
     private suspend fun getMultiS3Urls() {
@@ -124,13 +84,6 @@ constructor(
         }.onFailure {
             _totalGeneratingState.value = UiState.Failure(it.message.toString())
         }
-    }
-
-    private suspend fun postSingleImage(urlModel: S3PresignedUrlModel) {
-        uploadRepository.uploadImage(urlModel.url, plusImage.url)
-            .onFailure {
-                _totalGeneratingState.value = UiState.Failure(it.message.toString())
-            }
     }
 
     private suspend fun postMultiImage(urlModelList: List<S3PresignedUrlModel>) {
@@ -149,10 +102,7 @@ constructor(
             createRepository.postToCreate(
                 CreateRequestModel(
                     prompt.value ?: return@launch,
-                    plusImageS3Key,
                     imageS3KeyList,
-                    selectedAngle.value ?: return@launch,
-                    selectedCoverage.value ?: return@launch,
                     selectedRatio.value ?: return@launch,
                 ),
             )
@@ -166,12 +116,6 @@ constructor(
 
     fun resetGeneratingState() {
         _totalGeneratingState.value = UiState.Empty
-    }
-
-    fun getRandomPrompt(): String {
-        val randomPrompt = promptList[Random.nextInt(promptList.size)]
-        if (randomPrompt != currentPrompt) currentPrompt = randomPrompt
-        return currentPrompt
     }
 
     companion object {
