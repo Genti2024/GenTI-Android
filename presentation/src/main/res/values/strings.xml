@@ -47,14 +47,11 @@
     <string name="create_tv_random_title">이런 사진은 어때요?</string>
     <string name="create_tv_example_1">프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요.</string>
 
-    <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요 📷</string>
-    <string name="pose_tv_ratio_none">비율은 자유롭게 맡길래요</string>
-    <string name="pose_tv_angle_title">카메라 앵글을 선택해주세요 📷</string>
-    <string name="pose_tv_angle_none">앵글은 자유롭게 맡길래요</string>
-    <string name="pose_tv_frame_title">원하는 프레임을 선택해주세요 📷</string>
-    <string name="pose_tv_frame_none">프레임은 자유롭게 맡길래요</string>
-    <string name="pose_btn_ratio_sero">3:2 비율\n(세로로 긴 사진)</string>
-    <string name="pose_btn_ratio_garo">2:3 비율\n(가로로 긴 사진)</string>
+    <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요.</string>
+    <string name="pose_btn_sero_title">세로 사진</string>
+    <string name="pose_btn_sero_subtitle">3:2 비율</string>
+    <string name="pose_btn_garo_title">가로 사진</string>
+    <string name="pose_btn_garo_subtitle">2:3 비율</string>
 
     <string name="selfie_tv_title">사진 생성에 이용할 얼굴 3장을 업로드해주세요</string>
     <string name="selfie_tv_guide_title">💡얼굴은 이런 사진을 사용해주세요!</string>
