@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="24dp"
             android:background="@drawable/shape_gray_fill_16_rect"
             android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +38,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="-8dp"
                 android:gravity="center"
                 android:text="@string/push_tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
