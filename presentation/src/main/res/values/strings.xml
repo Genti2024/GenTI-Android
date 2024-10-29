@@ -47,23 +47,22 @@
     <string name="create_tv_random_title">이런 사진은 어때요?</string>
     <string name="create_tv_example_1">프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요.</string>
 
-    <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요 📷</string>
-    <string name="pose_tv_ratio_none">비율은 자유롭게 맡길래요</string>
-    <string name="pose_tv_angle_title">카메라 앵글을 선택해주세요 📷</string>
-    <string name="pose_tv_angle_none">앵글은 자유롭게 맡길래요</string>
-    <string name="pose_tv_frame_title">원하는 프레임을 선택해주세요 📷</string>
-    <string name="pose_tv_frame_none">프레임은 자유롭게 맡길래요</string>
-    <string name="pose_btn_ratio_sero">3:2 비율\n(세로로 긴 사진)</string>
-    <string name="pose_btn_ratio_garo">2:3 비율\n(가로로 긴 사진)</string>
+    <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요.</string>
+    <string name="pose_btn_sero_title">세로 사진</string>
+    <string name="pose_btn_sero_subtitle">3:2 비율</string>
+    <string name="pose_btn_garo_title">가로 사진</string>
+    <string name="pose_btn_garo_subtitle">2:3 비율</string>
 
-    <string name="selfie_tv_title">사진 생성에 이용할 얼굴 3장을 업로드해주세요</string>
-    <string name="selfie_tv_guide_title">💡얼굴은 이런 사진을 사용해주세요!</string>
-    <string name="selfie_tv_guide_one">모자, 악세사리 등으로 얼굴이 잘 안보이는 사진을 사용하면 얼굴이 잘 안나올 수 있어요</string>
-    <string name="selfie_tv_guide_two">사진은 정면사진을 포함하여 오른쪽, 왼쪽 등 다양한 각도일수록 얼굴 생성에 도움이 돼요</string>
-    <string name="selfie_tv_guide_three">만들고자 하는 사진의 포즈와 비슷한 각도의 얼굴 사진을 사용하면 얼굴이 더욱 정확하게 반영돼요</string>
-    <string name="selfie_tv_guide_four">본인의 사진만 업로드해주세요. 타인의 사진을 이용할 경우 서비스 이용이 차단되며 법적인 제재를 받을 수도 있어요!</string>
-    <string name="selfie_tv_guide_example"><![CDATA[<예시>]]></string>
-    <string name="selfie_tv_angle_title">💡\n사진의 각도가 다양할수록 생성된 얼굴이 자연스러워져요!</string>
+    <string name="selfie_tv_title">사진 생성에 사용할\n얼굴 사진 3장을 선택해주세요.</string>
+    <string name="selfie_tv_guide_1">정면을 포함하여 사진의 각도가 다양할수록 좋아요.</string>
+    <string name="selfie_tv_guide_2">모자, 악세사리 등으로 얼굴이 가려진 사진은 안돼요.</string>
+    <string name="selfie_tv_guide_3">얼굴 표정이 다양할 수록 더 실감나는 사진을 만들 수 있어요.</string>
+    <string name="selfie_tv_warning">타인의 사진을 도용하면 서비스 이용이 정지되고,\n법적인 처벌을 받을 수 있습니다.</string>
+    <string name="selfie_tv_input_title">이런 사진이 좋아요</string>
+    <string name="selfie_tv_btn_select">사진 선택하기</string>
+    <string name="selfie_tv_btn_reselect">다시 선택하기</string>
+    <string name="selfie_btn_create">사진 생성하기</string>
+
     <string name="selfie_toast_old_picker_limit">3장의 이미지를 선택해 주세요</string>
     <string name="selfie_toast_picker_error">갤러리 이미지를 가져오는 과정에서 오류가 발생했습니다.</string>
 

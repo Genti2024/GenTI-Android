@@ -8,6 +8,8 @@ import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.setOnSingleClickListener
+import kr.genti.core.extension.setTextWithImage
+import kr.genti.core.extension.stringOf
 import kr.genti.presentation.R
 import kr.genti.presentation.create.CreateViewModel.Companion.promptList
 import kr.genti.presentation.databinding.FragmentDefineBinding
@@ -37,7 +39,17 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
     }
 
     private fun initView() {
-        binding.vm = viewModel
+        with(binding) {
+            vm = viewModel
+            tvCreateScriptSubtitle1.setTextWithImage(
+                stringOf(R.string.create_tv_script_subtitle_1),
+                R.drawable.ic_check,
+            )
+            tvCreateScriptSubtitle2.setTextWithImage(
+                stringOf(R.string.create_tv_script_subtitle_2),
+                R.drawable.ic_check,
+            )
+        }
     }
 
     private fun initCreateBtnListener() {

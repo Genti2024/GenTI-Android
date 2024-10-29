@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -93,10 +92,10 @@
                 android:layout_height="16dp"
                 app:ci_drawable="@drawable/ic_indicator_green"
                 app:ci_drawable_unselected="@drawable/ic_indicator_white_30"
-                app:layout_constraintTop_toBottomOf="@id/vp_create_random"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vp_create_random" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

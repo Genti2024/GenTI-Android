@@ -5,10 +5,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.BulletSpan
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -27,6 +23,7 @@ import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.getFileName
 import kr.genti.core.extension.setOnSingleClickListener
+import kr.genti.core.extension.setTextWithImage
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
@@ -39,7 +36,6 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
-import kotlin.math.max
 
 @AndroidEntryPoint
 class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_selfie) {
@@ -61,8 +57,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         initRequestCreateBtnListener()
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
-        setBulletPointList()
-        setGuideListBlur()
         initWaitingResult()
         observeGeneratingState()
     }
@@ -74,7 +68,21 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     }
 
     private fun initView() {
-        binding.vm = viewModel
+        with(binding) {
+            vm = viewModel
+            tvSelfieGuide1.setTextWithImage(
+                stringOf(R.string.selfie_tv_guide_1),
+                R.drawable.ic_check,
+            )
+            tvSelfieGuide2.setTextWithImage(
+                stringOf(R.string.selfie_tv_guide_2),
+                R.drawable.ic_check,
+            )
+            tvSelfieGuide3.setTextWithImage(
+                stringOf(R.string.selfie_tv_guide_3),
+                R.drawable.ic_check,
+            )
+        }
     }
 
     private fun initBackPressedListener() {
@@ -89,28 +97,18 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     }
 
     private fun initAddImageBtnListener() {
-        with(binding) {
-            btnSelfieAdd.setOnSingleClickListener {
-                AmplitudeManager.trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "create3"),
-                    mapOf(PROPERTY_BTN to "selectpic"),
-                )
-                checkAndGetImages()
-            }
-            layoutAddedImage.setOnSingleClickListener {
-                AmplitudeManager.trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "create3"),
-                    mapOf(PROPERTY_BTN to "reselectpic"),
-                )
-                checkAndGetImages()
-            }
+        binding.btnSelfieAdd.setOnSingleClickListener {
+            AmplitudeManager.trackEvent(
+                EVENT_CLICK_BTN,
+                mapOf(PROPERTY_PAGE to "create3"),
+                mapOf(PROPERTY_BTN to "selectpic"),
+            )
+            checkAndGetImages()
         }
     }
 
     private fun initRequestCreateBtnListener() {
-        binding.btnSelfieNext.setOnSingleClickListener {
+        binding.btnCreate.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
                 EVENT_CLICK_BTN,
                 mapOf(PROPERTY_PAGE to "create3"),
@@ -177,62 +175,22 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 }
             isCompleted.value = uris.size == 3
         }
-        with(binding) {
-            listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3).apply {
-                forEach { it.setImageDrawable(null) }
-                uris.take(size).forEachIndexed { index, uri ->
-                    this[index].load(uri)
-                }
-            }
-        }
-        binding.layoutAddedImage.isVisible = uris.isNotEmpty()
+        setSavedImages()
     }
 
     private fun setSavedImages() {
-        if (viewModel.imageList.isNotEmpty()) {
-            val imageViews =
-                with(binding) { listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3) }
-            imageViews.forEach { it.setImageDrawable(null) }
-            viewModel.imageList
-                .take(3)
-                .forEachIndexed { index, imageFile -> imageViews[index].load(imageFile.url) }
-            binding.layoutAddedImage.isVisible = true
-        }
-    }
-
-    private fun setBulletPointList() {
-        val points =
-            listOf(
-                stringOf(R.string.selfie_tv_guide_one),
-                stringOf(R.string.selfie_tv_guide_two),
-                stringOf(R.string.selfie_tv_guide_three),
-                stringOf(R.string.selfie_tv_guide_four),
-            )
-        val spannableStringBuilder = SpannableStringBuilder()
-        points.forEach { point ->
-            val spannableString =
-                SpannableString(point).apply {
-                    setSpan(
-                        BulletSpan(15),
-                        0,
-                        point.length,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                    )
-                }
-            with(spannableStringBuilder) {
-                append(spannableString)
-                append("\n")
-            }
-        }
-        binding.tvSelfieGuideBody.text = spannableStringBuilder
-    }
-
-    private fun setGuideListBlur() {
         with(binding) {
-            svSelfieGuide.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-                ivSelfieBlurBottom.alpha = max(0.0, (1 - scrollY / 500f).toDouble()).toFloat()
-                ivSelfieBlurTop.alpha = 1 - max(0.0, (1 - scrollY / 100f).toDouble()).toFloat()
+            listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3).apply {
+                forEach { it.setImageDrawable(null) }
+                viewModel.imageList.take(size).forEachIndexed { index, file ->
+                    this[index].load(file.url)
+                }
             }
+            layoutAddedImage.isVisible = viewModel.imageList.isNotEmpty()
+            layoutExampleImage.isVisible = viewModel.imageList.isEmpty()
+            btnSelfieAdd.text =
+                if (viewModel.imageList.isEmpty()) stringOf(R.string.selfie_tv_btn_select)
+                else stringOf(R.string.selfie_tv_btn_reselect)
         }
     }
 
