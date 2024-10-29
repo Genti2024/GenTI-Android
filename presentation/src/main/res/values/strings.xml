@@ -74,6 +74,12 @@
     <string name="create_guide_tv_ex">예시</string>
 
     <string name="wait_btn_return">피드로 돌아가기</string>
+    <string name="wait_tv_header">사진 생성 중</string>
+    <string name="wait_tv_title">세상에 없던\n나만의 사진을 찍고 있어요!</string>
+    <string name="wait_tv_subtitle">사진이 완성되면, 완료 알림을 보내드려요.</string>
+    <string name="wait_tv_time_title">예상 소요 시간</string>
+    <string name="wait_tv_time_subtitle">2시간 정도 걸릴 예정이에요.</string>
+    <string name="wait_tv_time_guide">세상에 하나뿐인 사진을 만들어 드리기 위해\n배경부터 의상까지 꼼꼼하게 준비하고 있어요.</string>
 
     <string name="waiting_error_tv_title">정말 죄송합니다.</string>
     <string name="waiting_error_tv_subtitle">서버에 오류가 발생해서\n사진이 만들어지지 않았어요.</string>
