@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
             android:padding="12dp"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +37,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-12dp"
             app:layout_constraintBottom_toTopOf="@id/iv_finished_tooltip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:text="하나뿐인 나만의 사진 완성!"
                 android:textSize="24sp"
@@ -63,10 +62,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="마이페이지에서 사진을 확인할 수 있습니다."
                 android:textColor="@color/white_60"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@id/cv_finished_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -75,9 +75,11 @@
                 android:id="@+id/cv_finished_image"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="50dp"
+                app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="10dp"
+                app:cardUseCompatPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -87,7 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/mock_img_2_3" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mock_img_3_2" />
 
             </androidx.cardview.widget.CardView>
 
@@ -95,7 +98,7 @@
                 android:id="@+id/btn_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="50dp"
                 android:elevation="10dp"
                 android:padding="12dp"
                 android:src="@drawable/ic_download"

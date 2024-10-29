@@ -3,36 +3,20 @@ package kr.genti.presentation.generate.finished
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.AbsoluteSizeSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.TypefaceSpan
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.FileProvider
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.colorOf
-import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.domain.entity.response.ImageModel
-import kr.genti.domain.enums.PictureRatio.Companion.toPictureRatio
+import kr.genti.domain.enums.PictureRatio
 import kr.genti.domain.enums.PictureType
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityFinishedBinding
@@ -66,7 +50,6 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         initCloseBtnListener()
         initUnwantedBtnListener()
         getIntentInfo()
-        setStatusBarTransparent()
         observeDownloadCacheImage()
     }
 
@@ -75,35 +58,25 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     }
 
     private fun initImageBtnListener() {
-        with(binding) {
-            ivFinishedImage32.setOnSingleClickListener { showImageDialog() }
-            ivFinishedImage23.setOnSingleClickListener { showImageDialog() }
+        binding.ivFinishedImage.setOnSingleClickListener {
+            AmplitudeManager.trackEvent("enlarge_picdone_picture")
+            finishedImageDialog = FinishedImageDialog()
+            finishedImageDialog?.show(supportFragmentManager, DIALOG_IMAGE)
         }
-    }
-
-    private fun showImageDialog() {
-        AmplitudeManager.trackEvent("enlarge_picdone_picture")
-        finishedImageDialog = FinishedImageDialog()
-        finishedImageDialog?.show(supportFragmentManager, DIALOG_IMAGE)
     }
 
     private fun initSaveBtnListener() {
-        with(binding) {
-            btnDownload23.setOnSingleClickListener { saveImage() }
-            btnDownload32.setOnSingleClickListener { saveImage() }
+        binding.btnDownload.setOnSingleClickListener {
+            AmplitudeManager.apply {
+                trackEvent(
+                    EVENT_CLICK_BTN,
+                    mapOf(PROPERTY_PAGE to "picdone"),
+                    mapOf(PROPERTY_BTN to "picdownload"),
+                )
+                plusIntProperties("user_picturedownload")
+            }
+            downloadImage(viewModel.finishedImage.id, viewModel.finishedImage.url)
         }
-    }
-
-    private fun saveImage() {
-        AmplitudeManager.apply {
-            trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "picdone"),
-                mapOf(PROPERTY_BTN to "picdownload"),
-            )
-            plusIntProperties("user_picturedownload")
-        }
-        downloadImage(viewModel.finishedImage.id, viewModel.finishedImage.url)
     }
 
     private fun initShareBtnListener() {
@@ -141,29 +114,29 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     }
 
     private fun getIntentInfo() {
+        // TODO: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//        viewModel.finishedImage =
+//            ImageModel(
+//                intent.getLongExtra(EXTRA_RESPONSE_ID, -1),
+//                intent.getStringExtra(EXTRA_URL).orEmpty(),
+//                "",
+//                intent.getStringExtra(EXTRA_RATIO)?.toPictureRatio(),
+//                PictureType.PictureCompleted,
+//            )
         viewModel.finishedImage =
             ImageModel(
-                intent.getLongExtra(EXTRA_RESPONSE_ID, -1),
-                intent.getStringExtra(EXTRA_URL).orEmpty(),
+                1234,
+                "https://github.com/user-attachments/assets/84a4a5ea-e338-42eb-88bd-c76a84b8247a",
                 "",
-                intent.getStringExtra(EXTRA_RATIO)?.toPictureRatio(),
+                PictureRatio.RATIO_SERO,
                 PictureType.PictureCompleted,
             )
-        viewModel.setPictureRatio()
-        setUiWithRatio()
+        setImageLayout()
     }
 
-    private fun setUiWithRatio() {
+    private fun setImageLayout() {
         with(binding) {
-            layout32.isVisible = viewModel.isRatioGaro
-            layout23.isVisible = !viewModel.isRatioGaro
-            if (viewModel.isRatioGaro) {
-                ivFinishedImage32.loadImageToView()
-                tvFinishedTitle32.setEmphasizedText()
-            } else {
-                ivFinishedImage23.loadImageToView()
-                tvFinishedTitle23.setEmphasizedText()
-            }
+            ivFinishedImage.load(viewModel.finishedImage.url)
         }
     }
 
@@ -189,52 +162,6 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                     toast(stringOf(R.string.error_msg))
                 }
             }.launchIn(lifecycleScope)
-    }
-
-    private fun ImageView.loadImageToView() {
-        this.load(viewModel.finishedImage.url) {
-            transformations(
-                RoundedCornersTransformation(
-                    15.dpToPx(this@FinishedActivity).toFloat(),
-                ),
-            )
-        }
-    }
-
-    private fun TextView.setEmphasizedText() {
-        this.apply {
-            text =
-                SpannableStringBuilder(text).apply {
-                    setSpan(
-                        AbsoluteSizeSpan(22, true),
-                        0,
-                        11,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                    )
-                    setSpan(
-                        ForegroundColorSpan(colorOf(R.color.green_1)),
-                        0,
-                        11,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                    )
-                    setSpan(
-                        ResourcesCompat
-                            .getFont(context, R.font.font_pretendard_bold)
-                            ?.let { TypefaceSpan(it) },
-                        0,
-                        11,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
-                    )
-                }
-        }
-    }
-
-    private fun setStatusBarTransparent() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            v.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
-            insets
-        }
     }
 
     override fun onDestroy() {

@@ -40,8 +40,6 @@ class FinishedViewModel
                 null,
             )
 
-        var isRatioGaro = true
-
         private val _isImageDownloaded = MutableSharedFlow<Boolean>()
         val isImageDownloaded: SharedFlow<Boolean> = _isImageDownloaded
 
@@ -56,10 +54,6 @@ class FinishedViewModel
 
         fun checkWritten() {
             isWritten.value = errorReport.value?.isNotEmpty()
-        }
-
-        fun setPictureRatio() {
-            isRatioGaro = finishedImage.pictureRatio == PictureRatio.RATIO_GARO
         }
 
         fun downloadImageToCache(outputFile: File) {
