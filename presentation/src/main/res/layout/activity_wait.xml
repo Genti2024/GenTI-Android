@@ -8,93 +8,59 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
-        <ImageView
-            android:id="@+id/iv_wait_background"
+        <TextView
+            android:id="@+id/tv_wait_header"
+            style="@style/TextAppearance.Genti.Body_14_Bold"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_wait_background"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="사진 생성 중"
+            android:textColor="@color/genti_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+        <TextView
+            android:id="@+id/tv_wait_title"
+            style="@style/TextAppearance.Genti.Title_20_Bold"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/btn_wait_return"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="세상에 없던\n나만의 사진을 찍고 있어요!"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tv_wait_header" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_wait_subtitle"
+            style="@style/TextAppearance.Genti.Body_14_Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="사진이 완성되면, 완료 알림을 보내드려요."
+            android:textColor="@color/white_80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_wait_title" />
 
-                <ImageView
-                    android:id="@+id/iv_wait_logo"
-                    android:layout_width="197dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="84dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/logo_genti_3d"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_wait_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/img_waiting_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_wait_logo" />
-
-                <ImageView
-                    android:id="@+id/iv_wait_character"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="58dp"
-                    android:layout_marginTop="30dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/img_wait_character"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_wait_title" />
-
-                <TextView
-                    android:id="@+id/tv_wait_time"
-                    style="@style/TextAppearance.Genti.BodyNormal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:text="@string/wait_tv_time"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_wait_character" />
-
-                <TextView
-                    android:id="@+id/tv_wait_time_guide"
-                    style="@style/TextAppearance.Genti.BodySmall"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    android:text="@string/wait_tv_time_guide"
-                    android:textColor="@color/grey_1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_wait_time" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_glow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/btn_wait_return"

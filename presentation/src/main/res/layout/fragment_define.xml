@@ -146,7 +146,7 @@
                     android:background="@drawable/sel_btn"
                     android:enabled="@{vm.isWritten}"
                     android:padding="10dp"
-                    android:src="@drawable/btn_play"
+                    android:src="@drawable/ic_play"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
