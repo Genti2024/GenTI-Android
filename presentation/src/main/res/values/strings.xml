@@ -143,8 +143,9 @@
     <string name="setting_quit_btn_quit">탈퇴하기</string>
 
     <string name="push_tv_title">사진 완성 알림을 받아보세요!</string>
-    <string name="push_tv_subtitle">알림에 동의해 주시면\n사진이 완성되었을 때 알려드릴게요</string>
-    <string name="push_btn_get_alarm">사진 완성 알림 받기</string>
+    <string name="push_tv_subtitle">알림에 동의해 주시면\n사진이 완성되었을 때 알려드릴게요.</string>
+    <string name="push_btn_close">다음에</string>
+    <string name="push_btn_get_alarm">알림 받기</string>
 
     <string name="openchat_tv_title_up">내가 만든 특별한 사진,</string>
     <string name="openchat_tv_title_down">다른 사람에게 보여주고 싶다면?</string>
