@@ -63,7 +63,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         initImageBtnListener()
         initSaveBtnListener()
         initShareBtnListener()
-        initReturnBtnListener()
+        initCloseBtnListener()
         initUnwantedBtnListener()
         getIntentInfo()
         setStatusBarTransparent()
@@ -121,8 +121,8 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         }
     }
 
-    private fun initReturnBtnListener() {
-        binding.btnReturnMain.setOnSingleClickListener {
+    private fun initCloseBtnListener() {
+        binding.btnClose.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
                 EVENT_CLICK_BTN,
                 mapOf(PROPERTY_PAGE to "picdone"),
