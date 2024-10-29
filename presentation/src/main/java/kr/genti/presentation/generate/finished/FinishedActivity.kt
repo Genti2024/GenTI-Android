@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.setGusianBlur
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
@@ -137,6 +138,10 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     private fun setImageLayout() {
         with(binding) {
             ivFinishedImage.load(viewModel.finishedImage.url)
+            ivFinishedBackground.apply {
+                load(viewModel.finishedImage.url)
+                setGusianBlur(50f)
+            }
         }
     }
 
