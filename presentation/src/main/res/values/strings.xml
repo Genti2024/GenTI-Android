@@ -60,6 +60,7 @@
     <string name="selfie_tv_warning">타인의 사진을 도용하면 서비스 이용이 정지되고,\n법적인 처벌을 받을 수 있습니다.</string>
     <string name="selfie_tv_input_title">이런 사진이 좋아요</string>
     <string name="selfie_tv_btn_select">사진 선택하기</string>
+    <string name="selfie_tv_btn_reselect">다시 선택하기</string>
     <string name="selfie_btn_create">사진 생성하기</string>
 
     <string name="selfie_toast_old_picker_limit">3장의 이미지를 선택해 주세요</string>
