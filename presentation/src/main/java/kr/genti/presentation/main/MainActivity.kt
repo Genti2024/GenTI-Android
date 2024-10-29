@@ -153,7 +153,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 this@MainActivity,
                                 this?.pictureGenerateResponseId ?: -1,
                                 this?.pictureCompleted?.url.orEmpty(),
-                                this?.pictureCompleted?.pictureRatio?.name.orEmpty(),
                             ).apply { startActivity(this) }
                         }
                     } else {

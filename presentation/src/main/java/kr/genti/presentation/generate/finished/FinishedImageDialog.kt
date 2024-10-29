@@ -55,18 +55,18 @@ class FinishedImageDialog : BaseDialog<DialogFinishedImageBinding>(R.layout.dial
                 trackEvent("download_picdone_enlargedpicture")
                 plusIntProperties("user_picturedownload")
             }
-            requireActivity().downloadImage(viewModel.finishedImage.id, viewModel.finishedImage.url)
+            requireActivity().downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
         }
     }
 
     private fun setImage() {
         with(binding.ivProfile) {
-            load(viewModel.finishedImage.url)
-            if (viewModel.finishedImage.pictureRatio == PictureRatio.RATIO_GARO) {
-                (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "3:2"
-            } else {
-                (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "2:3"
-            }
+            load(viewModel.finishedImageUrl)
+//            if (viewModel.finishedImage.pictureRatio == PictureRatio.RATIO_GARO) {
+//                (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "3:2"
+//            } else {
+//                (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "2:3"
+//            }
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -16,9 +17,6 @@ import kr.genti.core.extension.setGusianBlur
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
-import kr.genti.domain.entity.response.ImageModel
-import kr.genti.domain.enums.PictureRatio
-import kr.genti.domain.enums.PictureType
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityFinishedBinding
 import kr.genti.presentation.main.profile.ProfileImageDialog.Companion.FILE_PROVIDER_AUTORITY
@@ -76,7 +74,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                 )
                 plusIntProperties("user_picturedownload")
             }
-            downloadImage(viewModel.finishedImage.id, viewModel.finishedImage.url)
+            downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
         }
     }
 
@@ -116,31 +114,27 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 
     private fun getIntentInfo() {
         // TODO: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//        viewModel.finishedImage =
-//            ImageModel(
+
 //                intent.getLongExtra(EXTRA_RESPONSE_ID, -1),
 //                intent.getStringExtra(EXTRA_URL).orEmpty(),
-//                "",
-//                intent.getStringExtra(EXTRA_RATIO)?.toPictureRatio(),
-//                PictureType.PictureCompleted,
-//            )
-        viewModel.finishedImage =
-            ImageModel(
-                1234,
-                "https://github.com/user-attachments/assets/84a4a5ea-e338-42eb-88bd-c76a84b8247a",
-                "",
-                PictureRatio.RATIO_SERO,
-                PictureType.PictureCompleted,
-            )
+        viewModel.finishedImageId = 1234
+        viewModel.finishedImageUrl =
+            "https://github.com/user-attachments/assets/7d844933-c093-4a07-99a7-9d2601020891"
         setImageLayout()
     }
 
     private fun setImageLayout() {
         with(binding) {
-            ivFinishedImage.load(viewModel.finishedImage.url)
             ivFinishedBackground.apply {
-                load(viewModel.finishedImage.url)
+                load(viewModel.finishedImageUrl)
                 setGusianBlur(50f)
+            }
+            ivFinishedImage.load(viewModel.finishedImageUrl) {
+                listener(
+                    onSuccess = { _, _ ->
+                        binding.layoutLoading.isVisible = false
+                    }
+                )
             }
         }
     }
@@ -184,19 +178,16 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 
         private const val EXTRA_RESPONSE_ID = "EXTRA_RESPONSE_ID"
         private const val EXTRA_URL = "EXTRA_URL"
-        private const val EXTRA_RATIO = "EXTRA_RATIO"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             id: Long,
             url: String,
-            ratio: String,
         ): Intent =
             Intent(context, FinishedActivity::class.java).apply {
                 putExtra(EXTRA_RESPONSE_ID, id)
                 putExtra(EXTRA_URL, url)
-                putExtra(EXTRA_RATIO, ratio)
             }
     }
 }
