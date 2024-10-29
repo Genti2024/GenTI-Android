@@ -73,11 +73,13 @@
     <string name="create_guide_tv_title_down">을 선택해야 해요!</string>
     <string name="create_guide_tv_ex">예시</string>
 
-    <string name="wait_tv_title">세상에 없던 나만의\n   사진을 찍고있어요!</string>
-    <string name="wait_tv_title_dot">• • •</string>
-    <string name="wait_tv_time">예상 소요시간은 2시간입니다.</string>
-    <string name="wait_tv_time_guide">미리 만들어놓은 컨셉에 얼굴만 바꾸는게 아니라\n’나만의 하나뿐인 사진’을 찍어드리기 위해 \n배경부터 의상, 구도까지 꼼꼼하게 준비하고 있어요</string>
     <string name="wait_btn_return">피드로 돌아가기</string>
+    <string name="wait_tv_header">사진 생성 중</string>
+    <string name="wait_tv_title">세상에 없던\n나만의 사진을 찍고 있어요!</string>
+    <string name="wait_tv_subtitle">사진이 완성되면, 완료 알림을 보내드려요.</string>
+    <string name="wait_tv_time_title">예상 소요 시간</string>
+    <string name="wait_tv_time_subtitle">2시간 정도 걸릴 예정이에요.</string>
+    <string name="wait_tv_time_guide">세상에 하나뿐인 사진을 만들어 드리기 위해\n배경부터 의상까지 꼼꼼하게 준비하고 있어요.</string>
 
     <string name="waiting_error_tv_title">정말 죄송합니다.</string>
     <string name="waiting_error_tv_subtitle">서버에 오류가 발생해서\n사진이 만들어지지 않았어요.</string>
@@ -141,8 +143,9 @@
     <string name="setting_quit_btn_quit">탈퇴하기</string>
 
     <string name="push_tv_title">사진 완성 알림을 받아보세요!</string>
-    <string name="push_tv_subtitle">알림에 동의해 주시면\n사진이 완성되었을 때 알려드릴게요</string>
-    <string name="push_btn_get_alarm">사진 완성 알림 받기</string>
+    <string name="push_tv_subtitle">알림에 동의해 주시면\n사진이 완성되었을 때 알려드릴게요.</string>
+    <string name="push_btn_close">다음에</string>
+    <string name="push_btn_get_alarm">알림 받기</string>
 
     <string name="openchat_tv_title_up">내가 만든 특별한 사진,</string>
     <string name="openchat_tv_title_down">다른 사람에게 보여주고 싶다면?</string>
