@@ -21,7 +21,8 @@ import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogFinishedReportBinding
 import kr.genti.presentation.util.AmplitudeManager
 
-class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.dialog_finished_report) {
+class FinishedReportDialog :
+    BaseDialog<DialogFinishedReportBinding>(R.layout.dialog_finished_report) {
     private val viewModel by activityViewModels<FinishedViewModel>()
 
     override fun onStart() {
@@ -58,10 +59,6 @@ class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.di
                 dismiss()
                 requireActivity().finish()
             }
-            btnOkay.setOnSingleClickListener {
-                dismiss()
-                requireActivity().finish()
-            }
         }
     }
 
@@ -91,10 +88,6 @@ class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.di
                     with(binding) {
                         layoutErrorInput.isVisible = false
                         layoutErrorOutput.isVisible = true
-                        viewOutside.setOnSingleClickListener {
-                            dismiss()
-                            requireActivity().finish()
-                        }
                     }
                 } else {
                     toast(stringOf(R.string.error_msg))

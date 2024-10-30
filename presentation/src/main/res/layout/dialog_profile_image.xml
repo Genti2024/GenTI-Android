@@ -69,6 +69,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_share" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -9,285 +9,181 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_3_2"
+        <ImageView
+            android:id="@+id/iv_finished_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/background_white"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/iv_finished_bottom"
+            android:alpha="0.3"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/mock_img_3_2"
+            tools:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/iv_finished_bg_3_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_purple_bg_3_2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_finished_logo"
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo_genti_3d"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_finished_ghost"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_finished_ghost"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_finished_logo" />
-
-            <TextView
-                android:id="@+id/tv_finished_title_3_2"
-                style="@style/TextAppearance.Genti.Headline3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:gravity="center"
-                android:text="@string/finished_tv_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_finished_ghost" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_finished_image_3_2"
-                app:layout_constraintEnd_toEndOf="@id/iv_finished_image_3_2"
-                app:layout_constraintStart_toStartOf="@id/iv_finished_image_3_2"
-                app:layout_constraintTop_toTopOf="@id/iv_finished_image_3_2"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/lottie_loading_image" />
-
-            <ImageView
-                android:id="@+id/iv_finished_image_3_2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="28dp"
-                android:layout_marginVertical="16dp"
-                android:adjustViewBounds="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="3:2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_finished_title_3_2"
-                tools:src="@drawable/mock_img_3_2" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/shape_green_line_15_rect"
-                app:layout_constraintBottom_toBottomOf="@id/iv_finished_image_3_2"
-                app:layout_constraintEnd_toEndOf="@id/iv_finished_image_3_2"
-                app:layout_constraintStart_toStartOf="@id/iv_finished_image_3_2"
-                app:layout_constraintTop_toTopOf="@id/iv_finished_image_3_2" />
-
-            <ImageView
-                android:id="@+id/btn_download_3_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:src="@drawable/ic_download"
-                app:layout_constraintBottom_toBottomOf="@id/iv_finished_image_3_2"
-                app:layout_constraintEnd_toEndOf="@id/iv_finished_image_3_2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_2_3"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/background_white"
-            app:layout_constraintBottom_toTopOf="@id/iv_finished_bottom"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-12dp"
+            app:layout_constraintBottom_toTopOf="@id/iv_finished_tooltip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_finished_bg_2_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_purple_bg_2_3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_finished_logo_2_3"
-                android:layout_width="129dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo_genti_3d"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/btn_close">
 
             <TextView
-                android:id="@+id/tv_finished_title_2_3"
-                style="@style/TextAppearance.Genti.Headline3"
+                android:id="@+id/tv_finished_title"
+                style="@style/TextAppearance.Genti.Title_20_Bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginHorizontal="16dp"
                 android:gravity="center"
-                android:text="@string/finished_tv_title"
-                android:textSize="19dp"
+                android:text="하나뿐인 나만의 사진 완성!"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_finished_subtitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_finished_logo_2_3" />
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_finished_image_2_3"
-                app:layout_constraintEnd_toEndOf="@id/iv_finished_image_2_3"
-                app:layout_constraintStart_toStartOf="@id/iv_finished_image_2_3"
-                app:layout_constraintTop_toTopOf="@id/iv_finished_image_2_3"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/lottie_loading_image" />
-
-            <ImageView
-                android:id="@+id/iv_finished_image_2_3"
+            <TextView
+                android:id="@+id/tv_finished_subtitle"
+                style="@style/TextAppearance.Genti.Body_14_Medium"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="28dp"
-                android:layout_marginVertical="16dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/shape_grey6_fill_15_rect"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="마이페이지에서 사진을 확인할 수 있습니다."
+                android:textColor="@color/white_60"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toTopOf="@id/cv_finished_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_finished_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="2:3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_finished_title_2_3"
-                tools:src="@drawable/mock_img_2_3" />
+                app:layout_constraintStart_toStartOf="parent">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/shape_green_line_15_rect"
-                app:layout_constraintBottom_toBottomOf="@id/iv_finished_image_2_3"
-                app:layout_constraintEnd_toEndOf="@id/iv_finished_image_2_3"
-                app:layout_constraintStart_toStartOf="@id/iv_finished_image_2_3"
-                app:layout_constraintTop_toTopOf="@id/iv_finished_image_2_3" />
+                <ImageView
+                    android:id="@+id/iv_finished_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mock_img_3_2" />
+
+            </androidx.cardview.widget.CardView>
 
             <ImageView
-                android:id="@+id/btn_download_2_3"
+                android:id="@+id/btn_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
                 android:padding="12dp"
                 android:src="@drawable/ic_download"
-                app:layout_constraintBottom_toBottomOf="@id/iv_finished_image_2_3"
-                app:layout_constraintEnd_toEndOf="@id/iv_finished_image_2_3" />
+                app:layout_constraintBottom_toBottomOf="@id/cv_finished_image"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/iv_finished_bottom"
-            android:layout_width="0dp"
+            android:id="@+id/iv_finished_tooltip"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/img_finished_bottom"
+            android:src="@drawable/img_tooltip_finished"
             app:layout_constraintBottom_toTopOf="@id/btn_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tv_finished_saved"
-            style="@style/TextAppearance.Genti.BodySmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="14dp"
-            android:text="@string/finished_tv_saved"
-            android:textColor="@color/grey_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_finished_bottom" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_share"
+            style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="28dp"
-            android:layout_marginBottom="6dp"
-            android:background="@drawable/sel_btn"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/btn_return_main"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                style="@style/TextAppearance.Genti.Headline1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="10dp"
-                android:text="@string/finished_btn_share"
-                android:textSize="22dp"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_share"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/btn_return_main"
-            style="@style/TextAppearance.Genti.BodyNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:textSize="17dp"
-            android:padding="12dp"
-            android:text="@string/finished_btn_return_main"
-            android:textColor="@color/grey_3"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/shape_green_gradation_fill_10_rect"
+            android:gravity="center"
+            android:paddingVertical="14dp"
+            android:text="공유하기"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/btn_unwanted"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/btn_unwanted"
-            style="@style/TextAppearance.Genti.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:textSize="14dp"
-            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
             android:padding="12dp"
-            android:text="@string/finished_btn_unwanted"
-            android:textColor="@color/error"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_info_white_40" />
+
+            <TextView
+                style="@style/TextAppearance.Genti.Body_14_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="사진이 잘못 나왔나요?"
+                android:textColor="@color/white_60" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/lottie_loading" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

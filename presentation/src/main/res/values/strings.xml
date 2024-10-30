@@ -95,14 +95,15 @@
     <string name="finished_btn_return_main">메인으로 이동하기</string>
     <string name="finished_btn_unwanted"><u>혹시 만들려고 했던 사진과 전혀 다른 사진이 나왔나요?</u></string>
 
-    <string name="finished_error_input_tv_title">어떤 오류사항이 있었나요?</string>
-    <string name="finished_error_input_tv_subtitle">구체적으로 작성해 주실수록 오류 확인이 \n빠르게 진행됩니다!</string>
-    <string name="finished_error_input_btn_submit">제출하기</string>
-    <string name="finished_error_input_btn_back">취소</string>
+    <string name="finished_error_input_tv_title">사진에 어떤 문제가 있나요?</string>
+    <string name="finished_error_input_tv_subtitle">구체적으로 작성 해주실수록\n오류 확인이 빠르게 진행됩니다.</string>
+    <string name="finished_error_input_tv_hint">오류 사항을 입력해주세요.</string>
+    <string name="finished_error_input_btn_submit">제출</string>
+    <string name="finished_error_input_btn_back">닫기</string>
 
     <string name="finished_error_output_tv_title">의견 감사합니다!</string>
-    <string name="finished_error_output_tv_subtitle">작성해주신 내용 잘 확인하여 더 좋은\n서비스를 제공하는 젠티가 되겠습니다.</string>
-    <string name="finished_error_output_btn_okay">확인했습니다!</string>
+    <string name="finished_error_output_tv_subtitle">작성해주신 내용을 잘 확인하여\n더 좋은 서비스를 제공하는 젠티가 되겠습니다.</string>
+    <string name="finished_error_output_btn_okay">닫기</string>
 
     <string name="finished_rating_tv_title">사진은 어떠셨나요?</string>
     <string name="finished_rating_tv_subtitle">별점을 남겨주시면 앞으로 더 마음에 드는\n사진을 만들어 드릴 수 있어요!</string>

@@ -51,11 +51,6 @@ class CreateFinishedDialog : BaseDialog<DialogCreateFinishedBinding>(R.layout.di
                             requireContext(),
                             this?.pictureGenerateResponseId ?: -1,
                             this?.pictureCompleted?.url.orEmpty(),
-                            this
-                                ?.pictureCompleted
-                                ?.pictureRatio
-                                ?.name
-                                .orEmpty(),
                         ).apply { startActivity(this) }
                 }
             } else {
