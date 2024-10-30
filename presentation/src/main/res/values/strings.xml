@@ -86,8 +86,8 @@
     <string name="waiting_error_btn_again">사진 다시 생성하기</string>
 
     <string name="main_dialog_tv_title">사진이 완성되었어요!</string>
-    <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 확인할까요?</string>
-    <string name="main_dialog_btn_move_to_finish">사진 확인하기</string>
+    <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 보러갈까요?</string>
+    <string name="main_dialog_btn_move_to_finish">사진 보기</string>
 
     <string name="finished_tv_title">하나뿐인 나만의 사진이\n완성되었어요!</string>
     <string name="finished_tv_saved">사진이 마이페이지에 저장되었어요!</string>

@@ -30,9 +30,6 @@
     <color name="purple_3">#E6DCFA</color>
     <color name="purple_4">#F4F2F9</color>
 
-    <!-- Etc. -->
-    <color name="error">#FE0D0D</color>
-
     <!-- 아래에서부터 새로운 디자인 시스템-->
 
     <!-- Brand Color -->
@@ -48,6 +45,7 @@
 
     <!-- Etc. -->
     <color name="kakao_yellow">#FFFEE500</color>
+    <color name="error">#F1532F</color>
 
     <!-- White -->
     <color name="white">#FFFFFF</color>
