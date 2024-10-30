@@ -45,7 +45,7 @@
 
     <!-- Etc. -->
     <color name="kakao_yellow">#FFFEE500</color>
-    <color name="error">#F1532F</color>
+    <color name="red">#F1532F</color>
 
     <!-- White -->
     <color name="white">#FFFFFF</color>
