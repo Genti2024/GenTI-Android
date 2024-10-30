@@ -102,8 +102,8 @@
     <string name="finished_error_input_btn_back">닫기</string>
 
     <string name="finished_error_output_tv_title">의견 감사합니다!</string>
-    <string name="finished_error_output_tv_subtitle">작성해주신 내용 잘 확인하여 더 좋은\n서비스를 제공하는 젠티가 되겠습니다.</string>
-    <string name="finished_error_output_btn_okay">확인했습니다!</string>
+    <string name="finished_error_output_tv_subtitle">작성해주신 내용을 잘 확인하여\n더 좋은 서비스를 제공하는 젠티가 되겠습니다.</string>
+    <string name="finished_error_output_btn_okay">닫기</string>
 
     <string name="finished_rating_tv_title">사진은 어떠셨나요?</string>
     <string name="finished_rating_tv_subtitle">별점을 남겨주시면 앞으로 더 마음에 드는\n사진을 만들어 드릴 수 있어요!</string>
