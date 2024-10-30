@@ -170,4 +170,7 @@
     <string name="verify_exit_tv_subtitle">메인 화면으로 나가면 \n촬영한 사진은 자동으로 삭제됩니다.</string>
     <string name="verify_exit_btn_exit">나가기</string>
 
+    <string name="unable_tv_title">현재 점검 중입니다!</string>
+    <string name="unable_btn_close">닫기</string>
+
 </resources>
