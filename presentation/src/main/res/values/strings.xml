@@ -108,8 +108,7 @@
 
     <string name="finished_rating_tv_title">사진은 어떠셨나요?</string>
     <string name="finished_rating_tv_subtitle">별점을 남겨주시면 앞으로 더 마음에 드는\n사진을 만들어 드릴 수 있어요!</string>
-    <string name="finished_rating_tv_btn_submit">제출하기</string>
-    <string name="finished_rating_tv_btn_skip"><u>건너뛰기</u></string>
+    <string name="finished_rating_tv_btn_skip">건너뛰기</string>
 
     <string name="feed_tv_title">젠플루언서들이 만든 사진들을 둘러보세요.</string>
     <string name="feed_btn_genfluencer"><u>젠플루언서란?</u></string>
@@ -136,12 +135,12 @@
     <string name="setting_btn_quit">회원 탈퇴</string>
 
     <string name="setting_logout_tv_title">정말 로그아웃 하시겠어요?</string>
-    <string name="setting_logout_subtitle">사진 생성 중에 로그아웃 하시면\n오류가 발생할 수 있습니다. 주의해주세요!</string>
-    <string name="setting_logout_btn_return">취소하기</string>
+    <string name="setting_logout_subtitle">사진 생성 중에 로그아웃 하시면\n오류가 발생할 수 있으니 주의해주세요.</string>
+    <string name="setting_logout_btn_return">취소</string>
     <string name="setting_logout_btn_logout">로그아웃</string>
 
-    <string name="setting_quit_tv_title">정말 탈퇴 하시겠어요?</string>
-    <string name="setting_quit_tv_subtitle">생성한 사진 내역이 모두 사라집니다.\n주의해주세요!</string>
+    <string name="setting_quit_tv_title">정말 탈퇴하시겠어요?</string>
+    <string name="setting_quit_tv_subtitle">탈퇴 시, 생성한 사진 내역이 모두 사라집니다.\n그래도 탈퇴하시겠습니까?</string>
     <string name="setting_quit_btn_quit">탈퇴하기</string>
 
     <string name="push_tv_title">사진 완성 알림을 받아보세요!</string>
