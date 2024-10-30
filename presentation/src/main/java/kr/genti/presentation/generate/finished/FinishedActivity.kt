@@ -3,6 +3,7 @@ package kr.genti.presentation.generate.finished
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
@@ -46,8 +47,9 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         initImageBtnListener()
         initSaveBtnListener()
         initShareBtnListener()
-        initCloseBtnListener()
         initUnwantedBtnListener()
+        initCloseBtnListener()
+        initBackPressedListener()
         getIntentInfo()
         observeDownloadCacheImage()
     }
@@ -93,23 +95,38 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         }
     }
 
-    private fun initCloseBtnListener() {
-        binding.btnClose.setOnSingleClickListener {
-            AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "picdone"),
-                mapOf(PROPERTY_BTN to "gomain"),
-            )
-            finishedRatingDialog = FinishedRatingDialog()
-            finishedRatingDialog?.show(supportFragmentManager, DIALOG_RATING)
-        }
-    }
-
     private fun initUnwantedBtnListener() {
         binding.btnUnwanted.setOnSingleClickListener {
             finishedReportDialog = FinishedReportDialog()
             finishedReportDialog?.show(supportFragmentManager, DIALOG_ERROR)
         }
+    }
+
+    private fun initCloseBtnListener() {
+        binding.btnClose.setOnSingleClickListener {
+            showFinishedRatingDialog()
+        }
+    }
+
+    private fun initBackPressedListener() {
+        val onBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    showFinishedRatingDialog()
+                }
+            }
+
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun showFinishedRatingDialog() {
+        AmplitudeManager.trackEvent(
+            EVENT_CLICK_BTN,
+            mapOf(PROPERTY_PAGE to "picdone"),
+            mapOf(PROPERTY_BTN to "gomain"),
+        )
+        finishedRatingDialog = FinishedRatingDialog()
+        finishedRatingDialog?.show(supportFragmentManager, DIALOG_RATING)
     }
 
     private fun getIntentInfo() {
