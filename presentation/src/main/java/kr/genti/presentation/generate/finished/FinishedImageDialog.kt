@@ -4,13 +4,11 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import coil.load
 import kr.genti.core.base.BaseDialog
 import kr.genti.core.extension.setGusianBlur
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.domain.enums.PictureRatio
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogFinishedImageBinding
 import kr.genti.presentation.util.AmplitudeManager
@@ -46,7 +44,6 @@ class FinishedImageDialog : BaseDialog<DialogFinishedImageBinding>(R.layout.dial
 
     private fun initExitBtnListener() {
         binding.btnExit.setOnSingleClickListener { dismiss() }
-        binding.ivProfileBackground.setOnSingleClickListener { dismiss() }
     }
 
     private fun initDownloadBtnListener() {
@@ -60,14 +57,7 @@ class FinishedImageDialog : BaseDialog<DialogFinishedImageBinding>(R.layout.dial
     }
 
     private fun setImage() {
-        with(binding.ivProfile) {
-            load(viewModel.finishedImageUrl)
-//            if (viewModel.finishedImage.pictureRatio == PictureRatio.RATIO_GARO) {
-//                (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "3:2"
-//            } else {
-//                (layoutParams as ConstraintLayout.LayoutParams).dimensionRatio = "2:3"
-//            }
-        }
+        binding.ivFinished.load(viewModel.finishedImageUrl)
     }
 
     override fun onDismiss(dialog: DialogInterface) {

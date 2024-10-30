@@ -119,7 +119,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 //                intent.getStringExtra(EXTRA_URL).orEmpty(),
         viewModel.finishedImageId = 1234
         viewModel.finishedImageUrl =
-            "https://github.com/user-attachments/assets/7d844933-c093-4a07-99a7-9d2601020891"
+            "https://github.com/user-attachments/assets/4baea557-a543-4246-9855-de1c0223dad7"
         setImageLayout()
     }
 
