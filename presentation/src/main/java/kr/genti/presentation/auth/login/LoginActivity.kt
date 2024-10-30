@@ -38,7 +38,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         initLoginBtnListener()
         initOnBackPressedListener(binding.root)
         setStatusBarTransparent()
-        setNavigationBarGreen()
         observeAppLoginAvailable()
         observeGetDeviceTokenResult()
         observeChangeTokenState()
@@ -56,10 +55,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             v.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
             insets
         }
-    }
-
-    private fun setNavigationBarGreen() {
-        this.window.navigationBarColor = colorOf(R.color.genti_green)
     }
 
     private fun observeAppLoginAvailable() {

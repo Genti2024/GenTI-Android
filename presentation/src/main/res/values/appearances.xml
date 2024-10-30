@@ -73,11 +73,6 @@
 
     <!-- 여기까지 삭제 -->
 
-    <style name="TextAppearance.Genti.Kakao">
-        <item name="fontFamily">@font/font_pretendard_regular</item>
-        <item name="android:textSize">19sp</item>
-    </style>
-
     <style name="TextAppearance.Genti.Title_20_Bold">
         <item name="fontFamily">@font/font_pretendard_bold</item>
         <item name="android:textSize">20sp</item>
