@@ -13,14 +13,14 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/layout_error"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,59 +28,19 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_error_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginHorizontal="0.1dp"
-                    android:layout_marginVertical="20dp"
-                    android:background="@color/background_white"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_finished_bg_bottom_input"
-                    app:layout_constraintEnd_toEndOf="@id/iv_finished_bg_top_input"
-                    app:layout_constraintStart_toStartOf="@id/iv_finished_bg_top_input"
-                    app:layout_constraintTop_toTopOf="@id/iv_finished_bg_top_input" />
-
-                <ImageView
-                    android:id="@+id/iv_finished_bg_top_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/img_dialog_bg_green_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/iv_finished_bg_bottom_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-70dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/img_dialog_bg_green_bottom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_submit" />
-
-                <ImageView
-                    android:id="@+id/iv_error_input_axe"
-                    android:layout_width="59dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="8dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_axe"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="@drawable/shape_gray_fill_16_rect">
 
                 <TextView
                     android:id="@+id/tv_error_input_title"
-                    style="@style/TextAppearance.Genti.Headline4"
+                    style="@style/TextAppearance.Genti.Title_20_Bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="12dp"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="32dp"
                     android:gravity="center"
                     android:text="@string/finished_error_input_tv_title"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -89,59 +49,65 @@
 
                 <TextView
                     android:id="@+id/tv_error_input_subtitle"
-                    style="@style/TextAppearance.Genti.BodySmall"
+                    style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="12dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="@string/finished_error_input_tv_subtitle"
+                    android:textColor="@color/white_80"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_error_input_title" />
 
                 <EditText
                     android:id="@+id/et_error_input"
-                    style="@style/TextAppearance.Genti.BodySmall"
+                    style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="0dp"
-                    android:afterTextChanged="@{(text) -> vm.checkWritten()}"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="45dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_grey5_fill_6_rect"
-                    android:padding="6dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:afterTextChanged="@{(text) -> vm.checkWritten()}"
+                    android:background="@drawable/shape_black_fill_10_rect"
+                    android:hint="@string/finished_error_input_tv_hint"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="20dp"
                     android:text="@={vm.errorReport}"
+                    android:textColorHint="@color/white_40"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_error_input_subtitle" />
 
                 <TextView
                     android:id="@+id/btn_submit"
-                    style="@style/TextAppearance.Genti.Headline4"
+                    style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="45dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="4dp"
                     android:background="@drawable/sel_btn"
                     android:enabled="@{vm.isWritten}"
-                    android:paddingHorizontal="35dp"
-                    android:paddingVertical="6dp"
+                    android:paddingVertical="14dp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@id/btn_back"
                     android:text="@string/finished_error_input_btn_submit"
-                    android:textColor="@{vm.isWritten() == true ? @color/white : @color/grey_2}"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_error_input" />
 
                 <TextView
                     android:id="@+id/btn_back"
-                    style="@style/TextAppearance.Genti.BodySmall"
+                    style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="45dp"
-                    android:layout_marginEnd="24dp"
-                    android:background="@drawable/shape_green4_fill_6_rect"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/shape_white_fill_10_rect"
                     android:gravity="center"
                     android:text="@string/finished_error_input_btn_back"
-                    android:textColor="#989898"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@id/btn_submit"
                     app:layout_constraintEnd_toStartOf="@id/btn_submit"
                     app:layout_constraintStart_toStartOf="parent"
@@ -262,7 +228,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_error"/>
+            app:layout_constraintTop_toBottomOf="@id/layout_error" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
