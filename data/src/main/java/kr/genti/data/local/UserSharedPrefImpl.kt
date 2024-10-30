@@ -21,10 +21,6 @@ class UserSharedPrefImpl
             get() = dataStore.getString(USER_ROLE, "").orEmpty()
             set(value) = dataStore.edit { putString(USER_ROLE, value) }
 
-        override var isChatAccessible: Boolean
-            get() = dataStore.getBoolean(IS_CHAT_ACCESSIBLE, true)
-            set(value) = dataStore.edit { putBoolean(IS_CHAT_ACCESSIBLE, value) }
-
         override fun clearInfo() {
             dataStore.edit().clear().apply()
         }

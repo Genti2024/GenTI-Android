@@ -111,6 +111,4 @@ constructor(
                 }
         }
     }
-
-    fun getIsOpenchatAccessible() = userRepository.getIsChatAccessible()
 }
