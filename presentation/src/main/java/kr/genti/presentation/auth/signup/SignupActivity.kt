@@ -36,9 +36,7 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
 
         initView()
         initSubmitBtnListener()
-        setYearPicker()
-        setStatusBarTransparent()
-        setNavigationBarGreen()
+        // setYearPicker()
         observePostSignupState()
     }
 
@@ -54,30 +52,18 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
         }
     }
 
-    private fun setYearPicker() {
-        binding.npSignupBirth.apply {
-            val currentYear = Calendar.getInstance()[Calendar.YEAR]
-            maxValue = currentYear
-            minValue = 1900
-            value = currentYear
-            viewModel.selectBirthYear(currentYear)
-            setOnValueChangedListener { _, _, newVal ->
-                viewModel.selectBirthYear(newVal)
-            }
-        }
-    }
-
-    private fun setStatusBarTransparent() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            v.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
-            insets
-        }
-    }
-
-    private fun setNavigationBarGreen() {
-        this.window.navigationBarColor = colorOf(R.color.green_5)
-    }
+//    private fun setYearPicker() {
+//        binding.npSignupBirth.apply {
+//            val currentYear = Calendar.getInstance()[Calendar.YEAR]
+//            maxValue = currentYear
+//            minValue = 1900
+//            value = currentYear
+//            viewModel.selectBirthYear(currentYear)
+//            setOnValueChangedListener { _, _, newVal ->
+//                viewModel.selectBirthYear(newVal)
+//            }
+//        }
+//    }
 
     private fun observePostSignupState() {
         viewModel.postSignupState

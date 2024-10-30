@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -66,7 +67,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/bg_ratio_3_2"
                 app:layout_constraintEnd_toEndOf="@id/bg_ratio_3_2"
                 app:layout_constraintStart_toStartOf="@id/bg_ratio_3_2"
-                app:layout_constraintTop_toTopOf="@id/bg_ratio_3_2">
+                app:layout_constraintTop_toTopOf="@id/bg_ratio_3_2"
+                tools:background="@drawable/shape_gray_green_fill_6_rect">
 
                 <ImageView
                     android:id="@+id/iv_ratio_3_2"
@@ -129,7 +131,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/bg_ratio_2_3"
                 app:layout_constraintEnd_toEndOf="@id/bg_ratio_2_3"
                 app:layout_constraintStart_toStartOf="@id/bg_ratio_2_3"
-                app:layout_constraintTop_toTopOf="@id/bg_ratio_2_3">
+                app:layout_constraintTop_toTopOf="@id/bg_ratio_2_3"
+                tools:background="@drawable/shape_gray_green_fill_6_rect">
 
                 <ImageView
                     android:id="@+id/iv_ratio_2_3"

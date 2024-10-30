@@ -27,13 +27,13 @@
     <string name="login_tv_title">내 마음대로 세상에 하나뿐인\n나의 AI 사진을 찍어 보세요.</string>
     <string name="login_tv_subtitle">5초만에 가입해서 바로 시작할 수 있어요.</string>
 
-    <string name="signup_tv_title">사진을 더 나처럼 표현하기 위해\n아래의 정보가 필요해요!</string>
-    <string name="signup_tv_gender_title">성별을 알려주세요!</string>
-    <string name="signup_tv_gender_male">남자</string>
-    <string name="signup_tv_gender_female">여자</string>
-    <string name="signup_tv_birth_title">태어난 연도를 알려주세요!</string>
-    <string name="signup_btn_birth_guide">눌러서 태어난 연도 선택하기</string>
-    <string name="signup_btn_submit">입력 완료</string>
+    <string name="signup_tv_title">성별과 나이를 알려주세요.</string>
+    <string name="signup_tv_subtitle">사진을 더 잘 표현하기 위해 활용됩니다.</string>
+    <string name="signup_tv_gender_title">성별</string>
+    <string name="signup_tv_gender_male">남성</string>
+    <string name="signup_tv_gender_female">여성</string>
+    <string name="signup_tv_birth_title">출생년도</string>
+    <string name="signup_btn_submit">완료</string>
 
     <string name="onboarding_tv_title">젠티가 처음인 당신을 위해!</string>
     <string name="onboarding_btn_next">다음으로</string>
