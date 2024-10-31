@@ -53,4 +53,7 @@ interface GenerateService {
 
     @GET("api/v1/maintenance")
     suspend fun getIsServerAvailable(): BaseResponse<ServerAvailableDto>
+
+    @POST("api/v1/frontend/picture-generate-responses")
+    suspend fun patchStatusInDevelop(): BaseResponse<Boolean>
 }
