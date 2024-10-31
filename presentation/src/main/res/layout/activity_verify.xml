@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#030F0F">
+        android:background="@color/black">
 
         <ImageView
             android:id="@+id/btn_exit"
