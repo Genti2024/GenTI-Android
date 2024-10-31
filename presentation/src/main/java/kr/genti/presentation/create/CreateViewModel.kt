@@ -114,10 +114,6 @@ constructor(
         }
     }
 
-    fun resetGeneratingState() {
-        _totalGeneratingState.value = UiState.Empty
-    }
-
     companion object {
         val promptList =
             listOf(
