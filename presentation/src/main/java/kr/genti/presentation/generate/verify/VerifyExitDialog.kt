@@ -17,7 +17,7 @@ class VerifyExitDialog : BaseDialog<DialogVerifyExitBinding>(R.layout.dialog_ver
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
@@ -35,7 +35,7 @@ class VerifyExitDialog : BaseDialog<DialogVerifyExitBinding>(R.layout.dialog_ver
     }
 
     private fun initCloseBtnListener() {
-        binding.btnClose.setOnSingleClickListener { dismiss() }
+        binding.btnReturn.setOnSingleClickListener { dismiss() }
     }
 
     private fun initExitBtnListener() {

@@ -42,6 +42,7 @@
             android:adjustViewBounds="true"
             android:background="@color/black"
             android:src="@drawable/img_profile_making"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_profile_title" />

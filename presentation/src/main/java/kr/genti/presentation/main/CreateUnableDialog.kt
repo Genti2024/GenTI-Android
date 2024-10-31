@@ -13,7 +13,7 @@ class CreateUnableDialog : BaseDialog<DialogCreateUnableBinding>(R.layout.dialog
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
@@ -31,7 +31,6 @@ class CreateUnableDialog : BaseDialog<DialogCreateUnableBinding>(R.layout.dialog
     }
 
     private fun initCloseBtnListener() {
-        binding.btnClose.setOnSingleClickListener { dismiss() }
         binding.btnReturn.setOnSingleClickListener { dismiss() }
     }
 
@@ -46,10 +45,7 @@ class CreateUnableDialog : BaseDialog<DialogCreateUnableBinding>(R.layout.dialog
         @JvmStatic
         fun newInstance(body: String): CreateUnableDialog =
             CreateUnableDialog().apply {
-                arguments =
-                    Bundle().apply {
-                        putString(ARG_BODY, body)
-                    }
+                arguments = Bundle().apply { putString(ARG_BODY, body) }
             }
     }
 }

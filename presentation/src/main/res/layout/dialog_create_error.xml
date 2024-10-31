@@ -7,101 +7,91 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/view_bg_top"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/img_dialog_bg_grey_top"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/shape_gray_fill_16_rect"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/view_bg_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-80dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/img_dialog_bg_grey_bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_again" />
+            <ImageView
+                android:id="@+id/iv_error"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_alert_circle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="0.1dp"
-            android:layout_marginTop="-20dp"
-            android:background="@color/background_white"
-            app:layout_constraintBottom_toTopOf="@id/view_bg_bottom"
-            app:layout_constraintEnd_toEndOf="@id/view_bg_bottom"
-            app:layout_constraintStart_toStartOf="@id/view_bg_bottom"
-            app:layout_constraintTop_toBottomOf="@id/view_bg_top" />
+            <TextView
+                android:id="@+id/tv_created_title"
+                style="@style/TextAppearance.Genti.Title_20_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="-8dp"
+                android:gravity="center"
+                android:text="@string/waiting_error_tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_error" />
 
-        <ImageView
-            android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:src="@drawable/ic_close_dialog"
-            app:layout_constraintEnd_toEndOf="@id/view_bg_top"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_created_subtitle"
+                style="@style/TextAppearance.Genti.Body_14_Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/waiting_error_tv_subtitle"
+                android:textColor="@color/white_80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_created_title" />
 
-        <ImageView
-            android:id="@+id/iv_error_icon"
-            android:layout_width="79dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_error_icon"
-            app:layout_constraintStart_toStartOf="@id/view_bg_top"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/btn_close"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/shape_white_fill_10_rect"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@string/waiting_error_btn_exit"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/btn_again"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_created_subtitle" />
 
-        <TextView
-            android:id="@+id/tv_logout_title"
-            style="@style/TextAppearance.Genti.Headline4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="35dp"
-            android:gravity="center"
-            android:text="@string/waiting_error_tv_title"
-            app:layout_constraintEnd_toEndOf="@id/view_bg_top"
-            app:layout_constraintStart_toStartOf="@id/view_bg_top"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/btn_again"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/shape_red_fill_10_rect"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@string/waiting_error_btn_again"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_close"
+                app:layout_constraintTop_toBottomOf="@id/tv_created_subtitle" />
 
-        <TextView
-            android:id="@+id/tv_logout_subtitle"
-            style="@style/TextAppearance.Genti.BodySmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/waiting_error_tv_subtitle"
-            app:layout_constraintEnd_toEndOf="@id/view_bg_top"
-            app:layout_constraintStart_toStartOf="@id/view_bg_top"
-            app:layout_constraintTop_toBottomOf="@id/tv_logout_title" />
-
-        <TextView
-            android:id="@+id/btn_again"
-            style="@style/TextAppearance.Genti.Headline4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="26dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/sel_btn"
-            android:gravity="center"
-            android:paddingVertical="8dp"
-            android:text="@string/waiting_error_btn_again"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/view_bg_top"
-            app:layout_constraintStart_toStartOf="@id/view_bg_top"
-            app:layout_constraintTop_toBottomOf="@id/tv_logout_subtitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

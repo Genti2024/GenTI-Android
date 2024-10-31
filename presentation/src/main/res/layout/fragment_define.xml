@@ -38,7 +38,7 @@
 
             <TextView
                 android:id="@+id/tv_create_script_subtitle_1"
-                style="@style/TextAppearance.Genti.BodyDescription"
+                style="@style/TextAppearance.Genti.Caption_12_Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
@@ -52,7 +52,7 @@
 
             <TextView
                 android:id="@+id/tv_create_script_subtitle_2"
-                style="@style/TextAppearance.Genti.BodyDescription"
+                style="@style/TextAppearance.Genti.Caption_12_Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"

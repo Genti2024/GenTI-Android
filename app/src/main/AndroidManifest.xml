@@ -70,11 +70,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="kr.genti.presentation.generate.openchat.OpenchatActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="kr.genti.presentation.generate.verify.VerifyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

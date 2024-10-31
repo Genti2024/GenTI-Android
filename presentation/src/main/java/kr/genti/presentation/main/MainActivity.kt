@@ -23,7 +23,6 @@ import kr.genti.presentation.R
 import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.ActivityMainBinding
 import kr.genti.presentation.generate.finished.FinishedActivity
-import kr.genti.presentation.generate.openchat.OpenchatActivity
 import kr.genti.presentation.generate.verify.VerifyActivity
 import kr.genti.presentation.generate.waiting.WaitingActivity
 import kr.genti.presentation.main.feed.FeedFragment
@@ -104,7 +103,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         when (intent.getStringExtra(EXTRA_TYPE)) {
             TYPE_SUCCESS -> viewModel.getGenerateStatusFromServer(true)
             TYPE_CANCELED -> viewModel.getGenerateStatusFromServer(true)
-            TYPE_OPENCHAT -> startActivity(Intent(this, OpenchatActivity::class.java))
             else -> return
         }
     }
@@ -256,7 +254,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         const val TYPE_SUCCESS = "SUCCESS"
         const val TYPE_CANCELED = "CANCELED"
-        const val TYPE_OPENCHAT = "OPENCHAT"
 
         private const val EXTRA_TYPE = "EXTRA_DEFAULT"
 

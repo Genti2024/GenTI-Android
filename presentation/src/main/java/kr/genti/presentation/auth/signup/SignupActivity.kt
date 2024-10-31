@@ -3,10 +3,6 @@ package kr.genti.presentation.auth.signup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,7 +10,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.colorOf
+import kr.genti.core.extension.hideKeyboard
 import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
@@ -25,7 +21,6 @@ import kr.genti.presentation.R
 import kr.genti.presentation.auth.onboarding.OnboardingActivity
 import kr.genti.presentation.databinding.ActivitySignupBinding
 import kr.genti.presentation.util.AmplitudeManager
-import java.util.Calendar
 
 @AndroidEntryPoint
 class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_signup) {
@@ -36,10 +31,8 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
 
         initView()
         initSubmitBtnListener()
-        setYearPicker()
-        setStatusBarTransparent()
-        setNavigationBarGreen()
         observePostSignupState()
+        observeYearInputState()
     }
 
     private fun initView() {
@@ -52,31 +45,6 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
         binding.btnSubmit.setOnSingleClickListener {
             viewModel.postSignupDataToServer()
         }
-    }
-
-    private fun setYearPicker() {
-        binding.npSignupBirth.apply {
-            val currentYear = Calendar.getInstance()[Calendar.YEAR]
-            maxValue = currentYear
-            minValue = 1900
-            value = currentYear
-            viewModel.selectBirthYear(currentYear)
-            setOnValueChangedListener { _, _, newVal ->
-                viewModel.selectBirthYear(newVal)
-            }
-        }
-    }
-
-    private fun setStatusBarTransparent() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            v.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
-            insets
-        }
-    }
-
-    private fun setNavigationBarGreen() {
-        this.window.navigationBarColor = colorOf(R.color.green_5)
     }
 
     private fun observePostSignupState() {
@@ -95,6 +63,15 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun observeYearInputState() {
+        viewModel.isYearAllSelected.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isAllSelected ->
+                if (isAllSelected) {
+                    hideKeyboard(binding.root)
                 }
             }.launchIn(lifecycleScope)
     }

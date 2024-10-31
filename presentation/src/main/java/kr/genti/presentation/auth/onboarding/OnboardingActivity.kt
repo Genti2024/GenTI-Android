@@ -1,13 +1,10 @@
 package kr.genti.presentation.auth.onboarding
 
-import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityOnboardingBinding
@@ -48,25 +45,12 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(R.layout.acti
         )
         with(binding) {
             btnNext.setOnSingleClickListener {
-                vpOnboarding.currentItem = 1
-                btnNext.isVisible = false
-                btnFinish.isVisible = true
-                tvOnboardingTitle.isVisible = false
-                btnExit.isVisible = false
-                startLogoAnimation()
-            }
-        }
-    }
-
-    private fun startLogoAnimation() {
-        ValueAnimator.ofInt(60.dpToPx(this), 150.dpToPx(this)).apply {
-            duration = 300
-            addUpdateListener { animator ->
-                binding.ivOnboardingLogo.updateLayoutParams {
-                    width = animator.animatedValue as Int
+                vpOnboarding.currentItem += 1
+                if (vpOnboarding.currentItem == 2) {
+                    btnNext.isVisible = false
+                    btnFinish.isVisible = true
                 }
             }
-            start()
         }
     }
 

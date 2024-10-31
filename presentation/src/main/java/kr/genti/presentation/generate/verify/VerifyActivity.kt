@@ -229,7 +229,8 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding>(R.layout.activity_ver
             cacheDir,
         )
 
-    private fun getFileDateFormat() = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+    private fun getFileDateFormat() =
+        SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 
     private fun observeGeneratingState() {
         viewModel.totalGeneratingState

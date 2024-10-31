@@ -23,20 +23,24 @@
     <string name="menu_create">생성</string>
     <string name="menu_profile">프로필</string>
 
-    <string name="login_btn_kakao">카카오로 계속하기</string>
-    <string name="login_tv_title">내 마음대로 표현하는\n하나뿐인 AI 사진</string>
+    <string name="login_btn_kakao">카카오 로그인</string>
+    <string name="login_tv_title">내 마음대로 세상에 하나뿐인\n나의 AI 사진을 찍어 보세요.</string>
+    <string name="login_tv_subtitle">5초만에 가입해서 바로 시작할 수 있어요.</string>
 
-    <string name="signup_tv_title">사진을 더 나처럼 표현하기 위해\n아래의 정보가 필요해요!</string>
-    <string name="signup_tv_gender_title">성별을 알려주세요!</string>
-    <string name="signup_tv_gender_male">남자</string>
-    <string name="signup_tv_gender_female">여자</string>
-    <string name="signup_tv_birth_title">태어난 연도를 알려주세요!</string>
-    <string name="signup_btn_birth_guide">눌러서 태어난 연도 선택하기</string>
-    <string name="signup_btn_submit">입력 완료</string>
+    <string name="signup_tv_title">성별과 나이를 알려주세요.</string>
+    <string name="signup_tv_subtitle">사진을 더 잘 표현하기 위해 활용됩니다.</string>
+    <string name="signup_tv_gender_title">성별</string>
+    <string name="signup_tv_gender_male">남성</string>
+    <string name="signup_tv_gender_female">여성</string>
+    <string name="signup_tv_birth_title">출생년도</string>
+    <string name="signup_tv_birth_hint">YYYY</string>
+    <string name="signup_btn_submit">완료</string>
 
-    <string name="onboarding_tv_title">젠티가 처음인 당신을 위해!</string>
     <string name="onboarding_btn_next">다음으로</string>
     <string name="onboarding_btn_finish">젠티하러 가기</string>
+    <string name="onboarding_tv_title">젠티, 어떻게 사용하나요?</string>
+    <string name="onboarding_tv_first_subtitle">원하는 사진을 자유롭게 설명해요.</string>
+    <string name="onboarding_tv_first_body">의상, 배경 등 어떤 사진을 만들고 싶은지 입력해주세요.</string>
 
     <string name="create_tv_title">사진 만들기</string>
     <string name="create_phase_text">%1$d/3</string>
@@ -81,13 +85,14 @@
     <string name="wait_tv_time_subtitle">2시간 정도 걸릴 예정이에요.</string>
     <string name="wait_tv_time_guide">세상에 하나뿐인 사진을 만들어 드리기 위해\n배경부터 의상까지 꼼꼼하게 준비하고 있어요.</string>
 
-    <string name="waiting_error_tv_title">정말 죄송합니다.</string>
-    <string name="waiting_error_tv_subtitle">서버에 오류가 발생해서\n사진이 만들어지지 않았어요.</string>
-    <string name="waiting_error_btn_again">사진 다시 생성하기</string>
+    <string name="waiting_error_tv_title">사진 생성에 실패했습니다.</string>
+    <string name="waiting_error_tv_subtitle">죄송합니다. 서버에 오류가 발생하였습니다.\n사진 생성을 다시 시도할까요? </string>
+    <string name="waiting_error_btn_exit">닫기</string>
+    <string name="waiting_error_btn_again">사진 다시 생성</string>
 
     <string name="main_dialog_tv_title">사진이 완성되었어요!</string>
-    <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 확인할까요?</string>
-    <string name="main_dialog_btn_move_to_finish">사진 확인하기</string>
+    <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 보러갈까요?</string>
+    <string name="main_dialog_btn_move_to_finish">사진 보기</string>
 
     <string name="finished_tv_title">하나뿐인 나만의 사진이\n완성되었어요!</string>
     <string name="finished_tv_saved">사진이 마이페이지에 저장되었어요!</string>
@@ -107,8 +112,7 @@
 
     <string name="finished_rating_tv_title">사진은 어떠셨나요?</string>
     <string name="finished_rating_tv_subtitle">별점을 남겨주시면 앞으로 더 마음에 드는\n사진을 만들어 드릴 수 있어요!</string>
-    <string name="finished_rating_tv_btn_submit">제출하기</string>
-    <string name="finished_rating_tv_btn_skip"><u>건너뛰기</u></string>
+    <string name="finished_rating_tv_btn_skip">건너뛰기</string>
 
     <string name="feed_tv_title">젠플루언서들이 만든 사진들을 둘러보세요.</string>
     <string name="feed_btn_genfluencer"><u>젠플루언서란?</u></string>
@@ -135,12 +139,12 @@
     <string name="setting_btn_quit">회원 탈퇴</string>
 
     <string name="setting_logout_tv_title">정말 로그아웃 하시겠어요?</string>
-    <string name="setting_logout_subtitle">사진 생성 중에 로그아웃 하시면\n오류가 발생할 수 있습니다. 주의해주세요!</string>
-    <string name="setting_logout_btn_return">취소하기</string>
+    <string name="setting_logout_subtitle">사진 생성 중에 로그아웃 하시면\n오류가 발생할 수 있으니 주의해주세요.</string>
+    <string name="setting_logout_btn_return">취소</string>
     <string name="setting_logout_btn_logout">로그아웃</string>
 
-    <string name="setting_quit_tv_title">정말 탈퇴 하시겠어요?</string>
-    <string name="setting_quit_tv_subtitle">생성한 사진 내역이 모두 사라집니다.\n주의해주세요!</string>
+    <string name="setting_quit_tv_title">정말 탈퇴하시겠어요?</string>
+    <string name="setting_quit_tv_subtitle">탈퇴 시, 생성한 사진 내역이 모두 사라집니다.\n그래도 탈퇴하시겠습니까?</string>
     <string name="setting_quit_btn_quit">탈퇴하기</string>
 
     <string name="push_tv_title">사진 완성 알림을 받아보세요!</string>
@@ -169,5 +173,8 @@
     <string name="verify_exit_tv_title">정말 나가시겠어요?</string>
     <string name="verify_exit_tv_subtitle">메인 화면으로 나가면 \n촬영한 사진은 자동으로 삭제됩니다.</string>
     <string name="verify_exit_btn_exit">나가기</string>
+
+    <string name="unable_tv_title">현재 점검 중입니다!</string>
+    <string name="unable_btn_close">닫기</string>
 
 </resources>

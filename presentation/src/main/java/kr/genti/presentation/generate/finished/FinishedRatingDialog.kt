@@ -17,11 +17,11 @@ import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogFinishedRatingBinding
-import kr.genti.presentation.generate.openchat.OpenchatActivity
 import kr.genti.presentation.main.MainActivity
 import kr.genti.presentation.util.AmplitudeManager
 
-class FinishedRatingDialog : BaseDialog<DialogFinishedRatingBinding>(R.layout.dialog_finished_rating) {
+class FinishedRatingDialog :
+    BaseDialog<DialogFinishedRatingBinding>(R.layout.dialog_finished_rating) {
     private val viewModel by activityViewModels<FinishedViewModel>()
 
     override fun onStart() {
@@ -72,13 +72,9 @@ class FinishedRatingDialog : BaseDialog<DialogFinishedRatingBinding>(R.layout.di
     }
 
     private fun navigateToMain() {
-        if (viewModel.getIsOpenchatAccessible()) {
-            startActivity(Intent(requireActivity(), OpenchatActivity::class.java))
-        } else {
-            Intent(requireActivity(), MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                startActivity(this)
-            }
+        Intent(requireActivity(), MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(this)
         }
         dismiss()
     }

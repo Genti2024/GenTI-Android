@@ -1,14 +1,12 @@
 package kr.genti.presentation.auth.login
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Matrix
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +14,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.colorOf
 import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
@@ -37,8 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
         initLoginBtnListener()
         initOnBackPressedListener(binding.root)
-        setStatusBarTransparent()
-        setNavigationBarGreen()
+        setBackgroundAnimation()
         observeAppLoginAvailable()
         observeGetDeviceTokenResult()
         observeChangeTokenState()
@@ -50,16 +46,29 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
     }
 
-    private fun setStatusBarTransparent() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            v.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
-            insets
-        }
-    }
+    private fun setBackgroundAnimation() {
+        val imageView = binding.ivLoginBackground
+        imageView.post {
+            val matrix = Matrix()
 
-    private fun setNavigationBarGreen() {
-        this.window.navigationBarColor = colorOf(R.color.genti_green)
+            val scale = imageView.height.toFloat() / imageView.drawable.intrinsicHeight.toFloat()
+            matrix.setScale(scale, scale)
+            val scaledWidth = imageView.drawable.intrinsicWidth.toFloat() * scale
+
+            matrix.postTranslate(0f, 0f)
+            imageView.imageMatrix = matrix
+
+            val animator = ObjectAnimator.ofFloat(0f, imageView.width - scaledWidth).apply {
+                duration = 5000
+                addUpdateListener { animation ->
+                    val translateX = animation.animatedValue as Float
+                    matrix.setScale(scale, scale)
+                    matrix.postTranslate(translateX, 0f)
+                    imageView.imageMatrix = matrix
+                }
+            }
+            animator.start()
+        }
     }
 
     private fun observeAppLoginAvailable() {
