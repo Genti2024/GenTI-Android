@@ -31,7 +31,6 @@ import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentSelfieBinding
 import kr.genti.presentation.generate.waiting.WaitingActivity
-import kr.genti.presentation.main.feed.FeedFragment
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
@@ -43,7 +42,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private lateinit var photoPickerResult: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var galleryPickerResult: ActivityResultLauncher<Intent>
-    private lateinit var waitingResult: ActivityResultLauncher<Intent>
 
     override fun onViewCreated(
         view: View,
@@ -57,7 +55,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         initRequestCreateBtnListener()
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
-        initWaitingResult()
         observeGeneratingState()
     }
 
@@ -194,23 +191,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         }
     }
 
-    private fun initWaitingResult() {
-        if (!::waitingResult.isInitialized) {
-            waitingResult =
-                registerForActivityResult(
-                    ActivityResultContracts.StartActivityForResult(),
-                ) { result ->
-                    if (result.resultCode == RESULT_OK) {
-                        requireActivity()
-                            .supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.fcv_main, FeedFragment())
-                            .commit()
-                    }
-                }
-        }
-    }
-
     private fun observeGeneratingState() {
         viewModel.totalGeneratingState
             .flowWithLifecycle(lifecycle)
@@ -218,11 +198,8 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 when (state) {
                     is UiState.Success -> {
                         AmplitudeManager.plusIntProperties("user_piccreate")
-                        waitingResult.launch(Intent(requireContext(), WaitingActivity::class.java))
-                        with(viewModel) {
-                            modCurrentPercent(-67)
-                            resetGeneratingState()
-                        }
+                        startActivity(Intent(requireContext(), WaitingActivity::class.java))
+                        requireActivity().finish()
                     }
 
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))

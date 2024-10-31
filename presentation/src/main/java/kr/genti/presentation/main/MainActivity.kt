@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -19,6 +20,7 @@ import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.domain.enums.GenerateStatus
+import kr.genti.presentation.BuildConfig
 import kr.genti.presentation.R
 import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.ActivityMainBinding
@@ -44,12 +46,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initBnvItemIconTintList()
         initBnvItemSelectedListener()
         initCreateBtnListener()
+        initPatchBtnListener()
         getNotificationIntent()
         observeStatusResult()
         observeNotificationState()
         observeResetResult()
         observeServerAvailableState()
         observeUserVerifyState()
+        observePatchResult()
     }
 
     override fun onResume() {
@@ -99,6 +103,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    private fun initPatchBtnListener() {
+        binding.btnPatchInDevelop.setOnClickListener {
+            viewModel.patchStatusInDevelop()
+        }
+    }
+
     private fun getNotificationIntent() {
         when (intent.getStringExtra(EXTRA_TYPE)) {
             TYPE_SUCCESS -> viewModel.getGenerateStatusFromServer(true)
@@ -119,6 +129,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             GenerateStatus.IN_PROGRESS -> {
+                if (BuildConfig.DEBUG) binding.btnPatchInDevelop.isVisible = true
                 startActivity(Intent(this, WaitingActivity::class.java))
             }
 
@@ -224,6 +235,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 else -> return@onEach
             }
             viewModel.resetIsUserVerified()
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun observePatchResult() {
+        viewModel.patchStatusResult.flowWithLifecycle(lifecycle).onEach { result ->
+            if (!result) {
+                toast(stringOf(R.string.error_msg))
+            }
         }.launchIn(lifecycleScope)
     }
 
