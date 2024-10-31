@@ -3,15 +3,20 @@ package kr.genti.presentation.create
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.setTextWithImage
 import kr.genti.core.extension.stringOf
+import kr.genti.core.extension.toast
+import kr.genti.core.state.UiState
 import kr.genti.presentation.R
-import kr.genti.presentation.create.CreateViewModel.Companion.promptList
 import kr.genti.presentation.databinding.FragmentDefineBinding
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
@@ -35,7 +40,7 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
         initView()
         initCreateBtnListener()
         initViewPager()
-        setPromptExample()
+        observeGetExampleState()
     }
 
     private fun initView() {
@@ -81,13 +86,23 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
                     }
                 }
             })
-            dotIndicator.setViewPager(binding.vpCreateRandom)
         }
     }
 
-    private fun setPromptExample() {
-        adapter.submitList(promptList.subList(0, 5))
-        adapter.notifyDataSetChanged()
+
+    private fun observeGetExampleState() {
+        viewModel.getExampleState
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        adapter.submitList(state.data)
+                        binding.dotIndicator.setViewPager(binding.vpCreateRandom)
+                    }
+                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                    else -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
 }

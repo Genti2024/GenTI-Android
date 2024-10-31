@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import kr.genti.core.util.ItemDiffCallback
+import kr.genti.domain.entity.response.PromptExampleModel
 import kr.genti.presentation.databinding.ItemDefineExampleBinding
 
-class DefineAdapter : ListAdapter<String, DefineViewHolder>(diffUtil) {
+class DefineAdapter : ListAdapter<PromptExampleModel, DefineViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,14 +26,11 @@ class DefineAdapter : ListAdapter<String, DefineViewHolder>(diffUtil) {
         holder.onBind(item)
     }
 
-    override fun getItemCount(): Int = TOTAL_VIEW_COUNT
-
     companion object {
-        const val TOTAL_VIEW_COUNT = 5
 
         private val diffUtil =
-            ItemDiffCallback<String>(
-                onItemsTheSame = { old, new -> old == new },
+            ItemDiffCallback<PromptExampleModel>(
+                onItemsTheSame = { old, new -> old.prompt == new.prompt },
                 onContentsTheSame = { old, new -> old == new },
             )
     }
