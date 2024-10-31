@@ -33,6 +33,7 @@
     <string name="signup_tv_gender_male">남성</string>
     <string name="signup_tv_gender_female">여성</string>
     <string name="signup_tv_birth_title">출생년도</string>
+    <string name="signup_tv_birth_hint">YYYY</string>
     <string name="signup_btn_submit">완료</string>
 
     <string name="onboarding_tv_title">젠티가 처음인 당신을 위해!</string>

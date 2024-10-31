@@ -17,62 +17,60 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel
-    @Inject
-    constructor(
-        private val infoRepository: InfoRepository,
-        private val userRepository: UserRepository,
-    ) : ViewModel() {
-        val selectedGender = MutableLiveData<Gender>(Gender.NONE)
-        val isGenderSelected = MutableLiveData<Boolean>(false)
+@Inject
+constructor(
+    private val infoRepository: InfoRepository,
+    private val userRepository: UserRepository,
+) : ViewModel() {
+    val selectedGender = MutableLiveData<Gender>(Gender.NONE)
+    private val isGenderSelected = MutableLiveData<Boolean>(false)
 
-        val selectedYear = MutableLiveData<Int>()
-        val selectedYearText = MutableLiveData<String>()
-        val isYearSelected = MutableLiveData<Boolean>(false)
+    val selectedYear = MutableLiveData<String>()
+    val isYearSelected = MutableLiveData<Boolean>(false)
 
-        val isAllSelected = MutableLiveData<Boolean>(false)
+    private val _isYearAllSelected = MutableStateFlow<Boolean>(false)
+    val isYearAllSelected: StateFlow<Boolean> = _isYearAllSelected
 
-        private val _postSignupState = MutableStateFlow<UiState<SignUpUserModel>>(UiState.Empty)
-        val postSignupState: StateFlow<UiState<SignUpUserModel>> = _postSignupState
+    val isAllSelected = MutableLiveData<Boolean>(false)
 
-        fun selectGender(gender: Gender) {
-            selectedGender.value = gender
-            isGenderSelected.value = true
-            checkAllSelected()
-        }
+    private val _postSignupState = MutableStateFlow<UiState<SignUpUserModel>>(UiState.Empty)
+    val postSignupState: StateFlow<UiState<SignUpUserModel>> = _postSignupState
 
-        fun selectBirthYear(year: Int) {
-            selectedYear.value = year
-            if (isYearSelected.value == true) selectedYearText.value = year.toString() + "년"
-        }
+    fun selectGender(gender: Gender) {
+        selectedGender.value = gender
+        isGenderSelected.value = true
+        checkAllSelected()
+    }
 
-        fun showYearPicker() {
-            isYearSelected.value = true
-            selectedYearText.value = selectedYear.value.toString() + "년"
-            checkAllSelected()
-        }
+    fun checkYear() {
+        isYearSelected.value = selectedYear.value?.isNotEmpty()
+        _isYearAllSelected.value = selectedYear.value?.length == 4 &&
+                selectedYear.value?.toIntOrNull()?.let { it in 1950..2025 } == true
+        checkAllSelected()
+    }
 
-        private fun checkAllSelected() {
-            isAllSelected.value = isGenderSelected.value == true && isYearSelected.value == true
-        }
+    private fun checkAllSelected() {
+        isAllSelected.value = isGenderSelected.value == true && isYearAllSelected.value == true
+    }
 
-        fun postSignupDataToServer() {
-            _postSignupState.value = UiState.Loading
-            viewModelScope.launch {
-                infoRepository.postSignupData(
-                    SignupRequestModel(
-                        selectedYear.value.toString(),
-                        selectedGender.value.toString(),
-                    ),
-                ).onSuccess {
-                    userRepository.setUserRole(ROLE_USER)
-                    _postSignupState.value = UiState.Success(it)
-                }.onFailure {
-                    _postSignupState.value = UiState.Failure(it.message.orEmpty())
-                }
+    fun postSignupDataToServer() {
+        _postSignupState.value = UiState.Loading
+        viewModelScope.launch {
+            infoRepository.postSignupData(
+                SignupRequestModel(
+                    selectedYear.value.toString(),
+                    selectedGender.value.toString(),
+                ),
+            ).onSuccess {
+                userRepository.setUserRole(ROLE_USER)
+                _postSignupState.value = UiState.Success(it)
+            }.onFailure {
+                _postSignupState.value = UiState.Failure(it.message.orEmpty())
             }
         }
-
-        companion object {
-            private const val ROLE_USER = "USER"
-        }
     }
+
+    companion object {
+        private const val ROLE_USER = "USER"
+    }
+}
