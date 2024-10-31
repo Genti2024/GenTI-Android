@@ -36,9 +36,11 @@
     <string name="signup_tv_birth_hint">YYYY</string>
     <string name="signup_btn_submit">완료</string>
 
-    <string name="onboarding_tv_title">젠티가 처음인 당신을 위해!</string>
     <string name="onboarding_btn_next">다음으로</string>
     <string name="onboarding_btn_finish">젠티하러 가기</string>
+    <string name="onboarding_tv_title">젠티, 어떻게 사용하나요?</string>
+    <string name="onboarding_tv_first_subtitle">원하는 사진을 자유롭게 설명해요.</string>
+    <string name="onboarding_tv_first_body">의상, 배경 등 어떤 사진을 만들고 싶은지 입력해주세요.</string>
 
     <string name="create_tv_title">사진 만들기</string>
     <string name="create_phase_text">%1$d/3</string>

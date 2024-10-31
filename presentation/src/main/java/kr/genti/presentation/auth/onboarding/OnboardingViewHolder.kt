@@ -9,8 +9,17 @@ class OnboardingViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(position: Int) {
         with(binding) {
-            layoutOnboardingFirst.isVisible = position == 0
-            layoutOnboardingSecond.isVisible = position != 0
+            ivOnboardingFirst.isVisible = position == 0
+            ivOnboardingSecond.isVisible = position == 1
+            ivOnboardingThird.isVisible = position == 2
+            if (position == 1) {
+                tvOnboardingSubtitle.text = "얼굴 사진 3장만 골라요."
+                tvOnboardingBody.text = "사진 생성에 이용할 본인 사진 3장을 골라주세요."
+            }
+            if (position == 2) {
+                tvOnboardingSubtitle.text = "나만의 특별한 사진 완성!"
+                tvOnboardingBody.text = "지금 젠티하러 가볼까요?"
+            }
         }
     }
 }
