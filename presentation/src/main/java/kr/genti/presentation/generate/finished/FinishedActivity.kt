@@ -130,13 +130,8 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     }
 
     private fun getIntentInfo() {
-        // TODO: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-//                intent.getLongExtra(EXTRA_RESPONSE_ID, -1),
-//                intent.getStringExtra(EXTRA_URL).orEmpty(),
-        viewModel.finishedImageId = 1234
-        viewModel.finishedImageUrl =
-            "https://github.com/user-attachments/assets/4baea557-a543-4246-9855-de1c0223dad7"
+        viewModel.finishedImageId = intent.getLongExtra(EXTRA_RESPONSE_ID, -1)
+        viewModel.finishedImageUrl = intent.getStringExtra(EXTRA_URL).orEmpty()
         setImageLayout()
     }
 
