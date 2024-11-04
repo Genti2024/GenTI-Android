@@ -44,6 +44,7 @@ class FinishedImageDialog : BaseDialog<DialogFinishedImageBinding>(R.layout.dial
 
     private fun initExitBtnListener() {
         binding.btnExit.setOnSingleClickListener { dismiss() }
+        binding.root.setOnSingleClickListener { dismiss() }
     }
 
     private fun initDownloadBtnListener() {
