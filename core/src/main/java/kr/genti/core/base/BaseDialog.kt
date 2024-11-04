@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
+import kr.genti.core.R
 
 abstract class BaseDialog<T : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
@@ -29,6 +30,7 @@ abstract class BaseDialog<T : ViewDataBinding>(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).apply {
+            window?.setWindowAnimations(R.style.DialogAnimation)
             window?.setDimAmount(0.8f)
         }
     }
