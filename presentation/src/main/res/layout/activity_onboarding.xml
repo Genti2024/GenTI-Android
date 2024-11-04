@@ -83,7 +83,7 @@
                 style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/sel_btn"
+                android:background="@drawable/sel_btn_gradation"
                 android:enabled="true"
                 android:gravity="center"
                 android:paddingVertical="14dp"

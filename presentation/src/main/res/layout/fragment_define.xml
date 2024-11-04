@@ -56,7 +56,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="@string/create_tv_script_subtitle_2"
                 android:textColor="@color/white_60"
@@ -114,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@drawable/shape_black_fill_10_rect"
+                android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -123,8 +123,9 @@
                     style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="14dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginVertical="6dp"
                     android:afterTextChanged="@{(text) -> vm.checkWritten()}"
                     android:background="@null"
                     android:hint="@string/create_et_script_hint"
@@ -142,14 +143,12 @@
                     android:id="@+id/btn_create_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/sel_btn"
+                    android:background="@drawable/sel_btn_gradation"
                     android:enabled="@{vm.isWritten}"
                     android:padding="10dp"
                     android:src="@drawable/ic_play"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
