@@ -99,7 +99,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initCreateBtnListener() {
         binding.btnMenuCreate.setOnClickListener {
-            navigateByGenerateStatus()
+            when (viewModel.currentStatus) {
+                GenerateStatus.NEW_REQUEST_AVAILABLE -> {
+                    viewModel.getIsServerAvailable()
+                }
+
+                GenerateStatus.AWAIT_USER_VERIFICATION -> {
+                    createFinishedDialog = CreateFinishedDialog()
+                    createFinishedDialog?.show(supportFragmentManager, DIALOG_FINISHED)
+                }
+
+                GenerateStatus.IN_PROGRESS -> {
+                    if (BuildConfig.DEBUG) binding.btnPatchInDevelop.isVisible = true
+                    startActivity(Intent(this, WaitingActivity::class.java))
+                }
+
+                GenerateStatus.CANCELED -> {
+                    createErrorDialog = CreateErrorDialog()
+                    createErrorDialog?.show(supportFragmentManager, DIALOG_ERROR)
+                }
+
+                GenerateStatus.EMPTY -> return@setOnClickListener
+            }
         }
     }
 
@@ -110,35 +131,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun getNotificationIntent() {
-        when (intent.getStringExtra(EXTRA_TYPE)) {
-            TYPE_SUCCESS -> viewModel.getGenerateStatusFromServer(true)
-            TYPE_CANCELED -> viewModel.getGenerateStatusFromServer(true)
-            else -> return
-        }
-    }
-
-    private fun navigateByGenerateStatus() {
-        when (viewModel.currentStatus) {
-            GenerateStatus.NEW_REQUEST_AVAILABLE -> {
-                viewModel.getIsServerAvailable()
-            }
-
-            GenerateStatus.AWAIT_USER_VERIFICATION -> {
-                createFinishedDialog = CreateFinishedDialog()
-                createFinishedDialog?.show(supportFragmentManager, DIALOG_FINISHED)
-            }
-
-            GenerateStatus.IN_PROGRESS -> {
-                if (BuildConfig.DEBUG) binding.btnPatchInDevelop.isVisible = true
-                startActivity(Intent(this, WaitingActivity::class.java))
-            }
-
-            GenerateStatus.CANCELED -> {
-                createErrorDialog = CreateErrorDialog()
-                createErrorDialog?.show(supportFragmentManager, DIALOG_ERROR)
-            }
-
-            GenerateStatus.EMPTY -> return
+        if (intent.getStringExtra(EXTRA_TYPE) == TYPE_SUCCESS || intent.getStringExtra(EXTRA_TYPE) == TYPE_CANCELED) {
+            viewModel.getGenerateStatusFromServer(true)
         }
     }
 
@@ -199,7 +193,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             when (state) {
                 is UiState.Success -> {
                     if (state.data.status) {
-                        navigateToCreate()
+                        viewModel.getIsUserVerifiedFromServer()
                     } else {
                         createUnableDialog =
                             CreateUnableDialog.newInstance(state.data.message.orEmpty())
