@@ -80,8 +80,8 @@ dependencies {
 
     ThirdPartyDependencies.run {
         implementation(coil)
-        implementation("jp.wasabeef:glide-transformations:4.3.0")
-        implementation("com.github.bumptech.glide:glide:4.12.0")
+        implementation(glide)
+        implementation(glideTransformations)
         implementation(timber)
         implementation(amplitude)
         implementation(progressView)
