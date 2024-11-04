@@ -26,9 +26,6 @@ class FinishedImageDialog : BaseDialog<DialogFinishedImageBinding>(R.layout.dial
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -59,12 +56,5 @@ class FinishedImageDialog : BaseDialog<DialogFinishedImageBinding>(R.layout.dial
 
     private fun setImage() {
         binding.ivFinished.load(viewModel.finishedImageUrl)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(null)
     }
 }

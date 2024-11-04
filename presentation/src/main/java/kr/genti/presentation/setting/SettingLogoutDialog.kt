@@ -34,9 +34,6 @@ class SettingLogoutDialog : BaseDialog<DialogSettingLogoutBinding>(R.layout.dial
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -76,12 +73,5 @@ class SettingLogoutDialog : BaseDialog<DialogSettingLogoutBinding>(R.layout.dial
                     else -> return@onEach
                 }
             }.launchIn(lifecycleScope)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(null)
     }
 }

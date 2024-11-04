@@ -36,7 +36,6 @@ class ProfileImageDialog :
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity().window.decorView.rootView.setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -114,11 +113,6 @@ class ProfileImageDialog :
             FILE_PROVIDER_AUTORITY,
             tempFile,
         )
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity().window.decorView.rootView.setGusianBlur(null)
     }
 
     companion object {
