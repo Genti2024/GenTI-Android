@@ -3,6 +3,7 @@ package kr.genti.presentation.generate.finished
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.core.content.FileProvider
@@ -14,10 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.dpToPx
 import kr.genti.core.extension.setGusianBlur
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
+import kr.genti.domain.enums.PictureRatio
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityFinishedBinding
 import kr.genti.presentation.main.profile.ProfileImageDialog.Companion.FILE_PROVIDER_AUTORITY
@@ -130,13 +133,19 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     }
 
     private fun getIntentInfo() {
-        viewModel.finishedImageId = intent.getLongExtra(EXTRA_RESPONSE_ID, -1)
-        viewModel.finishedImageUrl = intent.getStringExtra(EXTRA_URL).orEmpty()
+        with(viewModel) {
+            finishedImageId = intent.getLongExtra(EXTRA_RESPONSE_ID, -1)
+            finishedImageUrl = intent.getStringExtra(EXTRA_URL).orEmpty()
+            finishedImageRatio = intent.getStringExtra(EXTRA_RATIO).orEmpty()
+        }
         setImageLayout()
     }
 
     private fun setImageLayout() {
         with(binding) {
+            if (viewModel.finishedImageRatio == PictureRatio.RATIO_GARO.name) {
+                setGaroImageMargin()
+            }
             ivFinishedBackground.apply {
                 load(viewModel.finishedImageUrl)
                 setGusianBlur(50f)
@@ -148,6 +157,24 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                     }
                 )
             }
+        }
+    }
+
+    private fun setGaroImageMargin() {
+        with(binding) {
+            cvFinishedImage.layoutParams =
+                (cvFinishedImage.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    marginStart = 16.dpToPx(this@FinishedActivity)
+                    marginEnd = 16.dpToPx(this@FinishedActivity)
+                }
+            btnDownload.layoutParams =
+                (btnDownload.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    marginEnd = 16.dpToPx(this@FinishedActivity)
+                }
+            tvFinishedSubtitle.layoutParams =
+                (tvFinishedSubtitle.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    bottomMargin = 64.dpToPx(this@FinishedActivity)
+                }
         }
     }
 
@@ -190,16 +217,19 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 
         private const val EXTRA_RESPONSE_ID = "EXTRA_RESPONSE_ID"
         private const val EXTRA_URL = "EXTRA_URL"
+        private const val EXTRA_RATIO = "EXTRA_RATIO"
 
         @JvmStatic
         fun createIntent(
             context: Context,
             id: Long,
             url: String,
+            ratio: String,
         ): Intent =
             Intent(context, FinishedActivity::class.java).apply {
                 putExtra(EXTRA_RESPONSE_ID, id)
                 putExtra(EXTRA_URL, url)
+                putExtra(EXTRA_RATIO, ratio)
             }
     }
 }

@@ -24,14 +24,14 @@ import javax.inject.Inject
 class FinishedViewModel
 @Inject
 constructor(
-    private val generateRepository: GenerateRepository,
-    private val userRepository: UserRepository,
+    private val generateRepository: GenerateRepository
 ) : ViewModel() {
     val errorReport = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
 
     var finishedImageId: Long = -1
     var finishedImageUrl: String = ""
+    var finishedImageRatio: String = ""
 
     private val _isImageDownloaded = MutableSharedFlow<Boolean>()
     val isImageDownloaded: SharedFlow<Boolean> = _isImageDownloaded
