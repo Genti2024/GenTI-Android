@@ -41,7 +41,7 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
     }
 
     private fun initBackBtnListener() {
-        binding.btnBack.setOnSingleClickListener {
+        binding.btnBack.setOnClickListener {
             when (navController.currentDestination?.id) {
                 R.id.defineFragment -> finish()
                 R.id.poseFragment -> navigateBackFragment("create2", -33)

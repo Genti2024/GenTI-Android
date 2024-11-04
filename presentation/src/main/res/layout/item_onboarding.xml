@@ -16,38 +16,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="100dp"
             android:adjustViewBounds="true"
             android:src="@drawable/img_onboarding_first"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_subtitle" />
 
         <ImageView
             android:id="@+id/iv_onboarding_second"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="23dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="92dp"
             android:adjustViewBounds="true"
             android:src="@drawable/img_onboarding_second"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_onboarding_third"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_onboarding_third"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_subtitle" />
 
         <TextView
             android:id="@+id/tv_onboarding_title"
@@ -55,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="90dp"
             android:gravity="center"
             android:text="@string/onboarding_tv_title"
             android:textColor="@color/genti_green"

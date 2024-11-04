@@ -1,10 +1,12 @@
 package kr.genti.presentation.auth.onboarding
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.view.isVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kr.genti.core.base.BaseActivity
+import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityOnboardingBinding
@@ -23,6 +25,7 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(R.layout.acti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initOnBackPressedListener(binding.root)
         initViewPager()
         initNextBtnListener()
         initFinishBtnListener()
@@ -44,11 +47,15 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(R.layout.acti
             mapOf(PROPERTY_BTN to "next"),
         )
         with(binding) {
-            btnNext.setOnSingleClickListener {
+            btnNext.setOnClickListener {
                 vpOnboarding.currentItem += 1
                 if (vpOnboarding.currentItem == 2) {
                     btnNext.isVisible = false
                     btnFinish.isVisible = true
+                    ObjectAnimator.ofFloat(ivOnboardingThird, "alpha", 0f, 1f).apply {
+                        duration = 1000
+                        start()
+                    }
                 }
             }
         }

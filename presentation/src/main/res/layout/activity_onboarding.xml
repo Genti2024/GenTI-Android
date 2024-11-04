@@ -11,24 +11,36 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
+        <ImageView
+            android:id="@+id/iv_onboarding_third"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:alpha="0"
+            android:src="@drawable/img_onboarding_third"
+            app:layout_constraintBottom_toTopOf="@id/layout_bottom_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_onboarding"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="110dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_exit" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/dot_indicator"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="48dp"
             app:ci_drawable="@drawable/ic_indicator_green"
             app:ci_drawable_unselected="@drawable/ic_indicator_white_30"
-            app:layout_constraintBottom_toBottomOf="@id/vp_onboarding"
+            app:layout_constraintBottom_toTopOf="@id/layout_bottom_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -36,47 +48,50 @@
             android:id="@+id/btn_exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="18dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="4dp"
             android:padding="12dp"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/btn_next"
-            style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+        <LinearLayout
+            android:id="@+id/layout_bottom_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="28dp"
-            android:background="@drawable/sel_btn"
-            android:enabled="true"
-            android:gravity="center"
-            android:paddingVertical="14dp"
-            android:text="@string/onboarding_btn_next"
-            android:textColor="@color/black"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/btn_finish"
-            style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="28dp"
-            android:background="@drawable/sel_btn"
-            android:enabled="true"
-            android:gravity="center"
-            android:paddingVertical="14dp"
-            android:text="@string/onboarding_btn_finish"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/btn_next"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_green_fill_10_rect"
+                android:enabled="true"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@string/onboarding_btn_next"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/btn_finish"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sel_btn"
+                android:enabled="true"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@string/onboarding_btn_finish"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
