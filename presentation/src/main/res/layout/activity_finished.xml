@@ -16,7 +16,7 @@
             android:id="@+id/iv_finished_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:alpha="0.3"
+            android:alpha="0.2"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -150,14 +150,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="0.5dp"
                 android:src="@drawable/ic_info_white_40" />
 
             <TextView
                 style="@style/TextAppearance.Genti.Body_14_Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="8dp"
                 android:text="사진이 잘못 나왔나요?"
                 android:textColor="@color/white_60" />
 

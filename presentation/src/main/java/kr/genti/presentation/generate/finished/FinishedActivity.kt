@@ -11,12 +11,14 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.dpToPx
-import kr.genti.core.extension.setGusianBlur
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
@@ -30,6 +32,7 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
+import kr.genti.presentation.util.GlideResultListener
 import kr.genti.presentation.util.downloadImage
 import java.io.File
 
@@ -146,16 +149,15 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             if (viewModel.finishedImageRatio == PictureRatio.RATIO_GARO.name) {
                 setGaroImageMargin()
             }
+            ivFinishedImage.load(viewModel.finishedImageUrl)
             ivFinishedBackground.apply {
-                load(viewModel.finishedImageUrl)
-                setGusianBlur(50f)
-            }
-            ivFinishedImage.load(viewModel.finishedImageUrl) {
-                listener(
-                    onSuccess = { _, _ ->
+                Glide.with(this.context)
+                    .load(viewModel.finishedImageUrl)
+                    .apply(RequestOptions.bitmapTransform(BlurTransformation(50)))
+                    .listener(GlideResultListener {
                         binding.layoutLoading.isVisible = false
-                    }
-                )
+                    })
+                    .into(this)
             }
         }
     }
