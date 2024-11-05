@@ -59,7 +59,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             imageView.imageMatrix = matrix
 
             val animator = ObjectAnimator.ofFloat(0f, imageView.width - scaledWidth).apply {
-                duration = 5000
+                duration = 8000
                 addUpdateListener { animation ->
                     val translateX = animation.animatedValue as Float
                     matrix.setScale(scale, scale)

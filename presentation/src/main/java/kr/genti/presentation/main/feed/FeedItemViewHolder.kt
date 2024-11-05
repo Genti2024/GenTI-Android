@@ -16,10 +16,10 @@ class FeedItemViewHolder(
         with(binding) {
             tvFeedItemDescription.text = item.prompt.breakLines()
             if (item.picture.pictureRatio == PictureRatio.RATIO_GARO) {
-                (cvFeedItemImage.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio =
+                (ivFeedItemImage.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio =
                     "3:2"
             } else {
-                (cvFeedItemImage.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio =
+                (ivFeedItemImage.layoutParams as ConstraintLayout.LayoutParams).dimensionRatio =
                     "2:3"
             }
             ivFeedItemImage.load(item.picture.url)

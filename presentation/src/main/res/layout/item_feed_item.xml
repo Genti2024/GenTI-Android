@@ -11,68 +11,81 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/shape_gray_fill_10_rect"
-        android:paddingBottom="16dp">
+        android:layout_marginTop="16dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_feed_item_image"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:cardBackgroundColor="@color/gray"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_gray_fill_10_rect"
             android:elevation="0dp"
+            app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
-            app:layout_constraintDimensionRatio="3:2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_loading_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/lottie_loading_image" />
-
-            <ImageView
-                android:id="@+id/iv_feed_item_image"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:scaleType="centerCrop"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@color/gray_btn"
-                tools:src="@drawable/mock_img_3_2" />
+                android:paddingBottom="16dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_loading_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_feed_item_image"
+                    app:layout_constraintEnd_toEndOf="@id/iv_feed_item_image"
+                    app:layout_constraintStart_toStartOf="@id/iv_feed_item_image"
+                    app:layout_constraintTop_toTopOf="@id/iv_feed_item_image"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/lottie_loading_image" />
+
+                <ImageView
+                    android:id="@+id/iv_feed_item_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/gray_btn"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="3:2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/mock_img_2_3" />
+
+                <TextView
+                    android:id="@+id/tv_feed_item_title"
+                    style="@style/TextAppearance.Genti.Body_14_Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/feed_tv_item_title"
+                    android:textColor="@color/white_40"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_feed_item_image" />
+
+                <TextView
+                    android:id="@+id/tv_feed_item_description"
+                    style="@style/TextAppearance.Genti.Body_14_Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="10dp"
+                    android:breakStrategy="simple"
+                    android:textColor="@color/white_80"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_feed_item_title"
+                    tools:text="프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요." />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_feed_item_title"
-            style="@style/TextAppearance.Genti.Body_14_Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/feed_tv_item_title"
-            android:textColor="@color/white_40"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_feed_item_image" />
-
-        <TextView
-            android:id="@+id/tv_feed_item_description"
-            style="@style/TextAppearance.Genti.Body_14_Medium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:breakStrategy="simple"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white_80"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_feed_item_title"
-            tools:text="프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

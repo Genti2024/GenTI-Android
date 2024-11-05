@@ -58,6 +58,9 @@ object RetrofitDependencies {
 
 object ThirdPartyDependencies {
     const val coil = "io.coil-kt:coil:${Versions.coilVersion}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
+    const val glideTransformations =
+        "jp.wasabeef:glide-transformations:${Versions.glideTransformationsVersion}"
     const val amplitude = "com.amplitude:analytics-android:${Versions.amplitudeVersion}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
     const val progressView = "com.github.skydoves:progressview:${Versions.progressViewVersion}"
@@ -71,8 +74,10 @@ object ThirdPartyDependencies {
 
 object ClassPathPlugins {
     const val gradle = "com.android.tools.build:gradle:${Versions.gradleVersion}"
-    const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
-    const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
+    const val kotlinGradlePlugin =
+        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
+    const val hiltGradlePlugin =
+        "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
 
     const val googleServices = "com.google.gms:google-services:${Versions.googleServicesVersion}"
     const val crashlyticsGradle =

@@ -34,9 +34,6 @@ class FinishedReportDialog :
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -93,12 +90,5 @@ class FinishedReportDialog :
                     toast(stringOf(R.string.error_msg))
                 }
             }.launchIn(lifecycleScope)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(null)
     }
 }

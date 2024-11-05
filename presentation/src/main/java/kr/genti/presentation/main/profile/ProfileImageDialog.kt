@@ -8,15 +8,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import coil.load
 import kr.genti.core.base.BaseDialog
 import kr.genti.core.extension.setGusianBlur
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.domain.enums.PictureRatio
-import kr.genti.domain.enums.PictureRatio.Companion.toPictureRatio
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogProfileImageBinding
 import kr.genti.presentation.util.AmplitudeManager
@@ -39,7 +36,6 @@ class ProfileImageDialog :
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity().window.decorView.rootView.setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -64,6 +60,7 @@ class ProfileImageDialog :
 
     private fun initExitBtnListener() {
         binding.btnExit.setOnSingleClickListener { dismiss() }
+        binding.root.setOnSingleClickListener { dismiss() }
     }
 
     private fun initDownloadBtnListener() {
@@ -116,11 +113,6 @@ class ProfileImageDialog :
             FILE_PROVIDER_AUTORITY,
             tempFile,
         )
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity().window.decorView.rootView.setGusianBlur(null)
     }
 
     companion object {

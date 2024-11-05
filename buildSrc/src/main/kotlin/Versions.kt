@@ -23,6 +23,8 @@ object Versions {
     const val lifecycleVersion = "2.6.1"
     const val splashVersion = "1.0.1"
     const val coilVersion = "2.4.0"
+    const val glideVersion = "4.12.0"
+    const val glideTransformationsVersion = "4.3.0"
     const val retrofitVersion = "2.9.0"
     const val jsonConverterVersion = "1.0.0"
     const val okHttpVersion = "4.11.0"

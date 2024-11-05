@@ -80,6 +80,8 @@ dependencies {
 
     ThirdPartyDependencies.run {
         implementation(coil)
+        implementation(glide)
+        implementation(glideTransformations)
         implementation(timber)
         implementation(amplitude)
         implementation(progressView)

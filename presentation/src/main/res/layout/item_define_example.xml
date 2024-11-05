@@ -31,8 +31,8 @@
 
                 <ImageView
                     android:id="@+id/iv_define_example"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="@id/tv_define_example"
                     app:layout_constraintDimensionRatio="1"
@@ -45,14 +45,13 @@
                     style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:minLines="3"
                     android:padding="16dp"
                     android:textSize="14dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_define_example"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요." />
+                    tools:text="프랑스 야경을 즐기는 모습을 그려주세요. " />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

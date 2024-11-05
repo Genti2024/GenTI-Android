@@ -213,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="28dp"
-            android:background="@drawable/sel_btn"
+            android:background="@drawable/sel_btn_gradation"
             android:enabled="@{vm.isAllSelected()}"
             android:gravity="center"
             android:paddingVertical="14dp"

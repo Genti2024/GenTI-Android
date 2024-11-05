@@ -12,7 +12,8 @@ import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogCreateFinishedBinding
 import kr.genti.presentation.generate.finished.FinishedActivity
 
-class CreateFinishedDialog : BaseDialog<DialogCreateFinishedBinding>(R.layout.dialog_create_finished) {
+class CreateFinishedDialog :
+    BaseDialog<DialogCreateFinishedBinding>(R.layout.dialog_create_finished) {
     private val viewModel by activityViewModels<MainViewModel>()
 
     override fun onStart() {
@@ -51,6 +52,7 @@ class CreateFinishedDialog : BaseDialog<DialogCreateFinishedBinding>(R.layout.di
                             requireContext(),
                             this?.pictureGenerateResponseId ?: -1,
                             this?.pictureCompleted?.url.orEmpty(),
+                            this?.pictureCompleted?.pictureRatio?.name.orEmpty()
                         ).apply { startActivity(this) }
                 }
             } else {
