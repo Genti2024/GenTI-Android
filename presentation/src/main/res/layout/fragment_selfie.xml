@@ -48,6 +48,7 @@
                 android:gravity="center"
                 android:text="@string/selfie_tv_guide_1"
                 android:textColor="@color/white_60"
+                android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_selfie_title" />
@@ -60,6 +61,7 @@
                 android:gravity="center"
                 android:text="@string/selfie_tv_guide_2"
                 android:textColor="@color/white_60"
+                android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_selfie_guide_1" />
@@ -72,6 +74,7 @@
                 android:gravity="center"
                 android:text="@string/selfie_tv_guide_3"
                 android:textColor="@color/white_60"
+                android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_selfie_guide_2" />
@@ -85,6 +88,7 @@
                 android:gravity="center"
                 android:text="@string/selfie_tv_warning"
                 android:textColor="@color/white_30"
+                android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_selfie_guide_3" />
@@ -199,6 +203,7 @@
                     android:padding="16dp"
                     android:text="@string/selfie_tv_input_title"
                     android:textColor="@color/genti_green"
+                    android:textSize="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
