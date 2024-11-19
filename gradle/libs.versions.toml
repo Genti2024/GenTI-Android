@@ -1,6 +1,6 @@
 [versions]
 # Build Tools
-agp = "8.0.2"
+agp = "8.1.4"
 
 # Kotlin
 kotlin = "1.8.20"
@@ -70,6 +70,10 @@ androidx-test = "1.1.2"
 timber = "5.0.1"
 
 [libraries]
+# Gradle Plugin
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
 # Kotlin
 kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization" }
