@@ -3,18 +3,12 @@ buildscript {
         google()
         mavenCentral()
     }
-
-    dependencies {
-        ClassPathPlugins.run {
-            classpath(gradle)
-            classpath(kotlinGradlePlugin)
-            classpath(hiltGradlePlugin)
-            classpath(googleServices)
-            classpath(crashlyticsGradle)
-        }
-    }
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.crashlytics)
 }
