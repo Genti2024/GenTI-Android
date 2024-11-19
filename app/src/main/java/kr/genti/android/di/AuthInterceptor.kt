@@ -29,50 +29,50 @@ constructor(
 
         Timber.tag("okhttp").d("ACCESS TOKEN : ${userRepository.getAccessToken()}")
 
-        val authRequest = if (userRepository.getAccessToken().isNotBlank()) {
-            originalRequest.newBuilder().newAuthBuilder().build()
-        } else {
-            originalRequest
-        }
+        val authRequest =
+            if (userRepository.getAccessToken().isNotBlank()) {
+                originalRequest.newBuilder().newAuthBuilder().build()
+            } else {
+                originalRequest
+            }
 
         val response = chain.proceed(authRequest)
 
         if (response.code == CODE_TOKEN_EXPIRED) {
-            response.close()
-
-            val newResponse = runBlocking {
-                authRepository.postReissueTokens(
-                    ReissueRequestModel(
-                        userRepository.getAccessToken(),
-                        userRepository.getRefreshToken(),
+            try {
+                runBlocking {
+                    authRepository.postReissueTokens(
+                        ReissueRequestModel(
+                            userRepository.getAccessToken(),
+                            userRepository.getRefreshToken(),
+                        ),
                     )
-                ).onSuccess { data ->
-                    userRepository.setTokens(data.accessToken, data.refreshToken)
+                }.onSuccess { data ->
+                    userRepository.setTokens(
+                        data.accessToken,
+                        data.refreshToken,
+                    )
+                    response.close()
 
-                    val newRequest = authRequest.newBuilder()
-                        .removeHeader(AUTHORIZATION)
-                        .newAuthBuilder()
-                        .build()
-
-                    return@runBlocking chain.proceed(newRequest)
-                }.onFailure {
-                    Timber.d(it.message)
-                    userRepository.clearInfo()
-                    Handler(Looper.getMainLooper()).post {
-                        context.toast(TOKEN_EXPIRED_ERROR)
-                        Intent(context, LoginActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            context.startActivity(this)
-                        }
-                    }
+                    val newRequest =
+                        authRequest.newBuilder().removeHeader(AUTHORIZATION).newAuthBuilder()
+                            .build()
+                    return chain.proceed(newRequest)
                 }
-
-                return@runBlocking response
+            } catch (t: Throwable) {
+                Timber.d(t.message)
             }
 
-            return newResponse
-        }
+            userRepository.clearInfo()
 
+            Handler(Looper.getMainLooper()).post {
+                context.toast(TOKEN_EXPIRED_ERROR)
+                Intent(context, LoginActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    context.startActivity(this)
+                }
+            }
+        }
         return response
     }
 
