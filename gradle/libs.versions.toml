@@ -34,9 +34,11 @@ okhttp = "4.11.0"
 json-converter = "1.0.0"
 
 # Kotlin Extensions
-kotlin-coroutines = "1.7.1"
 kotlin-serialization = "1.5.1"
 kotlin-datetime = "0.4.0"
+
+# Coroutine
+coroutine = "1.7.1"
 
 # UI Libraries
 coil = "2.4.0"
@@ -70,9 +72,13 @@ timber = "5.0.1"
 [libraries]
 # Kotlin
 kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
-kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-datetime" }
+
+# Coroutine
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutine" }
 
 # AndroidX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
@@ -141,7 +147,6 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 [bundles]
 kotlin = [
     "kotlin",
-    "kotlin-coroutines",
     "kotlin-serialization",
     "kotlin-datetime"
 ]
@@ -161,6 +166,12 @@ androidx = [
     "androidx-legacy-support",
     "androidx-security-crypto",
     "androidx-constraint-layout"
+]
+
+coroutine = [
+    "coroutines-android",
+    "coroutines-core",
+    "coroutines-test"
 ]
 
 hilt = [

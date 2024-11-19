@@ -7,7 +7,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-dependencies {
-    compileOnly(libs.android.application)
-    compileOnly(libs.kotlin.android)
-}
+//dependencies {
+//    compileOnly(libs.android.application)
+//    compileOnly(libs.kotlin.android)
+//}
