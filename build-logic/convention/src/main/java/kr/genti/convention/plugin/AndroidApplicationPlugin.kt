@@ -3,7 +3,7 @@ package kr.genti.convention.plugin
 import com.android.build.api.dsl.ApplicationExtension
 import kr.genti.convention.Constants
 import kr.genti.convention.config.configureAndroidCommonPlugin
-import kr.genti.convention.config.configureDefault
+import kr.genti.convention.extension.kotlinOptions
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -13,15 +13,34 @@ class AndroidApplicationPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.application")
+                apply ("com.google.gms.google-services")
                 apply("com.google.firebase.crashlytics")
             }
 
             extensions.configure<ApplicationExtension> {
+                configureAndroidCommonPlugin()
+
                 namespace = Constants.packageName
                 compileSdk = Constants.compileSdk
 
-                configureAndroidCommonPlugin()
-                configureDefault()
+                defaultConfig {
+                    applicationId = Constants.packageName
+                    targetSdk = Constants.targetSdk
+                    minSdk = Constants.minSdk
+                    versionCode = Constants.versionCode
+                    versionName = Constants.versionName
+
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                }
+
+                compileOptions {
+                    sourceCompatibility = Constants.JAVA_VERSION
+                    targetCompatibility = Constants.JAVA_VERSION
+                }
+
+                kotlinOptions {
+                    jvmTarget = Constants.jvmVersion
+                }
 
                 buildFeatures {
                     buildConfig = true
@@ -38,12 +57,6 @@ class AndroidApplicationPlugin : Plugin<Project> {
                         )
                     }
                 }
-
-                compileOptions {
-                    sourceCompatibility = Constants.JAVA_VERSION
-                    targetCompatibility = Constants.JAVA_VERSION
-                }
-
             }
         }
 }
