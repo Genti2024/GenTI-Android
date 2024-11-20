@@ -1,10 +1,8 @@
 package kr.genti.convention.config
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.CommonExtension
 import kr.genti.convention.Constants
-import org.gradle.api.plugins.ExtensionAware
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import kr.genti.convention.extension.kotlinOptions
 
 internal fun ApplicationExtension.configureDefault() {
     defaultConfig {
@@ -20,8 +18,4 @@ internal fun ApplicationExtension.configureDefault() {
     kotlinOptions {
         jvmTarget = Constants.jvmVersion
     }
-}
-
-fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
-    (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }

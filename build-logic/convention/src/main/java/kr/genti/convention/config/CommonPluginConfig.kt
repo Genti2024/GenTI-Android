@@ -2,6 +2,8 @@ package kr.genti.convention.config
 
 import kr.genti.convention.extension.getLibrary
 import kr.genti.convention.extension.implementation
+import kr.genti.convention.plugin.AndroidHiltPlugin
+import kr.genti.convention.plugin.AndroidKotlinPlugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.apply
@@ -19,4 +21,6 @@ fun Project.configureAndroidCommonPlugin() {
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
     dependencies {
         implementation(libs.getLibrary("materialDesign"))
+        implementation(libs.getLibrary("timber"))
     }
+}
