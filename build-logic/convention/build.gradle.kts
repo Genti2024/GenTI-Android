@@ -8,23 +8,36 @@ java {
 }
 
 dependencies {
-    compileOnly(libs.android.gradlePlugin)
-    compileOnly(libs.kotlin.gradlePlugin)
+    implementation(libs.android.gradlePlugin)
+    implementation(libs.kotlin.gradlePlugin)
 }
 
 gradlePlugin {
     plugins {
-        register("androidApplication") {
+        register("AndroidApplicationPlugin") {
             id = "kr.genti.androidApplication"
-            implementationClass = "kr.genti.buildlogic.AndroidApplicationPlugin"
+            implementationClass = "kr.genti.convention.plugin.AndroidApplicationPlugin"
         }
-        register("androidLibrary") {
+        register("AndroidLibraryPlugin") {
             id = "kr.genti.androidLibrary"
-            implementationClass = "kr.genti.buildlogic.AndroidLibraryPlugin"
+            implementationClass = "kr.genti.convention.plugin.AndroidLibraryPlugin"
         }
-        register("javaLibrary") {
+        register("JavaLibraryPlugin") {
             id = "kr.genti.javaLibrary"
-            implementationClass = "kr.genti.buildlogic.JavaLibraryPlugin"
+            implementationClass = "kr.genti.convention.plugin.JavaLibraryPlugin"
+        }
+
+        register("KotlinPlugin") {
+            id = "kr.genti.kotlin"
+            implementationClass = "kr.genti.convention.plugin.KotlinPlugin"
+        }
+        register("HiltPlugin") {
+            id = "kr.genti.hilt"
+            implementationClass = "kr.genti.convention.plugin.HiltPlugin"
+        }
+        register("TestPlugin") {
+            id = "kr.genti.test"
+            implementationClass = "kr.genti.convention.plugin.TestPlugin"
         }
     }
 }

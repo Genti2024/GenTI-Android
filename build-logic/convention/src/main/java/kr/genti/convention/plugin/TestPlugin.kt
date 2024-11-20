@@ -14,7 +14,7 @@ class TestPlugin : Plugin<Project> {
         val libs = extensions.getVersionCatalog()
         dependencies {
             testImplementation(libs.getLibrary("jUnit"))
-            androidTestImplementation(libs.getLibrary("androidTest"))
+            androidTestImplementation(libs.getLibrary("android-test"))
             androidTestImplementation(libs.getLibrary("espresso"))
         }
     }

@@ -16,13 +16,12 @@ fun Project.configureAndroidCommonPlugin() {
     apply<HiltPlugin>()
     apply<TestPlugin>()
     with(plugins) {
-        apply("kotlin-kapt")
         apply("kotlin-parcelize")
     }
 
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
     dependencies {
-        implementation(libs.getLibrary("materialDesign"))
+        implementation(libs.getLibrary("material-design"))
         implementation(libs.getLibrary("timber"))
     }
 }

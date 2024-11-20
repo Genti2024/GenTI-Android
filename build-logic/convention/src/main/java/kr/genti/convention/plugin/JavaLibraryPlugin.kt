@@ -1,12 +1,12 @@
 package kr.genti.convention.plugin
 
-import com.android.build.gradle.LibraryExtension
 import kr.genti.convention.Constants
 import kr.genti.convention.extension.getBundle
 import kr.genti.convention.extension.getVersionCatalog
 import kr.genti.convention.extension.implementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
@@ -18,11 +18,9 @@ class JavaLibraryPlugin : Plugin<Project> {
                 apply("java-library")
             }
 
-            extensions.configure<LibraryExtension> {
-                compileOptions {
-                    sourceCompatibility = Constants.JAVA_VERSION
-                    targetCompatibility = Constants.JAVA_VERSION
-                }
+            extensions.configure<JavaPluginExtension> {
+                sourceCompatibility = Constants.JAVA_VERSION
+                targetCompatibility = Constants.JAVA_VERSION
             }
 
             val libs = extensions.getVersionCatalog()

@@ -11,13 +11,14 @@ import org.gradle.kotlin.dsl.dependencies
 class HiltPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         with(pluginManager) {
+            apply("org.jetbrains.kotlin.kapt")
             apply("dagger.hilt.android.plugin")
         }
 
         val libs = extensions.getVersionCatalog()
         dependencies {
             implementation(libs.getLibrary("hilt"))
-            kapt(libs.getLibrary("hiltAndroidCompiler"))
+            kapt(libs.getLibrary("hilt-compiler"))
         }
     }
 }

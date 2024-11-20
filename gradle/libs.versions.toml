@@ -132,8 +132,8 @@ firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging
 kakao = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 
 # Testing
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test" }
+jUnit = { group = "junit", name = "junit", version.ref = "junit" }
+android-test = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test" }
 espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 
 # App Update

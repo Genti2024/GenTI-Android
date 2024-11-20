@@ -5,11 +5,6 @@ plugins {
 android {
     namespace = "kr.genti.presentation"
 
-    defaultConfig {
-        buildConfigField("String", "VERSION_NAME", "\"${Constants.versionName}\"")
-        buildConfigField("String", "VERSION_CODE", "\"${Constants.versionCode}\"")
-    }
-
     buildFeatures {
         dataBinding = true
         viewBinding = true
