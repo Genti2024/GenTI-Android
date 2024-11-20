@@ -35,6 +35,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 kotlinOptions {
                     jvmTarget = Constants.jvmVersion
                 }
+
+                buildFeatures {
+                    buildConfig = true
+                }
             }
         }
     }

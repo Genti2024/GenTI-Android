@@ -36,9 +36,7 @@ json-converter = "1.0.0"
 # Kotlin Extensions
 kotlin-serialization = "1.5.1"
 kotlin-datetime = "0.4.0"
-
-# Coroutine
-coroutine = "1.7.1"
+kotlin-coroutines = "1.7.1"
 
 # UI Libraries
 coil = "2.4.0"
@@ -78,11 +76,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-datetime" }
-
-# Coroutine
-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutine" }
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
 
 # AndroidX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
@@ -152,7 +146,8 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 kotlin = [
     "kotlin",
     "kotlin-serialization",
-    "kotlin-datetime"
+    "kotlin-datetime",
+    "kotlin-coroutines",
 ]
 
 androidx = [
@@ -172,21 +167,9 @@ androidx = [
     "androidx-constraint-layout"
 ]
 
-coroutine = [
-    "coroutines-android",
-    "coroutines-core",
-    "coroutines-test"
-]
-
-hilt = [
-    "hilt",
-    "hilt-compiler"
-]
-
 networking = [
     "retrofit",
     "retrofit-json-converter",
-    "okhttp-bom",
     "okhttp",
     "okhttp-logging-interceptor"
 ]
@@ -204,16 +187,9 @@ ui = [
 ]
 
 firebase = [
-    "firebase-bom",
     "firebase-crashlytics",
     "firebase-analytics",
     "firebase-messaging"
-]
-
-testing = [
-    "junit",
-    "androidx-test",
-    "espresso"
 ]
 
 [plugins]
