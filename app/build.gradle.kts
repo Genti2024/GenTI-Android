@@ -55,5 +55,4 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
     implementation(libs.bundles.networking)
     implementation(libs.kakao)
-    implementation("com.android.tools.build:aapt2:8.1.4-10154469")
 }

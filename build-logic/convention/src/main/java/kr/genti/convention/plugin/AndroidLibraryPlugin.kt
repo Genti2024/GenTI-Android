@@ -41,6 +41,8 @@ class AndroidLibraryPlugin : Plugin<Project> {
 
                 buildFeatures {
                     buildConfig = true
+                    dataBinding = true
+                    viewBinding = true
                 }
             }
         }

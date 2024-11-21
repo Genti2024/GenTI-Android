@@ -1,5 +1,5 @@
 plugins {
-    id("kr.genti.androidApplication")
+    id("kr.genti.androidLibrary")
     id("kr.genti.version")
 }
 
@@ -23,9 +23,13 @@ dependencies {
 
     implementation(platform(libs.okhttp.bom))
     implementation(libs.bundles.networking)
-    implementation(libs.bundles.androidx)
-    implementation(libs.bundles.ui)
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
+
+    implementation(libs.bundles.androidx)
+    implementation(libs.bundles.ui)
     implementation(libs.kakao)
+    implementation(libs.app.update)
+    implementation(libs.amplitude)
 }

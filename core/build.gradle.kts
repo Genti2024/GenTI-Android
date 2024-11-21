@@ -1,5 +1,5 @@
 plugins {
-    id("kr.genti.androidApplication")
+    id("kr.genti.androidLibrary")
 }
 
 android {

@@ -215,7 +215,7 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding>(R.layout.activity_ver
                         )
                 }
             }.onSuccess {
-                cameraLauncher.launch(photoUri)
+                photoUri?.let { cameraLauncher.launch(it) }
             }
         } else {
             toast(stringOf(R.string.error_msg))
