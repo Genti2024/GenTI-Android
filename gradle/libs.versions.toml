@@ -61,8 +61,8 @@ kakao = "2.20.3"
 
 # Testing
 junit = "4.13.2"
-espresso = "3.3.0"
-androidx-test = "1.1.2"
+espresso = "3.5.1"
+androidx-test = "1.1.5"
 
 # Timber
 timber = "5.0.1"
