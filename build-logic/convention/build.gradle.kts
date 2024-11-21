@@ -39,5 +39,9 @@ gradlePlugin {
             id = "kr.genti.test"
             implementationClass = "kr.genti.convention.plugin.TestPlugin"
         }
+        register("versionPlugin") {
+            id = "kr.genti.version"
+            implementationClass = "kr.genti.convention.plugin.VersionPlugin"
+        }
     }
 }

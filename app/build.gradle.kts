@@ -2,9 +2,22 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("kr.genti.androidApplication")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "NATIVE_APP_KEY",
+            gradleLocalProperties(rootDir).getProperty("native.app.key"),
+        )
+
+        manifestPlaceholders["NATIVE_APP_KEY"] =
+            gradleLocalProperties(rootDir).getProperty("nativeAppKey")
+    }
+
     buildTypes {
         debug {
             buildConfigField(
@@ -42,4 +55,5 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
     implementation(libs.bundles.networking)
     implementation(libs.kakao)
+    implementation("com.android.tools.build:aapt2:8.1.4-10154469")
 }
