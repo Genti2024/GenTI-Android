@@ -1,6 +1,6 @@
 [versions]
 # Build Tools
-agp = "8.1.4"
+agp = "8.1.2"
 
 # Kotlin
 kotlin = "1.8.20"
