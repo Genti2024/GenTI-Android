@@ -11,7 +11,7 @@ androidx-core-splashscreen = "1.0.1"
 androidx-appcompat = "1.7.0"
 androidx-activity-ktx = "1.9.0"
 androidx-lifecycle-runtime-ktx = "2.8.7"
-androidx-navigation = "2.7.7"
+androidx-navigation-ktx = "2.7.7"
 androidx-fragment-ktx = "1.5.7"
 androidx-legacy-support = "1.0.0"
 androidx-constraint-layout = "2.1.4"
@@ -27,7 +27,7 @@ hilt = "2.46.1"
 # Networking
 retrofit = "2.9.0"
 okhttp = "4.11.0"
-json-converter = "1.0.0"
+retrofit-serialization-converter = "1.0.0"
 
 # Kotlin Extensions
 kotlin-serialization = "1.5.1"
@@ -52,7 +52,7 @@ amplitude = "1.17.3"
 firebase-bom = "33.1.2"
 crashlytics = "2.9.9"
 
-# Kakao SDK
+# Kakao
 kakao = "2.20.3"
 
 # Testing
@@ -69,7 +69,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # Kotlin
-kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-datetime" }
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
@@ -80,8 +80,8 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity-ktx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle-runtime-ktx" }
-androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx-navigation" }
-androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx-navigation-ktx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidx-navigation-ktx" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidx-fragment-ktx" }
 androidx-legacy-support = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "androidx-legacy-support" }
 androidx-constraint-layout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraint-layout" }
@@ -95,7 +95,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 
 # Networking
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-json-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "json-converter" }
+retrofit-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-serialization-converter" }
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
@@ -124,9 +124,9 @@ firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging
 kakao = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 
 # Testing
-jUnit = { group = "junit", name = "junit", version.ref = "junit" }
-android-test = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test" }
-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+j-unit = { group = "junit", name = "junit", version.ref = "junit" }
+j-unit-androidx-test = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 
 # App Update
 app-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "app-update" }
@@ -136,7 +136,7 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 
 [bundles]
 kotlin = [
-    "kotlin",
+    "kotlin-stdlib",
     "kotlin-serialization",
     "kotlin-datetime",
     "kotlin-coroutines",
@@ -148,8 +148,8 @@ androidx = [
     "androidx-appcompat",
     "androidx-activity-ktx",
     "androidx-lifecycle-runtime-ktx",
-    "androidx-navigation-fragment",
-    "androidx-navigation-ui",
+    "androidx-navigation-fragment-ktx",
+    "androidx-navigation-ui-ktx",
     "androidx-fragment-ktx",
     "androidx-legacy-support",
     "androidx-constraint-layout"
@@ -157,7 +157,7 @@ androidx = [
 
 networking = [
     "retrofit",
-    "retrofit-json-converter",
+    "retrofit-serialization-converter",
     "okhttp",
     "okhttp-logging-interceptor"
 ]
