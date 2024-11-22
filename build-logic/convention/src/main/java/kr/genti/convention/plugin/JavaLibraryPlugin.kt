@@ -2,8 +2,8 @@ package kr.genti.convention.plugin
 
 import kr.genti.convention.Constants
 import kr.genti.convention.extension.getBundle
-import kr.genti.convention.extension.getVersionCatalog
 import kr.genti.convention.extension.implementation
+import kr.genti.convention.extension.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
@@ -23,7 +23,6 @@ class JavaLibraryPlugin : Plugin<Project> {
                 targetCompatibility = Constants.JAVA_VERSION
             }
 
-            val libs = extensions.getVersionCatalog()
             dependencies {
                 implementation(libs.getBundle("kotlin"))
             }
