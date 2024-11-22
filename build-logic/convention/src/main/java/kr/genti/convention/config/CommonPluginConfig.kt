@@ -17,6 +17,7 @@ fun Project.configureAndroidCommonPlugin() {
     apply<TestPlugin>()
     with(plugins) {
         apply("kotlin-parcelize")
+        apply("org.jetbrains.kotlin.plugin.serialization")
     }
 
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
