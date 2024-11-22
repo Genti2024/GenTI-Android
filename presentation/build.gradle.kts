@@ -10,11 +10,6 @@ android {
         buildConfigField("String", "VERSION_NAME", "\"${extra["versionName"]}\"")
         buildConfigField("String", "VERSION_CODE", "\"${extra["versionCode"]}\"")
     }
-
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
 }
 
 dependencies {
