@@ -7,8 +7,12 @@
 
 <br>
 
-## TEAM _ 안드로이드 단독 개발
+## TEAM
 ![2024-08-01_00-28-32](https://github.com/user-attachments/assets/64bb2fa3-cd67-430a-ae53-ff20c76d53b7)
+
+### Android Contributor
+
+[![contributors](https://contrib.rocks/image?repo=Genti2024/Genti-Android)](https://github.com/Genti2024/Genti-Android/contributors)
 
 <br>
 
