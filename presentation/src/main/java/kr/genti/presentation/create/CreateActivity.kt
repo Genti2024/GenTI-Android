@@ -34,7 +34,6 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
 
         initView()
         initBackBtnListener()
-        setOnBackPressed()
         setParentPicWithIntent()
         observeProgressBar()
         observeGeneratingState()
@@ -70,21 +69,6 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
         )
         navController.popBackStack()
         viewModel.modCurrentPercent(amount)
-    }
-
-    private fun setOnBackPressed() {
-        val onBackPressedCallback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (!viewModel.isCreatingParentPic && navController.currentDestination?.id == R.id.defineFragment) {
-                        finish()
-                    } else {
-                        isEnabled = false
-                        onBackPressedDispatcher.onBackPressed()
-                    }
-                }
-            }
-        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun setParentPicWithIntent() {

@@ -3,7 +3,6 @@ package kr.genti.domain.enums
 enum class PictureNumber {
     ONE,
     TWO,
-    NOT_SELECTED
     ;
 
     companion object {

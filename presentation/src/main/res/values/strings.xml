@@ -62,6 +62,12 @@
 
     <string name="create_parent_tv_title">부모님 사진 만들기</string>
 
+    <string name="number_tv_title">어떤 사진을 찍고 싶나요?</string>
+    <string name="number_btn_one_title">1인 사진</string>
+    <string name="number_btn_one_subtitle">부모님 단독</string>
+    <string name="number_btn_two_title">2인 사진</string>
+    <string name="number_btn_two_subtitle">부모님 / 부모님과 나</string>
+
     <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요.</string>
     <string name="pose_btn_sero_title">세로 사진</string>
     <string name="pose_btn_sero_subtitle">3:2 비율</string>

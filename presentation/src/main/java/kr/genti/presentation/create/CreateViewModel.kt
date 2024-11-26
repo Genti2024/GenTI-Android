@@ -17,6 +17,7 @@ import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.entity.response.PromptExampleModel
 import kr.genti.domain.entity.response.S3PresignedUrlModel
 import kr.genti.domain.enums.FileType
+import kr.genti.domain.enums.PictureNumber
 import kr.genti.domain.enums.PictureRatio
 import kr.genti.domain.repository.CreateRepository
 import kr.genti.domain.repository.UploadRepository
@@ -30,10 +31,12 @@ constructor(
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
     var isCreatingParentPic = false
-    var isCreatingTwoPerson: Boolean? = null
 
     val prompt = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
+
+    val selectedNumber = MutableLiveData<PictureNumber>()
+    val isNumberSelected = MutableLiveData(false)
 
     val selectedRatio = MutableLiveData<PictureRatio>()
     val isRatioSelected = MutableLiveData(false)
@@ -63,6 +66,11 @@ constructor(
 
     fun checkWritten() {
         isWritten.value = prompt.value?.isNotEmpty()
+    }
+
+    fun selectNumber(item: PictureNumber) {
+        selectedNumber.value = item
+        isNumberSelected.value = selectedNumber.value != null
     }
 
     fun selectRatio(item: PictureRatio) {

@@ -2,6 +2,7 @@ package kr.genti.presentation.create
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,6 +40,7 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
 
         initView()
         initCreateBtnListener()
+        initBackPressedListener()
         initViewPager()
         observeGetExampleState()
     }
@@ -69,6 +71,21 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
         }
     }
 
+    private fun initBackPressedListener() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (viewModel.isCreatingParentPic) {
+                        viewModel.modCurrentPercent(-33)
+                        findNavController().popBackStack()
+                    } else {
+                        requireActivity().finish()
+                    }
+                }
+            })
+    }
+
     private fun initViewPager() {
         _adapter = DefineAdapter()
         with(binding) {
@@ -89,7 +106,6 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
         }
     }
 
-
     private fun observeGetExampleState() {
         viewModel.getExampleState
             .flowWithLifecycle(lifecycle)
@@ -99,6 +115,7 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
                         adapter.submitList(state.data)
                         binding.dotIndicator.setViewPager(binding.vpCreateRandom)
                     }
+
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }
