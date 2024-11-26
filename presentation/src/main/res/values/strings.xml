@@ -53,6 +53,9 @@
 
     <string name="create_tv_title">사진 만들기</string>
     <string name="create_phase_text">%1$d/3</string>
+
+    <string name="create_tv_script_title_parent">부모님의 어떤 모습을 담고 싶나요?</string>
+    <string name="create_tv_script_subtitle_2_parent">부모님과 함께 찍고 싶은 사진이나 보고 싶은 부모님의 모습을 설명해주세요.</string>
     <string name="create_tv_script_title">어떤 사진을 만들고 싶나요?</string>
     <string name="create_tv_script_subtitle_1">AI가 이해하지 못하는 장소나 의상은 생성이 어려울 수 있어요.</string>
     <string name="create_tv_script_subtitle_2">성적이거나 폭력적인 사진은 생성되지 않아요.</string>

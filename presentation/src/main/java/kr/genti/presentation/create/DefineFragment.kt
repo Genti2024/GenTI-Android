@@ -42,21 +42,12 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
         initCreateBtnListener()
         initBackPressedListener()
         initViewPager()
+        setTextByParent()
         observeGetExampleState()
     }
 
     private fun initView() {
-        with(binding) {
-            vm = viewModel
-            tvCreateScriptSubtitle1.setTextWithImage(
-                stringOf(R.string.create_tv_script_subtitle_1),
-                R.drawable.ic_check,
-            )
-            tvCreateScriptSubtitle2.setTextWithImage(
-                stringOf(R.string.create_tv_script_subtitle_2),
-                R.drawable.ic_check,
-            )
-        }
+        binding.vm = viewModel
     }
 
     private fun initCreateBtnListener() {
@@ -103,6 +94,25 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
                     }
                 }
             })
+        }
+    }
+
+    private fun setTextByParent() {
+        with(binding) {
+            val (titleRes, subtitle2Res) = if (viewModel.isCreatingParentPic) {
+                R.string.create_tv_script_title_parent to R.string.create_tv_script_subtitle_2_parent
+            } else {
+                R.string.create_tv_script_title to R.string.create_tv_script_subtitle_2
+            }
+            tvCreateScriptTitle.text = stringOf(titleRes)
+            tvCreateScriptSubtitle1.setTextWithImage(
+                stringOf(R.string.create_tv_script_subtitle_1),
+                R.drawable.ic_check,
+            )
+            tvCreateScriptSubtitle2.setTextWithImage(
+                stringOf(subtitle2Res),
+                R.drawable.ic_check,
+            )
         }
     }
 
