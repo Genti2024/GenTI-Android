@@ -29,6 +29,9 @@ constructor(
     private val createRepository: CreateRepository,
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
+    var isCreatingParentPic = false
+    var isCreatingTwoPerson = false
+
     val prompt = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
 

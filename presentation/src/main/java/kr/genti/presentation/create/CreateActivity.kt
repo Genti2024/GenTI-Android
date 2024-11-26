@@ -33,6 +33,7 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
 
         initView()
         initBackBtnListener()
+        setParentPicWithIntent()
         observeProgressBar()
         observeGeneratingState()
     }
@@ -59,6 +60,13 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
         )
         navController.popBackStack()
         viewModel.modCurrentPercent(amount)
+    }
+
+    private fun setParentPicWithIntent() {
+        viewModel.isCreatingParentPic = intent.getBooleanExtra(EXTRA_IS_CREATING_PARENT_PIC, false)
+        if (viewModel.isCreatingParentPic) {
+            binding.tvCreateTitle.text = getString(R.string.create_parent_tv_title)
+        }
     }
 
     private fun observeProgressBar() {

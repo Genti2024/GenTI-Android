@@ -45,11 +45,11 @@
     <string name="create_select_tv_default_title">내 사진 만들기</string>
     <string name="create_select_tv_default_subtitle">찍고 싶은 내 사진을 AI로 마음껏 만들어 보세요!</string>
     <string name="create_select_tv_default_body">일상적인 사진부터 판타지한 장면까지 모두 가능해요.</string>
-    <string name="create_select_tv_default_caption">내 모습을 담은 사진을 만들 수 있는 기능입니다.</string>
+    <string name="create_select_tv_default_caption">내 사진 세 장만 있으면 만들 수 있어요.</string>
     <string name="create_select_tv_parent_title">부모님 사진 만들기</string>
     <string name="create_select_tv_parent_subtitle">사랑하는 부모님의 사진을 만들어 보세요!</string>
     <string name="create_select_tv_parent_body">부모님의 독사진, 부모님과 함께 찍은 사진을 만들 수 있어요.</string>
-    <string name="create_select_tv_parent_caption">부모님의 모습을 담은 사진을 만들 수 있는 기능입니다.</string>
+    <string name="create_select_tv_parent_caption">흑백 사진이거나 화질이 안좋은 사진도 괜찮아요.</string>
 
     <string name="create_tv_title">사진 만들기</string>
     <string name="create_phase_text">%1$d/3</string>
@@ -59,6 +59,8 @@
     <string name="create_et_script_hint">만들고 싶은 사진을 설명해주세요.</string>
     <string name="create_tv_random_title">이런 사진은 어때요?</string>
     <string name="create_tv_example_1">프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요.</string>
+
+    <string name="create_parent_tv_title">부모님 사진 만들기</string>
 
     <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요.</string>
     <string name="pose_btn_sero_title">세로 사진</string>
