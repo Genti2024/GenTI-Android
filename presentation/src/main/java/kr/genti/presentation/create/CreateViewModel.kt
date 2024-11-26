@@ -41,7 +41,7 @@ constructor(
     var imageList = listOf<ImageFileModel>()
     var isCompleted = MutableLiveData(false)
 
-    private val _currentPercent = MutableStateFlow<Int>(33)
+    private val _currentPercent = MutableStateFlow<Int>(0)
     val currentPercent: StateFlow<Int> = _currentPercent
 
     private val _getExampleState =

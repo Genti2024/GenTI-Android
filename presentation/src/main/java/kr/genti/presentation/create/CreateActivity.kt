@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
@@ -33,6 +34,7 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
 
         initView()
         initBackBtnListener()
+        setOnBackPressed()
         setParentPicWithIntent()
         observeProgressBar()
         observeGeneratingState()
@@ -45,7 +47,15 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
     private fun initBackBtnListener() {
         binding.btnBack.setOnClickListener {
             when (navController.currentDestination?.id) {
-                R.id.defineFragment -> finish()
+                R.id.numberFragment -> finish()
+                R.id.defineFragment -> {
+                    if (viewModel.isCreatingParentPic) {
+                        navigateBackFragment("create1", -33)
+                    } else {
+                        finish()
+                    }
+                }
+
                 R.id.poseFragment -> navigateBackFragment("create2", -33)
                 R.id.selfieFragment -> navigateBackFragment("create3", -34)
             }
@@ -62,10 +72,28 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
         viewModel.modCurrentPercent(amount)
     }
 
+    private fun setOnBackPressed() {
+        val onBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (!viewModel.isCreatingParentPic && navController.currentDestination?.id == R.id.defineFragment) {
+                        finish()
+                    } else {
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                    }
+                }
+            }
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
     private fun setParentPicWithIntent() {
         viewModel.isCreatingParentPic = intent.getBooleanExtra(EXTRA_IS_CREATING_PARENT_PIC, false)
         if (viewModel.isCreatingParentPic) {
             binding.tvCreateTitle.text = getString(R.string.create_parent_tv_title)
+        } else {
+            navController.navigate(R.id.action_number_to_define_without_anim)
+            viewModel.modCurrentPercent(33)
         }
     }
 

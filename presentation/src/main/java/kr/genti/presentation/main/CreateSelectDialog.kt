@@ -3,6 +3,9 @@ package kr.genti.presentation.main
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kr.genti.core.base.BaseDialog
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
@@ -44,6 +47,9 @@ class CreateSelectDialog : BaseDialog<DialogCreateSelectBinding>(R.layout.dialog
 
     private fun navigateToCreate(isCreatingParentPic: Boolean) {
         startActivity(CreateActivity.createIntent(requireContext(), isCreatingParentPic))
-        dismiss()
+        lifecycleScope.launch {
+            delay(500)
+            dismiss()
+        }
     }
 }
