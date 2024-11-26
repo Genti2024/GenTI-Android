@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -200,36 +201,50 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private fun setImageListWithUri(uris: List<Uri>) {
         with(viewModel) {
-            imageList =
-                uris.mapIndexed { _, uri ->
-                    ImageFileModel(
-                        uri.hashCode().toLong(),
-                        uri.getFileName(requireActivity().contentResolver).toString(),
-                        uri.toString(),
-                    )
-                }
-            isCompleted.value = uris.size == 3
+            val listMap = mapOf(
+                0 to ::imageList,
+                1 to ::firstImageList,
+                2 to ::secondImageList
+            )
+            listMap[currentAddingList]?.set(uris.map { uri ->
+                uri.toImageFileModel()
+            })
+            updateCompletionState(uris.size)
         }
         setSavedImages()
+    }
+
+    private fun Uri.toImageFileModel(): ImageFileModel {
+        return ImageFileModel(
+            hashCode().toLong(),
+            getFileName(requireActivity().contentResolver).toString(),
+            toString()
+        )
     }
 
     private fun setSavedImages() {
         with(binding) {
             if (viewModel.selectedNumber.value != PictureNumber.TWO) {
-                listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3).apply {
-                    forEach { it.setImageDrawable(null) }
-                    viewModel.imageList.take(size).forEachIndexed { index, file ->
-                        this[index].load(file.url)
-                    }
-                }
                 layoutAddedImage.isVisible = viewModel.imageList.isNotEmpty()
                 layoutExampleImage.isVisible = viewModel.imageList.isEmpty()
                 btnSelfieAdd.text =
                     if (viewModel.imageList.isEmpty()) stringOf(R.string.selfie_tv_btn_select)
                     else stringOf(R.string.selfie_tv_btn_reselect)
+                listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3)
+                    .resetAndLoadImages(viewModel.imageList)
             } else {
-
+                listOf(ivAddedFirstImage1, ivAddedFirstImage2, ivAddedFirstImage3)
+                    .resetAndLoadImages(viewModel.firstImageList)
+                listOf(ivAddedSecondImage1, ivAddedSecondImage2, ivAddedSecondImage3)
+                    .resetAndLoadImages(viewModel.secondImageList)
             }
+        }
+    }
+
+    private fun List<ImageView>.resetAndLoadImages(imageList: List<ImageFileModel>) {
+        this.forEach { it.load(R.drawable.img_empty_image) }
+        imageList.take(size).forEachIndexed { index, file ->
+            this[index].load(file.url)
         }
     }
 

@@ -83,6 +83,23 @@ constructor(
         isRatioSelected.value = selectedRatio.value != null
     }
 
+    fun updateCompletionState(uriSize: Int) {
+        when (currentAddingList) {
+            0 -> isCompleted.value = uriSize == 3
+            1 -> {
+                isFirstListCompleted.value = uriSize == 3
+                isCompleted.value =
+                    isFirstListCompleted.value == true && isSecondListCompleted.value == true
+            }
+
+            2 -> {
+                isSecondListCompleted.value = uriSize == 3
+                isCompleted.value =
+                    isFirstListCompleted.value == true && isSecondListCompleted.value == true
+            }
+        }
+    }
+
     private fun getExamplePrompt() {
         _getExampleState.value = UiState.Loading
         viewModelScope.launch {
