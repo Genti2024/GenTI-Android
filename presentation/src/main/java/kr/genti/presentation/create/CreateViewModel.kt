@@ -45,6 +45,8 @@ constructor(
     var imageList = listOf<ImageFileModel>()
     var firstImageList = listOf<ImageFileModel>()
     var secondImageList = listOf<ImageFileModel>()
+    var isFirstListCompleted = MutableLiveData(false)
+    var isSecondListCompleted = MutableLiveData(false)
     var isCompleted = MutableLiveData(false)
 
     private val _currentPercent = MutableStateFlow<Int>(0)
