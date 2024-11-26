@@ -1,6 +1,8 @@
 package kr.genti.presentation.create
 
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
 import androidx.activity.viewModels
@@ -13,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.state.UiState
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityCreateBinding
@@ -84,5 +85,16 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
 
     companion object {
         const val PROPERTY_PROGRESS = "progress"
+
+        private const val EXTRA_IS_CREATING_PARENT_PIC = "EXTRA_IS_CREATING_PARENT_PIC"
+
+        @JvmStatic
+        fun createIntent(
+            context: Context,
+            isCreatingParentPic: Boolean,
+        ): Intent =
+            Intent(context, CreateActivity::class.java).apply {
+                putExtra(EXTRA_IS_CREATING_PARENT_PIC, isCreatingParentPic)
+            }
     }
 }

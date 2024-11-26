@@ -38,6 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var createFinishedDialog: CreateFinishedDialog? = null
     private var createErrorDialog: CreateErrorDialog? = null
     private var createUnableDialog: CreateUnableDialog? = null
+    private var createSelectDialog: CreateSelectDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -250,7 +251,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun navigateToCreate() {
         AmplitudeManager.trackEvent("click_createpictab")
-        startActivity(Intent(this, CreateActivity::class.java))
+        createSelectDialog = CreateSelectDialog()
+        createSelectDialog?.show(supportFragmentManager, DIALOG_SELECT)
     }
 
     override fun onDestroy() {
@@ -259,12 +261,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         createFinishedDialog = null
         createErrorDialog = null
         createUnableDialog = null
+        createSelectDialog = null
     }
 
     companion object {
         private const val DIALOG_FINISHED = "DIALOG_FINISHED"
         private const val DIALOG_ERROR = "DIALOG_ERROR"
         private const val DIALOG_UNABLE = "DIALOG_UNABLE"
+        private const val DIALOG_SELECT = "DIALOG_SELECT"
 
         const val TYPE_SUCCESS = "SUCCESS"
         const val TYPE_CANCELED = "CANCELED"

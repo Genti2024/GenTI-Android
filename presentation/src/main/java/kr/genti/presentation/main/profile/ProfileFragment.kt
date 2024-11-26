@@ -21,11 +21,11 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageModel
 import kr.genti.domain.enums.GenerateStatus
 import kr.genti.presentation.R
-import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.FragmentProfileBinding
 import kr.genti.presentation.generate.waiting.WaitingActivity
 import kr.genti.presentation.main.CreateErrorDialog
 import kr.genti.presentation.main.CreateFinishedDialog
+import kr.genti.presentation.main.CreateSelectDialog
 import kr.genti.presentation.main.CreateUnableDialog
 import kr.genti.presentation.setting.SettingActivity
 import kr.genti.presentation.util.AmplitudeManager
@@ -42,6 +42,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     private var createFinishedDialog: CreateFinishedDialog? = null
     private var createErrorDialog: CreateErrorDialog? = null
     private var createUnableDialog: CreateUnableDialog? = null
+    private var createSelectDialog: CreateSelectDialog? = null
 
     override fun onViewCreated(
         view: View,
@@ -188,7 +189,8 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
                 is UiState.Success -> {
                     if (state.data.status) {
                         AmplitudeManager.trackEvent("click_createpictab")
-                        startActivity(Intent(requireActivity(), CreateActivity::class.java))
+                        createSelectDialog = CreateSelectDialog()
+                        createSelectDialog?.show(parentFragmentManager, DIALOG_SELECT)
                     } else {
                         createUnableDialog =
                             CreateUnableDialog.newInstance(state.data.message.orEmpty())
@@ -210,6 +212,7 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         createFinishedDialog = null
         createErrorDialog = null
         createUnableDialog = null
+        createSelectDialog = null
     }
 
     companion object {
@@ -218,5 +221,6 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         private const val DIALOG_FINISHED = "DIALOG_FINISHED"
         private const val DIALOG_ERROR = "DIALOG_ERROR"
         private const val DIALOG_UNABLE = "DIALOG_UNABLE"
+        private const val DIALOG_SELECT = "DIALOG_SELECT"
     }
 }
