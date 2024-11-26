@@ -30,13 +30,13 @@ constructor(
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
     var isCreatingParentPic = false
-    var isCreatingTwoPerson = false
+    var isCreatingTwoPerson: Boolean? = null
 
     val prompt = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
 
     val selectedRatio = MutableLiveData<PictureRatio>()
-    val isSelected = MutableLiveData(false)
+    val isRatioSelected = MutableLiveData(false)
 
     var imageList = listOf<ImageFileModel>()
     var isCompleted = MutableLiveData(false)
@@ -67,7 +67,7 @@ constructor(
 
     fun selectRatio(item: PictureRatio) {
         selectedRatio.value = item
-        isSelected.value = selectedRatio.value != null
+        isRatioSelected.value = selectedRatio.value != null
     }
 
     private fun getExamplePrompt() {

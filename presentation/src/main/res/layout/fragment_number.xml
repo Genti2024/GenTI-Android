@@ -10,10 +10,6 @@
         <variable
             name="vm"
             type="kr.genti.presentation.create.CreateViewModel" />
-
-        <variable
-            name="pictureRatio"
-            type="kr.genti.domain.enums.PictureRatio" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -180,7 +176,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="28dp"
             android:background="@drawable/sel_btn_green"
-            android:enabled="@{vm.isSelected}"
+            android:enabled="@{vm.isRatioSelected}"
             android:gravity="center"
             android:paddingVertical="14dp"
             android:text="@string/btn_next"
