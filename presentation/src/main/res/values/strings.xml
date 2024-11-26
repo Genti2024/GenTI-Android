@@ -81,7 +81,10 @@
     <string name="selfie_tv_guide_1">정면을 포함하여 사진의 각도가 다양할수록 좋아요.</string>
     <string name="selfie_tv_guide_2">모자, 악세사리 등으로 얼굴이 가려진 사진은 안돼요.</string>
     <string name="selfie_tv_guide_3">얼굴 표정이 다양할 수록 더 실감나는 사진을 만들 수 있어요.</string>
+    <string name="selfie_tv_guide_parent">흑백 사진이거나, 화질이 좋지 않아도 괜찮아요.</string>
     <string name="selfie_tv_warning">타인의 사진을 도용하면 서비스 이용이 정지되고,\n법적인 처벌을 받을 수 있습니다.</string>
+    <string name="selfie_tv_title_parent_one">사진 생성에 사용할 부모님 얼굴 사진\n3장을 선택해주세요</string>
+    <string name="selfie_tv_title_parent_two">사진 생성에 사용할 두 분의 사진을\n각각 3장씩 선택해주세요</string>
     <string name="selfie_tv_input_title">이런 사진이 좋아요</string>
     <string name="selfie_tv_btn_select">사진 선택하기</string>
     <string name="selfie_tv_btn_reselect">다시 선택하기</string>

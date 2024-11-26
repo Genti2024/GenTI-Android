@@ -29,6 +29,7 @@ import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageFileModel
+import kr.genti.domain.enums.PictureNumber
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentSelfieBinding
 import kr.genti.presentation.generate.waiting.WaitingActivity
@@ -36,6 +37,7 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_selfie) {
@@ -54,6 +56,8 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         initBackPressedListener()
         initAddImageBtnListener()
         initRequestCreateBtnListener()
+        setGuideTextByParent()
+        setLayoutByParent()
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeGeneratingState()
@@ -66,21 +70,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     }
 
     private fun initView() {
-        with(binding) {
-            vm = viewModel
-            tvSelfieGuide1.setTextWithImage(
-                stringOf(R.string.selfie_tv_guide_1),
-                R.drawable.ic_check,
-            )
-            tvSelfieGuide2.setTextWithImage(
-                stringOf(R.string.selfie_tv_guide_2),
-                R.drawable.ic_check,
-            )
-            tvSelfieGuide3.setTextWithImage(
-                stringOf(R.string.selfie_tv_guide_3),
-                R.drawable.ic_check,
-            )
-        }
+        binding.vm = viewModel
     }
 
     private fun initBackPressedListener() {
@@ -115,6 +105,48 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             with(viewModel) {
                 isCompleted.value = false
                 startSendingImages()
+            }
+        }
+    }
+
+    private fun setGuideTextByParent() {
+        with(binding) {
+            tvSelfieGuide1.setTextWithImage(
+                stringOf(R.string.selfie_tv_guide_1),
+                R.drawable.ic_check,
+            )
+            if (viewModel.isCreatingParentPic) {
+                tvSelfieGuide2.setTextWithImage(
+                    stringOf(R.string.selfie_tv_guide_parent),
+                    R.drawable.ic_check,
+                )
+                tvSelfieGuide3.isVisible = false
+                tvSelfieWarning.isVisible = false
+            } else {
+                tvSelfieGuide2.setTextWithImage(
+                    stringOf(R.string.selfie_tv_guide_2),
+                    R.drawable.ic_check,
+                )
+                tvSelfieGuide3.isVisible = true
+                tvSelfieWarning.isVisible = true
+                tvSelfieGuide3.setTextWithImage(
+                    stringOf(R.string.selfie_tv_guide_3),
+                    R.drawable.ic_check,
+                )
+            }
+        }
+    }
+
+    private fun setLayoutByParent() {
+        with(binding) {
+            if (viewModel.isCreatingParentPic) {
+                Timber.tag("qqqq").d(viewModel.selectedNumber.value.toString())
+                if (viewModel.selectedNumber.value == PictureNumber.ONE) {
+                    tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_one)
+                } else {
+                    tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_two)
+                    layoutExampleImage.isVisible = false
+                }
             }
         }
     }
@@ -178,34 +210,36 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private fun setSavedImages() {
         with(binding) {
-            listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3).apply {
-                forEach { it.setImageDrawable(null) }
-                viewModel.imageList.take(size).forEachIndexed { index, file ->
-                    this[index].load(file.url)
+            if (viewModel.selectedNumber.value != PictureNumber.TWO) {
+                listOf(ivAddedImage1, ivAddedImage2, ivAddedImage3).apply {
+                    forEach { it.setImageDrawable(null) }
+                    viewModel.imageList.take(size).forEachIndexed { index, file ->
+                        this[index].load(file.url)
+                    }
                 }
+                layoutAddedImage.isVisible = viewModel.imageList.isNotEmpty()
+                layoutExampleImage.isVisible = viewModel.imageList.isEmpty()
+                btnSelfieAdd.text =
+                    if (viewModel.imageList.isEmpty()) stringOf(R.string.selfie_tv_btn_select)
+                    else stringOf(R.string.selfie_tv_btn_reselect)
+            } else {
+
             }
-            layoutAddedImage.isVisible = viewModel.imageList.isNotEmpty()
-            layoutExampleImage.isVisible = viewModel.imageList.isEmpty()
-            btnSelfieAdd.text =
-                if (viewModel.imageList.isEmpty()) stringOf(R.string.selfie_tv_btn_select)
-                else stringOf(R.string.selfie_tv_btn_reselect)
         }
     }
 
     private fun observeGeneratingState() {
-        viewModel.totalGeneratingState
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        AmplitudeManager.plusIntProperties("user_piccreate")
-                        startActivity(Intent(requireContext(), WaitingActivity::class.java))
-                        requireActivity().finish()
-                    }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
+        viewModel.totalGeneratingState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    AmplitudeManager.plusIntProperties("user_piccreate")
+                    startActivity(Intent(requireContext(), WaitingActivity::class.java))
+                    requireActivity().finish()
                 }
-            }.launchIn(lifecycleScope)
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+        }.launchIn(lifecycleScope)
     }
 }
