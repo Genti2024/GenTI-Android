@@ -86,6 +86,8 @@
     <string name="selfie_tv_title_parent_one">사진 생성에 사용할 부모님 얼굴 사진\n3장을 선택해주세요</string>
     <string name="selfie_tv_title_parent_two">사진 생성에 사용할 두 분의 사진을\n각각 3장씩 선택해주세요</string>
     <string name="selfie_tv_input_title">이런 사진이 좋아요</string>
+    <string name="selfie_tv_first_parent">첫번째 인물</string>
+    <string name="selfie_tv_second_parent">두번째 인물</string>
     <string name="selfie_tv_btn_select">사진 선택하기</string>
     <string name="selfie_tv_btn_reselect">다시 선택하기</string>
     <string name="selfie_btn_create">사진 생성하기</string>

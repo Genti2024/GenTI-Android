@@ -41,7 +41,10 @@ constructor(
     val selectedRatio = MutableLiveData<PictureRatio>()
     val isRatioSelected = MutableLiveData(false)
 
+    var currentAddingList = 0
     var imageList = listOf<ImageFileModel>()
+    var firstImageList = listOf<ImageFileModel>()
+    var secondImageList = listOf<ImageFileModel>()
     var isCompleted = MutableLiveData(false)
 
     private val _currentPercent = MutableStateFlow<Int>(0)

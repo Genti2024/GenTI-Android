@@ -37,7 +37,6 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_selfie) {
@@ -85,13 +84,17 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     }
 
     private fun initAddImageBtnListener() {
-        binding.btnSelfieAdd.setOnSingleClickListener {
-            AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "create3"),
-                mapOf(PROPERTY_BTN to "selectpic"),
-            )
-            checkAndGetImages()
+        with(binding) {
+            btnSelfieAdd.setOnSingleClickListener {
+                AmplitudeManager.trackEvent(
+                    EVENT_CLICK_BTN,
+                    mapOf(PROPERTY_PAGE to "create3"),
+                    mapOf(PROPERTY_BTN to "selectpic"),
+                )
+                checkAndGetImages(0)
+            }
+            btnSelfieAddFirst.setOnSingleClickListener { checkAndGetImages(1) }
+            btnSelfieAddSecond.setOnSingleClickListener { checkAndGetImages(2) }
         }
     }
 
@@ -140,18 +143,20 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     private fun setLayoutByParent() {
         with(binding) {
             if (viewModel.isCreatingParentPic) {
-                Timber.tag("qqqq").d(viewModel.selectedNumber.value.toString())
                 if (viewModel.selectedNumber.value == PictureNumber.ONE) {
                     tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_one)
                 } else {
                     tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_two)
                     layoutExampleImage.isVisible = false
+                    layoutTwoParent.isVisible = true
+                    btnSelfieAdd.visibility = View.INVISIBLE
                 }
             }
         }
     }
 
-    private fun checkAndGetImages() {
+    private fun checkAndGetImages(currentAddingList: Int) {
+        viewModel.currentAddingList = currentAddingList
         if (isPhotoPickerAvailable(requireContext()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             photoPickerResult.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         } else {
