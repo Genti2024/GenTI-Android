@@ -69,7 +69,7 @@ constructor(
         viewModelScope.launch {
             generateRepository
                 .getCanceledToReset(
-                    newPicture.pictureGenerateRequestId.toString(),
+                    newPicture.requestId.toString(),
                 ).onSuccess {
                     _postResetResult.emit(true)
                     getGenerateStatusFromServer(false)

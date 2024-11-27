@@ -56,6 +56,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         initUnwantedBtnListener()
         initCloseBtnListener()
         initBackPressedListener()
+        setUiWIthIsPaidIntent()
         getIntentInfo()
         observeDownloadCacheImage()
     }
@@ -123,6 +124,12 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             }
 
         this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun setUiWIthIsPaidIntent() {
+        if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
+            
+        }
     }
 
     private fun showFinishedRatingDialog() {
@@ -220,6 +227,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         private const val EXTRA_RESPONSE_ID = "EXTRA_RESPONSE_ID"
         private const val EXTRA_URL = "EXTRA_URL"
         private const val EXTRA_RATIO = "EXTRA_RATIO"
+        private const val EXTRA_IS_PAID = "EXTRA_IS_PAID"
 
         @JvmStatic
         fun createIntent(
@@ -227,11 +235,13 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             id: Long,
             url: String,
             ratio: String,
+            isPaid: Boolean? = null,
         ): Intent =
             Intent(context, FinishedActivity::class.java).apply {
                 putExtra(EXTRA_RESPONSE_ID, id)
                 putExtra(EXTRA_URL, url)
                 putExtra(EXTRA_RATIO, ratio)
+                putExtra(EXTRA_IS_PAID, isPaid)
             }
     }
 }
