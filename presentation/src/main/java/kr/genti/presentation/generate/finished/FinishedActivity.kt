@@ -74,17 +74,22 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     }
 
     private fun initSaveBtnListener() {
-        binding.btnDownload.setOnSingleClickListener {
-            AmplitudeManager.apply {
-                trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "picdone"),
-                    mapOf(PROPERTY_BTN to "picdownload"),
-                )
-                plusIntProperties("user_picturedownload")
-            }
-            downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
+        with(binding) {
+            btnDownload.setOnSingleClickListener { downloadImage() }
+            btnSavePaid.setOnSingleClickListener { downloadImage() }
         }
+    }
+
+    private fun downloadImage() {
+        AmplitudeManager.apply {
+            trackEvent(
+                EVENT_CLICK_BTN,
+                mapOf(PROPERTY_PAGE to "picdone"),
+                mapOf(PROPERTY_BTN to "picdownload"),
+            )
+            plusIntProperties("user_picturedownload")
+        }
+        downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
     }
 
     private fun initShareBtnListener() {
@@ -128,7 +133,13 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 
     private fun setUiWIthIsPaidIntent() {
         if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
-            
+            with(binding) {
+                tvFinishedTitle.text = stringOf(R.string.finished_tv_title_paid)
+                btnDownload.isVisible = false
+                ivFinishedTooltip.isVisible = false
+                btnShare.isVisible = false
+                btnSavePaid.isVisible = true
+            }
         }
     }
 
