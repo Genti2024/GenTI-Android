@@ -105,6 +105,7 @@
     <string name="wait_btn_return">피드로 돌아가기</string>
     <string name="wait_tv_header">사진 생성 중</string>
     <string name="wait_tv_title">세상에 없던\n나만의 사진을 찍고 있어요!</string>
+    <string name="wait_tv_title_paid">소중한 사람과의 추억이 담긴\n사진을 찍고 있어요!</string>
     <string name="wait_tv_subtitle">사진이 완성되면, 완료 알림을 보내드려요.</string>
     <string name="wait_tv_time_title">예상 소요 시간</string>
     <string name="wait_tv_time_subtitle">2시간 정도 걸릴 예정이에요.</string>
@@ -119,11 +120,12 @@
     <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 보러갈까요?</string>
     <string name="main_dialog_btn_move_to_finish">사진 보기</string>
 
-    <string name="finished_tv_title">하나뿐인 나만의 사진이\n완성되었어요!</string>
-    <string name="finished_tv_saved">사진이 마이페이지에 저장되었어요!</string>
+    <string name="finished_tv_title">하나뿐인 나만의 사진 완성!</string>
+    <string name="finished_tv_saved">마이페이지에서 사진을 확인할 수 있습니다.</string>
     <string name="finished_btn_share">공유하기</string>
-    <string name="finished_btn_return_main">메인으로 이동하기</string>
-    <string name="finished_btn_unwanted"><u>혹시 만들려고 했던 사진과 전혀 다른 사진이 나왔나요?</u></string>
+    <string name="finished_btn_unwanted">사진이 잘못 나왔나요?</string>
+    <string name="finished_tv_title_paid">소중한 사진이 완성되었어요!</string>
+    <string name="finished_btn_save">사진 저장하기</string>
 
     <string name="finished_error_input_tv_title">사진에 어떤 문제가 있나요?</string>
     <string name="finished_error_input_tv_subtitle">구체적으로 작성 해주실수록\n오류 확인이 빠르게 진행됩니다.</string>
@@ -160,6 +162,7 @@
     <string name="setting_btn_android_version">앱 버전</string>
     <string name="setting_tv_android_version">v%s</string>
     <string name="setting_btn_company_info">사업자 정보</string>
+    <string name="setting_btn_question">문의하기</string>
     <string name="setting_btn_logout">로그아웃</string>
     <string name="setting_btn_quit">회원 탈퇴</string>
 

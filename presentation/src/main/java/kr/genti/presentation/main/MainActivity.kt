@@ -22,7 +22,6 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.enums.GenerateStatus
 import kr.genti.presentation.BuildConfig
 import kr.genti.presentation.R
-import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.ActivityMainBinding
 import kr.genti.presentation.generate.finished.FinishedActivity
 import kr.genti.presentation.generate.verify.VerifyActivity
@@ -112,7 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 GenerateStatus.IN_PROGRESS -> {
                     if (BuildConfig.DEBUG) binding.btnPatchInDevelop.isVisible = true
-                    startActivity(Intent(this, WaitingActivity::class.java))
+                    startActivity(WaitingActivity.createIntent(this, viewModel.newPicture.paid))
                 }
 
                 GenerateStatus.CANCELED -> {
@@ -152,13 +151,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             "click_push_notification",
                             mapOf("push_type" to "creating_success"),
                         )
-                        with(viewModel.newPicture.pictureGenerateResponse) {
-                            FinishedActivity.createIntent(
-                                this@MainActivity,
-                                this?.pictureGenerateResponseId ?: -1,
-                                this?.pictureCompleted?.url.orEmpty(),
-                                this?.pictureCompleted?.pictureRatio?.name.orEmpty()
-                            ).apply { startActivity(this) }
+                        with(viewModel.newPicture) {
+                            startActivity(
+                                FinishedActivity.createIntent(
+                                    this@MainActivity,
+                                    this.response?.responseId ?: -1,
+                                    this.response?.picture?.url.orEmpty(),
+                                    this.response?.picture?.pictureRatio?.name.orEmpty(),
+                                    this.paid,
+                                )
+                            )
                         }
                     } else {
                         toast(stringOf(R.string.error_msg))

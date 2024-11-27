@@ -62,6 +62,8 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     private fun initView() {
         with(viewModel) {
             getGenerateStatusFromServer()
+            if(_adapter != null) adapter.submitList(listOf())
+            resetPicturePagingValue()
             getPictureListFromServer()
         }
     }
@@ -99,7 +101,12 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
             }
 
             GenerateStatus.IN_PROGRESS -> {
-                startActivity(Intent(requireActivity(), WaitingActivity::class.java))
+                startActivity(
+                    WaitingActivity.createIntent(
+                        requireContext(),
+                        viewModel.isCreatingParentPic
+                    )
+                )
             }
 
             GenerateStatus.CANCELED -> {

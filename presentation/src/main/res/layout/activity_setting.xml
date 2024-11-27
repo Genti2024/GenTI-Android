@@ -99,6 +99,27 @@
             app:layout_constraintTop_toTopOf="@id/btn_company_info" />
 
         <TextView
+            android:id="@+id/btn_question"
+            style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:paddingVertical="14dp"
+            android:text="@string/setting_btn_question"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_company_info" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_next"
+            app:layout_constraintBottom_toBottomOf="@id/btn_question"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_question" />
+
+        <TextView
             android:id="@+id/tv_android_version_title"
             style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
             android:layout_width="wrap_content"
@@ -107,7 +128,7 @@
             android:paddingVertical="14dp"
             android:text="@string/setting_btn_android_version"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_company_info" />
+            app:layout_constraintTop_toBottomOf="@id/btn_question" />
 
         <TextView
             android:id="@+id/tv_android_version"

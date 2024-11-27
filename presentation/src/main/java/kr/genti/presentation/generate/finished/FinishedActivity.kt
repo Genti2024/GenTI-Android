@@ -56,6 +56,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         initUnwantedBtnListener()
         initCloseBtnListener()
         initBackPressedListener()
+        setUiWIthIsPaidIntent()
         getIntentInfo()
         observeDownloadCacheImage()
     }
@@ -73,17 +74,22 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     }
 
     private fun initSaveBtnListener() {
-        binding.btnDownload.setOnSingleClickListener {
-            AmplitudeManager.apply {
-                trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "picdone"),
-                    mapOf(PROPERTY_BTN to "picdownload"),
-                )
-                plusIntProperties("user_picturedownload")
-            }
-            downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
+        with(binding) {
+            btnDownload.setOnSingleClickListener { downloadImage() }
+            btnSavePaid.setOnSingleClickListener { downloadImage() }
         }
+    }
+
+    private fun downloadImage() {
+        AmplitudeManager.apply {
+            trackEvent(
+                EVENT_CLICK_BTN,
+                mapOf(PROPERTY_PAGE to "picdone"),
+                mapOf(PROPERTY_BTN to "picdownload"),
+            )
+            plusIntProperties("user_picturedownload")
+        }
+        downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
     }
 
     private fun initShareBtnListener() {
@@ -123,6 +129,18 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             }
 
         this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun setUiWIthIsPaidIntent() {
+        if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
+            with(binding) {
+                tvFinishedTitle.text = stringOf(R.string.finished_tv_title_paid)
+                btnDownload.isVisible = false
+                ivFinishedTooltip.isVisible = false
+                btnShare.isVisible = false
+                btnSavePaid.isVisible = true
+            }
+        }
     }
 
     private fun showFinishedRatingDialog() {
@@ -220,6 +238,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         private const val EXTRA_RESPONSE_ID = "EXTRA_RESPONSE_ID"
         private const val EXTRA_URL = "EXTRA_URL"
         private const val EXTRA_RATIO = "EXTRA_RATIO"
+        private const val EXTRA_IS_PAID = "EXTRA_IS_PAID"
 
         @JvmStatic
         fun createIntent(
@@ -227,11 +246,13 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             id: Long,
             url: String,
             ratio: String,
+            isPaid: Boolean? = null,
         ): Intent =
             Intent(context, FinishedActivity::class.java).apply {
                 putExtra(EXTRA_RESPONSE_ID, id)
                 putExtra(EXTRA_URL, url)
                 putExtra(EXTRA_RATIO, ratio)
+                putExtra(EXTRA_IS_PAID, isPaid)
             }
     }
 }

@@ -13,6 +13,8 @@ data class GenerateStatusDto(
     val status: GenerateStatus,
     @SerialName("pictureGenerateResponse")
     val pictureGenerateResponse: GenerateResponseDto?,
+    @SerialName("paid")
+    val paid: Boolean?,
 ) {
     @Serializable
     data class GenerateResponseDto(
@@ -33,5 +35,6 @@ data class GenerateStatusDto(
             pictureGenerateRequestId,
             status,
             pictureGenerateResponse?.toModel(),
+            paid,
         )
 }

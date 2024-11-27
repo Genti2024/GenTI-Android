@@ -253,11 +253,15 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             when (state) {
                 is UiState.Success -> {
                     AmplitudeManager.plusIntProperties("user_piccreate")
-                    startActivity(Intent(requireContext(), WaitingActivity::class.java))
+                    startActivity(WaitingActivity.createIntent(requireContext(), state.data))
                     requireActivity().finish()
                 }
 
-                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                is UiState.Failure -> {
+                    toast(stringOf(R.string.error_msg))
+                    viewModel.resetTotalGeneratingState()
+                }
+
                 else -> return@onEach
             }
         }.launchIn(lifecycleScope)
