@@ -162,6 +162,7 @@
     <string name="setting_btn_android_version">앱 버전</string>
     <string name="setting_tv_android_version">v%s</string>
     <string name="setting_btn_company_info">사업자 정보</string>
+    <string name="setting_btn_question">문의하기</string>
     <string name="setting_btn_logout">로그아웃</string>
     <string name="setting_btn_quit">회원 탈퇴</string>
 
