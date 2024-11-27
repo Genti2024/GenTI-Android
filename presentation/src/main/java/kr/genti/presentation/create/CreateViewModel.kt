@@ -45,6 +45,7 @@ constructor(
     var imageList = listOf<ImageFileModel>()
     var firstImageList = listOf<ImageFileModel>()
     var secondImageList = listOf<ImageFileModel>()
+
     var isFirstListCompleted = MutableLiveData(false)
     var isSecondListCompleted = MutableLiveData(false)
     var isCompleted = MutableLiveData(false)
@@ -60,6 +61,8 @@ constructor(
     val totalGeneratingState: StateFlow<UiState<Boolean>> = _totalGeneratingState
 
     private var imageS3KeyList = listOf<KeyRequestModel>()
+    private var firstImageS3KeyList = listOf<KeyRequestModel>()
+    private var secondImageS3KeyList = listOf<KeyRequestModel>()
 
     init {
         getExamplePrompt()
@@ -115,18 +118,38 @@ constructor(
 
     fun startSendingImages() {
         _totalGeneratingState.value = UiState.Loading
+        if (selectedNumber.value != PictureNumber.TWO) {
+            saveThreeImages()
+        } else {
+            saveSixImages()
+        }
+    }
+
+    private fun saveThreeImages() {
         viewModelScope.launch {
             runCatching {
-                getMultiS3Urls()
+                getThreeS3Urls()
             }.onSuccess {
-                postToGenerateImage()
+                postThreeToGenerateImage()
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
             }
         }
     }
 
-    private suspend fun getMultiS3Urls() {
+    private fun saveSixImages() {
+        viewModelScope.launch {
+            runCatching {
+                // getThreeS3Urls()
+            }.onSuccess {
+                // postThreeToGenerateImage()
+            }.onFailure {
+                _totalGeneratingState.value = UiState.Failure(it.message.toString())
+            }
+        }
+    }
+
+    private suspend fun getThreeS3Urls() {
         createRepository.getS3MultiUrl(
             listOf(
                 S3RequestModel(FileType.USER_UPLOADED_IMAGE, imageList[0].name),
@@ -135,13 +158,13 @@ constructor(
             ),
         ).onSuccess { uriList ->
             imageS3KeyList = uriList.map { KeyRequestModel(it.s3Key) }
-            postMultiImage(uriList)
+            postThreeImage(uriList)
         }.onFailure {
             _totalGeneratingState.value = UiState.Failure(it.message.toString())
         }
     }
 
-    private suspend fun postMultiImage(urlModelList: List<S3PresignedUrlModel>) {
+    private suspend fun postThreeImage(urlModelList: List<S3PresignedUrlModel>) {
         urlModelList.mapIndexed { i, urlModel ->
             viewModelScope.async {
                 uploadRepository.uploadImage(urlModel.url, imageList[i].url)
@@ -152,20 +175,23 @@ constructor(
         }.awaitAll()
     }
 
-    private fun postToGenerateImage() {
+    private fun postThreeToGenerateImage() {
         viewModelScope.launch {
-            createRepository.postToCreate(
-                CreateRequestModel(
-                    prompt.value ?: return@launch,
-                    imageS3KeyList,
-                    selectedRatio.value ?: return@launch,
-                ),
+            val request = CreateRequestModel(
+                prompt.value ?: return@launch,
+                imageS3KeyList,
+                selectedRatio.value ?: return@launch,
             )
-                .onSuccess {
-                    _totalGeneratingState.value = UiState.Success(it)
-                }.onFailure {
-                    _totalGeneratingState.value = UiState.Failure(it.message.toString())
-                }
+            val result = if (isCreatingParentPic) {
+                createRepository.postToCreateOne(request)
+            } else {
+                createRepository.postToCreate(request)
+            }
+            result.onSuccess {
+                _totalGeneratingState.value = UiState.Success(it)
+            }.onFailure {
+                _totalGeneratingState.value = UiState.Failure(it.message.toString())
+            }
         }
     }
 }
