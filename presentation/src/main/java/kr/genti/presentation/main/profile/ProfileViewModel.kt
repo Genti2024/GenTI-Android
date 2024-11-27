@@ -24,6 +24,7 @@ constructor(
     val getGenerateStatusState: StateFlow<UiState<Boolean>> = _getGenerateStatusState
 
     var currentStatus: GenerateStatus = GenerateStatus.NEW_REQUEST_AVAILABLE
+    var isCreatingParentPic: Boolean? = null
 
     private val _serverAvailableState =
         MutableStateFlow<UiState<ServerAvailableModel>>(UiState.Empty)
@@ -45,6 +46,7 @@ constructor(
             generateRepository.getGenerateStatus()
                 .onSuccess {
                     currentStatus = it.status
+                    isCreatingParentPic = it.paid
                     _getGenerateStatusState.value =
                         UiState.Success(it.status == GenerateStatus.IN_PROGRESS)
 

@@ -228,7 +228,7 @@ constructor(
                     selectedRatio.value ?: return@launch,
                 )
             ).onSuccess {
-                _totalGeneratingState.value = UiState.Success(it)
+                _totalGeneratingState.value = UiState.Success(isCreatingParentPic)
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
             }

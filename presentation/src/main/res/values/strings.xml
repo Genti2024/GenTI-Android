@@ -105,6 +105,7 @@
     <string name="wait_btn_return">피드로 돌아가기</string>
     <string name="wait_tv_header">사진 생성 중</string>
     <string name="wait_tv_title">세상에 없던\n나만의 사진을 찍고 있어요!</string>
+    <string name="wait_tv_title_paid">소중한 사람과의 추억이 담긴\n사진을 찍고 있어요!</string>
     <string name="wait_tv_subtitle">사진이 완성되면, 완료 알림을 보내드려요.</string>
     <string name="wait_tv_time_title">예상 소요 시간</string>
     <string name="wait_tv_time_subtitle">2시간 정도 걸릴 예정이에요.</string>

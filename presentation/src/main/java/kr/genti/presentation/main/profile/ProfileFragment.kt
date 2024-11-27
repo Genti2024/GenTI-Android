@@ -99,7 +99,12 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
             }
 
             GenerateStatus.IN_PROGRESS -> {
-                startActivity(Intent(requireActivity(), WaitingActivity::class.java))
+                startActivity(
+                    WaitingActivity.createIntent(
+                        requireContext(),
+                        viewModel.isCreatingParentPic
+                    )
+                )
             }
 
             GenerateStatus.CANCELED -> {

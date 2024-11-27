@@ -111,7 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                 GenerateStatus.IN_PROGRESS -> {
                     if (BuildConfig.DEBUG) binding.btnPatchInDevelop.isVisible = true
-                    startActivity(Intent(this, WaitingActivity::class.java))
+                    startActivity(WaitingActivity.createIntent(this, viewModel.newPicture.paid))
                 }
 
                 GenerateStatus.CANCELED -> {

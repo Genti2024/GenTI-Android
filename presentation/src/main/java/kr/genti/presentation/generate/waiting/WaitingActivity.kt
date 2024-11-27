@@ -2,6 +2,8 @@ package kr.genti.presentation.generate.waiting
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +18,7 @@ import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityWaitBinding
+import kr.genti.presentation.generate.finished.FinishedActivity
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
@@ -30,6 +33,7 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
 
         initReturnBtnListener()
         setOnBackPressed()
+        setUiBuIsPaidIntent()
         setStatusBarTransparent()
     }
 
@@ -75,6 +79,12 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
             false
         }
 
+    private fun setUiBuIsPaidIntent() {
+        if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
+            binding.tvWaitTitle.text = getString(R.string.wait_tv_title_paid)
+        }
+    }
+
     private fun setStatusBarTransparent() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -91,5 +101,16 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
 
     companion object {
         private const val DIALOG_PUSH = "DIALOG_PUSH"
+
+        private const val EXTRA_IS_PAID = "EXTRA_IS_PAID"
+
+        @JvmStatic
+        fun createIntent(
+            context: Context,
+            isPaid: Boolean? = null,
+        ): Intent =
+            Intent(context, WaitingActivity::class.java).apply {
+                putExtra(EXTRA_IS_PAID, isPaid)
+            }
     }
 }
