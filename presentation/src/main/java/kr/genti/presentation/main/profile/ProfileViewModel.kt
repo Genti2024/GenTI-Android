@@ -98,4 +98,11 @@ constructor(
                 }
         }
     }
+
+    fun resetPicturePagingValue() {
+        currentPage = -1
+        isPagingFinish = false
+        totalPage = Int.MAX_VALUE
+        isFirstLoading = true
+    }
 }

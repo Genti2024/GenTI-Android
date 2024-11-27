@@ -62,6 +62,8 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     private fun initView() {
         with(viewModel) {
             getGenerateStatusFromServer()
+            if(_adapter != null) adapter.submitList(listOf())
+            resetPicturePagingValue()
             getPictureListFromServer()
         }
     }
