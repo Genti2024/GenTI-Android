@@ -2,6 +2,7 @@ package kr.genti.data.service
 
 import kr.genti.data.dto.BaseResponse
 import kr.genti.data.dto.request.CreateRequestDto
+import kr.genti.data.dto.request.CreateTwoRequestDto
 import kr.genti.data.dto.request.KeyRequestDto
 import kr.genti.data.dto.request.S3RequestDto
 import kr.genti.data.dto.response.PromptExampleDto
@@ -24,6 +25,16 @@ interface CreateService {
     @POST("api/v1/users/picture-generate-requests")
     suspend fun postToCreate(
         @Body request: CreateRequestDto,
+    ): BaseResponse<Boolean>
+
+    @POST("api/v1/users/picture-generate-requests/paid/one")
+    suspend fun postToCreateOne(
+        @Body request: CreateRequestDto,
+    ): BaseResponse<Boolean>
+
+    @POST("api/v1/users/picture-generate-requests/paid/two")
+    suspend fun postToCreateTwo(
+        @Body request: CreateTwoRequestDto,
     ): BaseResponse<Boolean>
 
     @POST("api/v1/user-verification")
