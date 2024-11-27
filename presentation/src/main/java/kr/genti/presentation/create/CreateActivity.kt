@@ -1,8 +1,11 @@
 package kr.genti.presentation.create
 
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.LinearInterpolator
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
@@ -13,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.state.UiState
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityCreateBinding
@@ -32,6 +34,7 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
 
         initView()
         initBackBtnListener()
+        setParentPicWithIntent()
         observeProgressBar()
         observeGeneratingState()
     }
@@ -43,7 +46,15 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
     private fun initBackBtnListener() {
         binding.btnBack.setOnClickListener {
             when (navController.currentDestination?.id) {
-                R.id.defineFragment -> finish()
+                R.id.numberFragment -> finish()
+                R.id.defineFragment -> {
+                    if (viewModel.isCreatingParentPic) {
+                        navigateBackFragment("create1", -33)
+                    } else {
+                        finish()
+                    }
+                }
+
                 R.id.poseFragment -> navigateBackFragment("create2", -33)
                 R.id.selfieFragment -> navigateBackFragment("create3", -34)
             }
@@ -58,6 +69,16 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
         )
         navController.popBackStack()
         viewModel.modCurrentPercent(amount)
+    }
+
+    private fun setParentPicWithIntent() {
+        viewModel.isCreatingParentPic = intent.getBooleanExtra(EXTRA_IS_CREATING_PARENT_PIC, false)
+        if (viewModel.isCreatingParentPic) {
+            binding.tvCreateTitle.text = getString(R.string.create_parent_tv_title)
+        } else {
+            navController.navigate(R.id.action_number_to_define_without_anim)
+            viewModel.modCurrentPercent(33)
+        }
     }
 
     private fun observeProgressBar() {
@@ -84,5 +105,16 @@ class CreateActivity() : BaseActivity<ActivityCreateBinding>(R.layout.activity_c
 
     companion object {
         const val PROPERTY_PROGRESS = "progress"
+
+        private const val EXTRA_IS_CREATING_PARENT_PIC = "EXTRA_IS_CREATING_PARENT_PIC"
+
+        @JvmStatic
+        fun createIntent(
+            context: Context,
+            isCreatingParentPic: Boolean,
+        ): Intent =
+            Intent(context, CreateActivity::class.java).apply {
+                putExtra(EXTRA_IS_CREATING_PARENT_PIC, isCreatingParentPic)
+            }
     }
 }

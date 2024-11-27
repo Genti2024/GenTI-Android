@@ -2,6 +2,7 @@ package kr.genti.presentation.create
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,22 +40,14 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
 
         initView()
         initCreateBtnListener()
+        initBackPressedListener()
         initViewPager()
+        setTextByParent()
         observeGetExampleState()
     }
 
     private fun initView() {
-        with(binding) {
-            vm = viewModel
-            tvCreateScriptSubtitle1.setTextWithImage(
-                stringOf(R.string.create_tv_script_subtitle_1),
-                R.drawable.ic_check,
-            )
-            tvCreateScriptSubtitle2.setTextWithImage(
-                stringOf(R.string.create_tv_script_subtitle_2),
-                R.drawable.ic_check,
-            )
-        }
+        binding.vm = viewModel
     }
 
     private fun initCreateBtnListener() {
@@ -67,6 +60,21 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
             findNavController().navigate(R.id.action_define_to_pose)
             viewModel.modCurrentPercent(33)
         }
+    }
+
+    private fun initBackPressedListener() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (viewModel.isCreatingParentPic) {
+                        viewModel.modCurrentPercent(-33)
+                        findNavController().popBackStack()
+                    } else {
+                        requireActivity().finish()
+                    }
+                }
+            })
     }
 
     private fun initViewPager() {
@@ -89,6 +97,24 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
         }
     }
 
+    private fun setTextByParent() {
+        with(binding) {
+            val (titleRes, subtitle2Res) = if (viewModel.isCreatingParentPic) {
+                R.string.create_tv_script_title_parent to R.string.create_tv_script_subtitle_2_parent
+            } else {
+                R.string.create_tv_script_title to R.string.create_tv_script_subtitle_2
+            }
+            tvCreateScriptTitle.text = stringOf(titleRes)
+            tvCreateScriptSubtitle1.setTextWithImage(
+                stringOf(R.string.create_tv_script_subtitle_1),
+                R.drawable.ic_check,
+            )
+            tvCreateScriptSubtitle2.setTextWithImage(
+                stringOf(subtitle2Res),
+                R.drawable.ic_check,
+            )
+        }
+    }
 
     private fun observeGetExampleState() {
         viewModel.getExampleState
@@ -99,6 +125,7 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
                         adapter.submitList(state.data)
                         binding.dotIndicator.setViewPager(binding.vpCreateRandom)
                     }
+
                     is UiState.Failure -> toast(stringOf(R.string.error_msg))
                     else -> return@onEach
                 }

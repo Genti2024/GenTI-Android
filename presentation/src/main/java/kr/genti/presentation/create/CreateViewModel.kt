@@ -17,6 +17,7 @@ import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.entity.response.PromptExampleModel
 import kr.genti.domain.entity.response.S3PresignedUrlModel
 import kr.genti.domain.enums.FileType
+import kr.genti.domain.enums.PictureNumber
 import kr.genti.domain.enums.PictureRatio
 import kr.genti.domain.repository.CreateRepository
 import kr.genti.domain.repository.UploadRepository
@@ -29,16 +30,26 @@ constructor(
     private val createRepository: CreateRepository,
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
+    var isCreatingParentPic = false
+
     val prompt = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
 
-    val selectedRatio = MutableLiveData<PictureRatio>()
-    val isSelected = MutableLiveData(false)
+    val selectedNumber = MutableLiveData<PictureNumber>()
+    val isNumberSelected = MutableLiveData(false)
 
+    val selectedRatio = MutableLiveData<PictureRatio>()
+    val isRatioSelected = MutableLiveData(false)
+
+    var currentAddingList = 0
     var imageList = listOf<ImageFileModel>()
+    var firstImageList = listOf<ImageFileModel>()
+    var secondImageList = listOf<ImageFileModel>()
+    var isFirstListCompleted = MutableLiveData(false)
+    var isSecondListCompleted = MutableLiveData(false)
     var isCompleted = MutableLiveData(false)
 
-    private val _currentPercent = MutableStateFlow<Int>(33)
+    private val _currentPercent = MutableStateFlow<Int>(0)
     val currentPercent: StateFlow<Int> = _currentPercent
 
     private val _getExampleState =
@@ -62,9 +73,31 @@ constructor(
         isWritten.value = prompt.value?.isNotEmpty()
     }
 
+    fun selectNumber(item: PictureNumber) {
+        selectedNumber.value = item
+        isNumberSelected.value = selectedNumber.value != null
+    }
+
     fun selectRatio(item: PictureRatio) {
         selectedRatio.value = item
-        isSelected.value = selectedRatio.value != null
+        isRatioSelected.value = selectedRatio.value != null
+    }
+
+    fun updateCompletionState(uriSize: Int) {
+        when (currentAddingList) {
+            0 -> isCompleted.value = uriSize == 3
+            1 -> {
+                isFirstListCompleted.value = uriSize == 3
+                isCompleted.value =
+                    isFirstListCompleted.value == true && isSecondListCompleted.value == true
+            }
+
+            2 -> {
+                isSecondListCompleted.value = uriSize == 3
+                isCompleted.value =
+                    isFirstListCompleted.value == true && isSecondListCompleted.value == true
+            }
+        }
     }
 
     private fun getExamplePrompt() {

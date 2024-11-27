@@ -4,9 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kr.genti.data.dto.request.KeyRequestDto.Companion.toDto
 import kr.genti.domain.entity.request.CreateRequestModel
-import kr.genti.domain.enums.CameraAngle
 import kr.genti.domain.enums.PictureRatio
-import kr.genti.domain.enums.ShotCoverage
 
 @Serializable
 data class CreateRequestDto(

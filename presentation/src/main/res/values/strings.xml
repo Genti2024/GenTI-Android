@@ -42,14 +42,34 @@
     <string name="onboarding_tv_first_subtitle">원하는 사진을 자유롭게 설명해요.</string>
     <string name="onboarding_tv_first_body">의상, 배경 등 어떤 사진을 만들고 싶은지 입력해주세요.</string>
 
+    <string name="create_select_tv_default_title">내 사진 만들기</string>
+    <string name="create_select_tv_default_subtitle">찍고 싶은 내 사진을 AI로 마음껏 만들어 보세요!</string>
+    <string name="create_select_tv_default_body">일상적인 사진부터 판타지한 장면까지 모두 가능해요.</string>
+    <string name="create_select_tv_default_caption">내 사진 세 장만 있으면 만들 수 있어요.</string>
+    <string name="create_select_tv_parent_title">부모님 사진 만들기</string>
+    <string name="create_select_tv_parent_subtitle">사랑하는 부모님의 사진을 만들어 보세요!</string>
+    <string name="create_select_tv_parent_body">부모님의 독사진, 부모님과 함께 찍은 사진을 만들 수 있어요.</string>
+    <string name="create_select_tv_parent_caption">흑백 사진이거나 화질이 안좋은 사진도 괜찮아요.</string>
+
     <string name="create_tv_title">사진 만들기</string>
     <string name="create_phase_text">%1$d/3</string>
+
+    <string name="create_tv_script_title_parent">부모님의 어떤 모습을 담고 싶나요?</string>
+    <string name="create_tv_script_subtitle_2_parent">부모님과 함께 찍고 싶은 사진이나 보고 싶은 부모님의 모습을 설명해주세요.</string>
     <string name="create_tv_script_title">어떤 사진을 만들고 싶나요?</string>
     <string name="create_tv_script_subtitle_1">AI가 이해하지 못하는 장소나 의상은 생성이 어려울 수 있어요.</string>
     <string name="create_tv_script_subtitle_2">성적이거나 폭력적인 사진은 생성되지 않아요.</string>
     <string name="create_et_script_hint">만들고 싶은 사진을 설명해주세요.</string>
     <string name="create_tv_random_title">이런 사진은 어때요?</string>
     <string name="create_tv_example_1">프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요.</string>
+
+    <string name="create_parent_tv_title">부모님 사진 만들기</string>
+
+    <string name="number_tv_title">어떤 사진을 찍고 싶나요?</string>
+    <string name="number_btn_one_title">1인 사진</string>
+    <string name="number_btn_one_subtitle">부모님 단독</string>
+    <string name="number_btn_two_title">2인 사진</string>
+    <string name="number_btn_two_subtitle">부모님 / 부모님과 나</string>
 
     <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요.</string>
     <string name="pose_btn_sero_title">세로 사진</string>
@@ -61,8 +81,13 @@
     <string name="selfie_tv_guide_1">정면을 포함하여 사진의 각도가 다양할수록 좋아요.</string>
     <string name="selfie_tv_guide_2">모자, 악세사리 등으로 얼굴이 가려진 사진은 안돼요.</string>
     <string name="selfie_tv_guide_3">얼굴 표정이 다양할 수록 더 실감나는 사진을 만들 수 있어요.</string>
+    <string name="selfie_tv_guide_parent">흑백 사진이거나, 화질이 좋지 않아도 괜찮아요.</string>
     <string name="selfie_tv_warning">타인의 사진을 도용하면 서비스 이용이 정지되고,\n법적인 처벌을 받을 수 있습니다.</string>
+    <string name="selfie_tv_title_parent_one">사진 생성에 사용할 부모님 얼굴 사진\n3장을 선택해주세요</string>
+    <string name="selfie_tv_title_parent_two">사진 생성에 사용할 두 분의 사진을\n각각 3장씩 선택해주세요</string>
     <string name="selfie_tv_input_title">이런 사진이 좋아요</string>
+    <string name="selfie_tv_first_parent">첫번째 인물</string>
+    <string name="selfie_tv_second_parent">두번째 인물</string>
     <string name="selfie_tv_btn_select">사진 선택하기</string>
     <string name="selfie_tv_btn_reselect">다시 선택하기</string>
     <string name="selfie_btn_create">사진 생성하기</string>
