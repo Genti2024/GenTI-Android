@@ -257,7 +257,11 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                     requireActivity().finish()
                 }
 
-                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                is UiState.Failure -> {
+                    toast(stringOf(R.string.error_msg))
+                    viewModel.resetTotalGeneratingState()
+                }
+
                 else -> return@onEach
             }
         }.launchIn(lifecycleScope)
