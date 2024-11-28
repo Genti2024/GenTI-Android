@@ -2,16 +2,26 @@ package kr.genti.presentation.create.billing
 
 import android.content.Context
 import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClient.ProductType.INAPP
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.PendingPurchasesParams
+import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.PurchasesUpdatedListener
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryProductDetailsParams.Product
+import com.android.billingclient.api.queryProductDetails
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class BillingManager(private val context: Context, private val callback: BillingCallback) {
 
     private lateinit var billingClient: BillingClient
     private var purchasesUpdatedListener: PurchasesUpdatedListener? = null
+
+    private var inAppProductDetails: ProductDetails? = null
 
     init {
         initBillingClient()
@@ -35,7 +45,9 @@ class BillingManager(private val context: Context, private val callback: Billing
 
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    // 상품 정보 받아오는 함수 실행
+                    CoroutineScope(Dispatchers.IO).launch {
+                        getInAppProductDetails()
+                    }
                 } else {
                     callback.onBillingFailure(billingResult.responseCode)
                 }
@@ -43,4 +55,16 @@ class BillingManager(private val context: Context, private val callback: Billing
         })
     }
 
+    private suspend fun getInAppProductDetails() {
+        val inAppProduct =
+            Product.newBuilder().setProductId(PRODUCT_GENTI_PAID).setProductType(INAPP).build()
+        inAppProductDetails = billingClient.queryProductDetails(
+            QueryProductDetailsParams.newBuilder().setProductList(listOf(inAppProduct)).build()
+        ).productDetailsList?.firstOrNull()
+    }
+
+    companion object {
+        const val PRODUCT_GENTI_PAID = "genti_paid_picture"
+        const val PRICE_PAID = "3300"
+    }
 }
