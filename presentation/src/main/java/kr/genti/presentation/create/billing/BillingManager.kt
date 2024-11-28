@@ -1,6 +1,7 @@
 package kr.genti.presentation.create.billing
 
 import android.app.Activity
+import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClient.ProductType.INAPP
 import com.android.billingclient.api.BillingClientStateListener
@@ -8,6 +9,7 @@ import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
+import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryProductDetailsParams.Product
@@ -29,6 +31,9 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         initBillingClient()
     }
 
+    /**
+     * BillingClient 초기화 및 PurchasesUpdatedListener 등록
+     */
     private fun initBillingClient() {
         val pendingPurchasesParams =
             PendingPurchasesParams.newBuilder()
@@ -42,6 +47,9 @@ class BillingManager(private val activity: Activity, private val callback: Billi
                 .apply { connectBillingClient() }
     }
 
+    /**
+     * BillingClient 상태 확인 후 서비스와 연결
+     */
     private fun connectBillingClient() {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingServiceDisconnected() {
@@ -60,6 +68,9 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         })
     }
 
+    /**
+     * Google Play 콘솔에서 등록된 상품 정보 조회 및 저장
+     */
     private suspend fun getInAppProductDetails() {
         val inAppProduct =
             Product.newBuilder()
@@ -74,6 +85,9 @@ class BillingManager(private val activity: Activity, private val callback: Billi
             ).productDetailsList?.firstOrNull()
     }
 
+    /**
+     * 지정된 상품에 대해 Google Play 결제 UI 호출 및 결제 요청 실행
+     */
     fun purchaseProduct() {
         inAppProductDetails?.let { productDetail ->
             val offerToken =
@@ -95,12 +109,36 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         }
     }
 
+    /**
+     * 결제 상태 변경 이벤트를 처리하는 리스너 초기화
+     */
     private fun initPurchasesUpdatedListener() {
         purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 for (purchase in purchases) confirmPurchase(purchase)
             } else {
                 callback.onBillingFailure(billingResult.responseCode)
+            }
+        }
+    }
+
+    /**
+     * 구매 상태 확인 후, 완료되었지만 승인되지 않은 경우 승인 처리
+     */
+    private fun confirmPurchase(purchase: Purchase) {
+        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged) {
+            val ackPurchaseParams =
+                AcknowledgePurchaseParams.newBuilder()
+                    .setPurchaseToken(purchase.purchaseToken)
+                    .build()
+            CoroutineScope(Dispatchers.Main).launch {
+                billingClient.acknowledgePurchase(ackPurchaseParams) {
+                    if (it.responseCode == BillingClient.BillingResponseCode.OK) {
+                        consumePurchase(purchase)
+                    } else {
+                        callback.onBillingFailure(it.responseCode)
+                    }
+                }
             }
         }
     }
