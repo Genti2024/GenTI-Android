@@ -3,16 +3,17 @@ package kr.genti.presentation.create.billing
 import android.app.Activity
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClient.ProductType.INAPP
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryProductDetailsParams.Product
+import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.queryProductDetails
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -75,14 +76,19 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         val inAppProduct =
             Product.newBuilder()
                 .setProductId(PRODUCT_GENTI_PAID)
-                .setProductType(INAPP)
+                .setProductType(BillingClient.ProductType.INAPP)
                 .build()
-        inAppProductDetails =
+        val productDetails =
             billingClient.queryProductDetails(
                 QueryProductDetailsParams.newBuilder()
                     .setProductList(listOf(inAppProduct))
                     .build()
             ).productDetailsList?.firstOrNull()
+        if (productDetails == null) {
+            callback.onBillingFailure(BillingClient.BillingResponseCode.ITEM_UNAVAILABLE)
+        } else {
+            inAppProductDetails = productDetails
+        }
     }
 
     /**
@@ -143,8 +149,45 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         }
     }
 
+    /**
+     * 이후 재구매 위해, 소비성 아이템의 소비 완료 표사
+     */
+    private fun consumePurchase(purchase: Purchase) {
+        val consumeParams =
+            ConsumeParams.newBuilder()
+                .setPurchaseToken(purchase.purchaseToken)
+                .build()
+        billingClient.consumeAsync(consumeParams) { billingResult, _ ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                checkConsumable(purchase)
+            } else {
+                callback.onBillingFailure(billingResult.responseCode)
+            }
+        }
+    }
+
+    /**
+     * 구매 표시 안된 소비성 아이템 찾아 소비 완료 다시 실행, 모두 완료 확인 후 성공 콜백 전송
+     */
+    private fun checkConsumable(purchasedItem: Purchase) {
+        val queryPurchasesParams =
+            QueryPurchasesParams.newBuilder()
+                .setProductType(BillingClient.ProductType.INAPP)
+                .build()
+        billingClient.queryPurchasesAsync(queryPurchasesParams) { billingResult, purchaseList ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                if (purchaseList.isNotEmpty()) {
+                    purchaseList.forEach { purchase -> consumePurchase(purchase) }
+                } else {
+                    callback.onBillingSuccess(purchasedItem)
+                }
+            } else {
+                callback.onBillingFailure(billingResult.responseCode)
+            }
+        }
+    }
+
     companion object {
         const val PRODUCT_GENTI_PAID = "genti_paid_picture"
-        const val PRICE_PAID = "3300"
     }
 }
