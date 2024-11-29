@@ -19,6 +19,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.android.billingclient.api.Purchase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -32,16 +33,23 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.enums.PictureNumber
 import kr.genti.presentation.R
+import kr.genti.presentation.create.billing.BillingCallback
+import kr.genti.presentation.create.billing.BillingManager
 import kr.genti.presentation.databinding.FragmentSelfieBinding
 import kr.genti.presentation.generate.waiting.WaitingActivity
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_selfie) {
     private val viewModel by activityViewModels<CreateViewModel>()
+
+    private var _manager: BillingManager? = null
+    private val manager
+        get() = requireNotNull(_manager) { getString(R.string.manager_not_initialized_error_msg) }
 
     private lateinit var photoPickerResult: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var galleryPickerResult: ActivityResultLauncher<Intent>
@@ -53,6 +61,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initBillingManager()
         initBackPressedListener()
         initAddImageBtnListener()
         initRequestCreateBtnListener()
@@ -71,6 +80,21 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private fun initView() {
         binding.vm = viewModel
+    }
+
+    private fun initBillingManager() {
+        _manager = BillingManager(
+            requireActivity(),
+            object : BillingCallback {
+                override fun onBillingSuccess(purchase: Purchase) {
+                        viewModel.checkPurchaseValidToServer(purchase)
+                }
+
+                override fun onBillingFailure(responseCode: Int) {
+                    toast(stringOf(R.string.error_msg))
+                }
+            },
+        )
     }
 
     private fun initBackPressedListener() {
@@ -108,7 +132,11 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             )
             with(viewModel) {
                 isCompleted.value = false
-                startSendingImages()
+                if (isCreatingParentPic) {
+                    manager.purchaseProduct()
+                } else {
+                    startSendingImages()
+                }
             }
         }
     }
@@ -265,5 +293,11 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 else -> return@onEach
             }
         }.launchIn(lifecycleScope)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _manager?.endConnection()
+        _manager = null
     }
 }

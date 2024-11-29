@@ -187,6 +187,10 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         }
     }
 
+   fun endConnection() {
+        billingClient.endConnection()
+    }
+
     companion object {
         const val PRODUCT_GENTI_PAID = "genti_paid_picture"
     }
