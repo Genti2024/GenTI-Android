@@ -41,7 +41,6 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_selfie) {
@@ -87,7 +86,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             requireActivity(),
             object : BillingCallback {
                 override fun onBillingSuccess(purchase: Purchase) {
-                        viewModel.checkPurchaseValidToServer(purchase)
+                    // viewModel.checkPurchaseValidToServer(purchase)
                 }
 
                 override fun onBillingFailure(responseCode: Int) {
