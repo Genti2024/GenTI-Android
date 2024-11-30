@@ -75,6 +75,10 @@ jobs:
           ls -la app/
           cat keystore.properties
           keytool -list -keystore app/gentiKeyStore.jks -storepass ${{ secrets.STORE_PASSWORD }}
+          keytool -exportcert -keystore app/gentiKeystore.jks \
+              -storepass ${{ secrets.STORE_PASSWORD }} \
+              -keypass ${{ secrets.KEY_PASSWORD }} \
+              -alias ${{ secrets.KEY_ALIAS }} -rfc -file /dev/null
 
       - name: Access Firebase Service
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
