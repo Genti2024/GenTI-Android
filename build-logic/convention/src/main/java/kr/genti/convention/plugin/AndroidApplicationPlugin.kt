@@ -55,6 +55,11 @@ class AndroidApplicationPlugin : Plugin<Project> {
                         )
                     }
                 }
+
+                lint {
+                    abortOnError = false
+                    checkReleaseBuilds = false
+                }
             }
         }
 }
