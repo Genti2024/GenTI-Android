@@ -23,10 +23,6 @@ android {
         if (keystorePropertiesFile.exists()) {
             println("keystore.properties 파일이 존재합니다: ${keystorePropertiesFile.absolutePath}")
             keystoreProperties.load(keystorePropertiesFile.inputStream())
-            println("keystore.properties 파일 로드 성공!")
-            println("storePassword: ${keystoreProperties["storePassword"]}")
-            println("keyAlias: ${keystoreProperties["keyAlias"]}")
-            println("keyPassword: ${keystoreProperties["keyPassword"]}")
         } else {
             println("keystore.properties 파일이 존재하지 않습니다: ${keystorePropertiesFile.absolutePath}")
         }
