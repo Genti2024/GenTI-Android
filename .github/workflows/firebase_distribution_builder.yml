@@ -66,13 +66,10 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "storeFile=gentiKeyStore.jks" > keystore.properties
-          echo "storePassword=\"$store_password\"" >> keystore.properties
-          echo "keyAlias=\"$key_alias\"" >> keystore.properties
-          echo "keyPassword=\"$key_password\"" >> keystore.properties
-          echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}"
-          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}"
-          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}"
+          echo "storeFile=/home/runner/work/Genti-Android/Genti-Android/app/gentiKeyStore.jks" > keystore.properties
+          echo "storePassword=$store_password" >> keystore.properties
+          echo "keyAlias=$key_alias" >> keystore.properties
+          echo "keyPassword=$key_password" >> keystore.properties
 
       - name: Verify keystore and properties
         run: |

@@ -21,10 +21,7 @@ android {
         val keystorePropertiesFile = rootProject.file("keystore.properties")
         val keystoreProperties = Properties()
         if (keystorePropertiesFile.exists()) {
-            println("keystore.properties 파일이 존재합니다: ${keystorePropertiesFile.absolutePath}")
             keystoreProperties.load(keystorePropertiesFile.inputStream())
-        } else {
-            println("keystore.properties 파일이 존재하지 않습니다: ${keystorePropertiesFile.absolutePath}")
         }
         signingConfigs {
             create("release") {
