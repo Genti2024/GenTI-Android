@@ -1,16 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/grey_5" />
-            <corners android:radius="10dp" />
+            <solid android:color="@color/white_20" />
         </shape>
     </item>
+
     <item android:id="@android:id/progress">
-        <clip>
+        <scale android:scaleWidth="100%">
             <shape>
-                <solid android:color="@color/genti_green" />
-                <corners android:radius="30dp" />
+                <corners
+                    android:bottomRightRadius="5dp"
+                    android:topRightRadius="5dp" />
+                <gradient
+                    android:angle="45"
+                    android:endColor="@color/genti_gradation_end"
+                    android:startColor="@color/genti_gradation_start" />
             </shape>
-        </clip>
+        </scale>
     </item>
 </layer-list>

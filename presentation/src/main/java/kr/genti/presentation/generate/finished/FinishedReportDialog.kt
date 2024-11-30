@@ -21,7 +21,8 @@ import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogFinishedReportBinding
 import kr.genti.presentation.util.AmplitudeManager
 
-class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.dialog_finished_report) {
+class FinishedReportDialog :
+    BaseDialog<DialogFinishedReportBinding>(R.layout.dialog_finished_report) {
     private val viewModel by activityViewModels<FinishedViewModel>()
 
     override fun onStart() {
@@ -33,9 +34,6 @@ class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.di
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -55,10 +53,6 @@ class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.di
         with(binding) {
             btnBack.setOnSingleClickListener { dismiss() }
             btnClose.setOnSingleClickListener {
-                dismiss()
-                requireActivity().finish()
-            }
-            btnOkay.setOnSingleClickListener {
                 dismiss()
                 requireActivity().finish()
             }
@@ -91,21 +85,10 @@ class FinishedReportDialog : BaseDialog<DialogFinishedReportBinding>(R.layout.di
                     with(binding) {
                         layoutErrorInput.isVisible = false
                         layoutErrorOutput.isVisible = true
-                        viewOutside.setOnSingleClickListener {
-                            dismiss()
-                            requireActivity().finish()
-                        }
                     }
                 } else {
                     toast(stringOf(R.string.error_msg))
                 }
             }.launchIn(lifecycleScope)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(null)
     }
 }

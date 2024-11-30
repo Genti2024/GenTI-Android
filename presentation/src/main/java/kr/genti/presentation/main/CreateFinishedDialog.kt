@@ -12,14 +12,15 @@ import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogCreateFinishedBinding
 import kr.genti.presentation.generate.finished.FinishedActivity
 
-class CreateFinishedDialog : BaseDialog<DialogCreateFinishedBinding>(R.layout.dialog_create_finished) {
+class CreateFinishedDialog :
+    BaseDialog<DialogCreateFinishedBinding>(R.layout.dialog_create_finished) {
     private val viewModel by activityViewModels<MainViewModel>()
 
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
@@ -45,18 +46,17 @@ class CreateFinishedDialog : BaseDialog<DialogCreateFinishedBinding>(R.layout.di
     private fun initMoveToFinishBtnListener() {
         binding.btnMoveToFinish.setOnSingleClickListener {
             if (viewModel.checkNewPictureInitialized()) {
-                with(viewModel.newPicture.pictureGenerateResponse) {
-                    FinishedActivity
-                        .createIntent(
-                            requireContext(),
-                            this?.pictureGenerateResponseId ?: -1,
-                            this?.pictureCompleted?.url.orEmpty(),
-                            this
-                                ?.pictureCompleted
-                                ?.pictureRatio
-                                ?.name
-                                .orEmpty(),
-                        ).apply { startActivity(this) }
+                with(viewModel.newPicture) {
+                    startActivity(
+                        FinishedActivity
+                            .createIntent(
+                                requireContext(),
+                                this.response?.responseId ?: -1,
+                                this.response?.picture?.url.orEmpty(),
+                                this.response?.picture?.pictureRatio?.name.orEmpty(),
+                                this.paid,
+                            )
+                    )
                 }
             } else {
                 toast(stringOf(R.string.error_msg))

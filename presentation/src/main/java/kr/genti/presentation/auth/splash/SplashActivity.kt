@@ -20,7 +20,6 @@ import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
 import com.google.android.play.core.install.model.UpdateAvailability.UPDATE_AVAILABLE
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseActivity
@@ -47,9 +46,14 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         super.onCreate(savedInstanceState)
 
         setSystemWindowsTransparent()
-        checkAppUpdateAvailable()
         observeAutoLoginState()
         observeReissueTokenResult()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        checkAppUpdateAvailable()
     }
 
     private fun setSystemWindowsTransparent() {
@@ -79,7 +83,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     private fun isAppUpdateNeeded(appUpdateInfo: AppUpdateInfo) =
         appUpdateInfo.updateAvailability() == UPDATE_AVAILABLE &&
-            appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)
+                appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)
 
     private fun requestUpdate(appUpdateInfo: AppUpdateInfo) {
         runCatching {
@@ -92,25 +96,23 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun observeAutoLoginState() {
-        viewModel.isAutoLogined.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isAutoLogined ->
-                if (isAutoLogined) {
-                    viewModel.postToReissueToken()
-                } else {
-                    navigateTo<LoginActivity>()
-                }
-            }.launchIn(lifecycleScope)
+        viewModel.isAutoLogined.flowWithLifecycle(lifecycle).onEach { isAutoLogined ->
+            if (isAutoLogined) {
+                viewModel.postToReissueToken()
+            } else {
+                navigateTo<LoginActivity>()
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun observeReissueTokenResult() {
-        viewModel.reissueTokenResult.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isSuccess ->
-                if (isSuccess) {
-                    navigateTo<MainActivity>()
-                } else {
-                    navigateTo<LoginActivity>()
-                }
-            }.launchIn(lifecycleScope)
+        viewModel.reissueTokenResult.flowWithLifecycle(lifecycle).onEach { isSuccess ->
+            if (isSuccess) {
+                navigateTo<MainActivity>()
+            } else {
+                navigateTo<LoginActivity>()
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private inline fun <reified T : Activity> navigateTo() {

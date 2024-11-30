@@ -17,25 +17,22 @@ import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogFinishedRatingBinding
-import kr.genti.presentation.generate.openchat.OpenchatActivity
 import kr.genti.presentation.main.MainActivity
 import kr.genti.presentation.util.AmplitudeManager
 
-class FinishedRatingDialog : BaseDialog<DialogFinishedRatingBinding>(R.layout.dialog_finished_rating) {
+class FinishedRatingDialog :
+    BaseDialog<DialogFinishedRatingBinding>(R.layout.dialog_finished_rating) {
     private val viewModel by activityViewModels<FinishedViewModel>()
 
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
         }
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(50f)
     }
 
     override fun onViewCreated(
@@ -72,13 +69,9 @@ class FinishedRatingDialog : BaseDialog<DialogFinishedRatingBinding>(R.layout.di
     }
 
     private fun navigateToMain() {
-        if (viewModel.getIsOpenchatAccessible()) {
-            startActivity(Intent(requireActivity(), OpenchatActivity::class.java))
-        } else {
-            Intent(requireActivity(), MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                startActivity(this)
-            }
+        Intent(requireActivity(), MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(this)
         }
         dismiss()
     }
@@ -105,12 +98,5 @@ class FinishedRatingDialog : BaseDialog<DialogFinishedRatingBinding>(R.layout.di
                     toast(stringOf(R.string.error_msg))
                 }
             }.launchIn(lifecycleScope)
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        requireActivity()
-            .window.decorView.rootView
-            .setGusianBlur(null)
     }
 }

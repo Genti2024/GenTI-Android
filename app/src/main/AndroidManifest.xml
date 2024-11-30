@@ -54,17 +54,18 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="kr.genti.presentation.create.CreateActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name="kr.genti.presentation.generate.waiting.WaitingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
             android:name="kr.genti.presentation.generate.finished.FinishedActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="kr.genti.presentation.generate.openchat.OpenchatActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

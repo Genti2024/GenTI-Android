@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,235 +8,151 @@
 
         <variable
             name="vm"
-            type="kr.genti.presentation.main.create.CreateViewModel" />
+            type="kr.genti.presentation.create.CreateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_white">
+        android:background="@color/black">
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/layout_create_prompt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_create_next"
-            android:orientation="vertical">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_create_script_title"
+                style="@style/TextAppearance.Genti.Title_20_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:gravity="center"
+                android:text="@string/create_tv_script_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_create_script_subtitle_1"
+                style="@style/TextAppearance.Genti.Caption_12_Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/create_tv_script_subtitle_1"
+                android:textColor="@color/white_60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_create_script_title" />
+
+            <TextView
+                android:id="@+id/tv_create_script_subtitle_2"
+                style="@style/TextAppearance.Genti.Caption_12_Regular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:text="@string/create_tv_script_subtitle_2"
+                android:textColor="@color/white_60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_create_script_subtitle_1" />
+
+            <TextView
+                android:id="@+id/tv_create_random_title"
+                style="@style/TextAppearance.Genti.Body_14_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="@string/create_tv_random_title"
+                android:textColor="@color/genti_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_create_script_subtitle_2" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_create_random"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_create_random_title" />
+
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/dot_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                app:ci_drawable="@drawable/ic_indicator_green"
+                app:ci_drawable_unselected="@drawable/ic_indicator_white_30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vp_create_random" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_create_prompt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_gray_fill_top16_rect"
+            android:paddingBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:paddingBottom="10dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_create_script_title"
-                    style="@style/TextAppearance.Genti.BodyNormal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center"
-                    android:text="@string/create_tv_script_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_create_script_subtitle"
-                    style="@style/TextAppearance.Genti.BodyDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="@string/create_tv_script_subtitle"
-                    android:textColor="@color/grey_3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_create_script_title" />
-
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/shape_black_fill_10_rect"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_create_script"
-                    style="@style/TextAppearance.Genti.BodySmall"
+                    style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginVertical="6dp"
                     android:afterTextChanged="@{(text) -> vm.checkWritten()}"
-                    android:background="@drawable/shape_grey6_fill_grey5_line_10_rect"
-                    android:gravity="top"
+                    android:background="@null"
                     android:hint="@string/create_et_script_hint"
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine|textNoSuggestions"
                     android:maxLength="200"
-                    android:maxLines="5"
-                    android:minLines="5"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="14dp"
                     android:text="@={vm.prompt}"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey_7"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColorHint="@color/white_40"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_create_next"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_create_script_subtitle" />
-
-                <TextView
-                    android:id="@+id/tv_create_random_title"
-                    style="@style/TextAppearance.Genti.BodyNumber"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/create_tv_random_title"
-                    android:textColor="@color/green_1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_create_script" />
-
-                <TextView
-                    android:id="@+id/tv_create_random_example"
-                    style="@style/TextAppearance.Genti.BodyDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:background="@drawable/shape_bg_fill_green1_line_10_rect"
-                    android:elevation="5dp"
-                    android:minLines="2"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="13dp"
-                    android:shadowColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@id/btn_refresh"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_create_random_title"
-                    tools:text="@string/create_tv_example_1" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/btn_refresh"
+                    android:id="@+id/btn_create_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="17dp"
-                    android:padding="9dp"
-                    android:src="@drawable/ic_refresh"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_create_random_example"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_create_random_example" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_create_plus_image"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_create_random_example">
-
-                    <TextView
-                        android:id="@+id/tv_create_plus_title"
-                        style="@style/TextAppearance.Genti.BodyNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginHorizontal="8dp"
-                        android:text="@string/create_tv_plus_title"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/btn_create_plus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_add"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_create_plus_title" />
-
-                    <FrameLayout
-                        android:id="@+id/layout_plus_image"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="5dp"
-                        android:elevation="2dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@id/btn_create_plus"
-                        app:layout_constraintDimensionRatio="1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/btn_create_plus"
-                        tools:visibility="visible">
-
-                        <ImageView
-                            android:id="@+id/iv_added_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="1dp"
-                            android:elevation="1dp"
-                            android:scaleType="centerCrop"
-                            app:layout_constraintDimensionRatio="1" />
-
-                        <ImageView
-                            android:id="@+id/iv_added_image_bg"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/shape_bg_fill_grey7_line_rect"
-                            app:layout_constraintDimensionRatio="1" />
-
-                    </FrameLayout>
-
-                    <ImageView
-                        android:id="@+id/btn_delete_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-11dp"
-                        android:layout_marginEnd="-11dp"
-                        android:elevation="2dp"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_delete"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="@id/layout_plus_image"
-                        app:layout_constraintTop_toTopOf="@id/layout_plus_image"
-                        tools:visibility="visible" />
-
-                    <TextView
-                        android:id="@+id/tv_create_plus_guide"
-                        style="@style/TextAppearance.Genti.BodyDescription"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="12dp"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="@string/create_tv_plus_guide"
-                        android:textColor="@color/grey_3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/btn_create_plus" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:background="@drawable/sel_btn_gradation"
+                    android:enabled="@{vm.isWritten}"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_play"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
 
-        <TextView
-            android:id="@+id/btn_create_next"
-            style="@style/TextAppearance.Genti.Headline1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="28dp"
-            android:layout_marginBottom="28dp"
-            android:background="@drawable/sel_btn"
-            android:enabled="@{vm.isWritten}"
-            android:gravity="center"
-            android:paddingVertical="10dp"
-            android:text="@string/btn_next"
-            android:textColor="@{vm.isWritten() == true ? @color/white : @color/grey_2}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

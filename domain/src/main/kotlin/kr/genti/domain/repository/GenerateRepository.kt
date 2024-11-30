@@ -32,4 +32,6 @@ interface GenerateRepository {
     suspend fun getIsUserVerified(): Result<Boolean>
 
     suspend fun getIsServerAvailable(): Result<ServerAvailableModel>
+
+    suspend fun patchStatusInDevelop(): Result<Boolean>
 }

@@ -26,7 +26,7 @@ class PushDialog : BaseDialog<DialogPushBinding>(R.layout.dialog_push) {
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)
@@ -50,7 +50,12 @@ class PushDialog : BaseDialog<DialogPushBinding>(R.layout.dialog_push) {
     }
 
     private fun initCloseBtnListener() {
-        binding.btnClose.setOnSingleClickListener { dismiss() }
+        binding.btnClose.setOnSingleClickListener {
+            with(requireActivity()) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        }
     }
 
     private fun initGetAlarmBtnListener() {
@@ -90,15 +95,6 @@ class PushDialog : BaseDialog<DialogPushBinding>(R.layout.dialog_push) {
             }
         } else {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-
-        with(requireActivity()) {
-            setResult(Activity.RESULT_OK)
-            finish()
         }
     }
 }

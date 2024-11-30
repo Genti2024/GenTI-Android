@@ -21,14 +21,6 @@ class UserSharedPrefImpl
             get() = dataStore.getString(USER_ROLE, "").orEmpty()
             set(value) = dataStore.edit { putString(USER_ROLE, value) }
 
-        override var isGuideNeeded: Boolean
-            get() = dataStore.getBoolean(IS_GUIDE_NEEDED, true)
-            set(value) = dataStore.edit { putBoolean(IS_GUIDE_NEEDED, value) }
-
-        override var isChatAccessible: Boolean
-            get() = dataStore.getBoolean(IS_CHAT_ACCESSIBLE, true)
-            set(value) = dataStore.edit { putBoolean(IS_CHAT_ACCESSIBLE, value) }
-
         override fun clearInfo() {
             dataStore.edit().clear().apply()
         }
@@ -37,7 +29,6 @@ class UserSharedPrefImpl
             private const val ACCESS_TOKEN = "ACCESS_TOKEN"
             private const val REFRESH_TOKEN = "REFRESH_TOKEN"
             private const val USER_ROLE = "USER_ROLE"
-            private const val IS_GUIDE_NEEDED = "IS_GUIDE_NEEDED"
             private const val IS_CHAT_ACCESSIBLE = "IS_CHAT_ACCESSIBLE"
         }
     }

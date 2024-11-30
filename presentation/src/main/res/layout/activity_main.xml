@@ -23,8 +23,9 @@
             android:id="@+id/bnv_main"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:background="@color/background_white"
+            android:background="@color/black"
             android:elevation="0dp"
+            android:paddingHorizontal="30dp"
             android:paddingTop="8dp"
             android:paddingBottom="10dp"
             app:itemRippleColor="@null"
@@ -35,15 +36,27 @@
 
         <ImageView
             android:id="@+id/btn_menu_create"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-18dp"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="-28dp"
             android:background="@null"
             android:elevation="10dp"
-            android:src="@drawable/menu_create_unselected"
+            android:src="@drawable/menu_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/bnv_main" />
+
+        <ImageView
+            android:id="@+id/btn_patch_in_develop"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/shape_gray_fill_16_rect"
+            android:padding="10dp"
+            android:src="@drawable/logo_genti_2d"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/bnv_main"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

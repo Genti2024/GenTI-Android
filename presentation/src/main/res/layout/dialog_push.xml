@@ -8,103 +8,92 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/view_push_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/img_dialog_bg_green_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/view_push_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-80dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/img_dialog_bg_green_bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_get_alarm" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_marginTop="-20dp"
-            android:layout_marginHorizontal="0.1dp"
-            android:layout_height="0dp"
-            android:background="@color/background_white"
-            app:layout_constraintBottom_toTopOf="@id/view_push_bottom"
-            app:layout_constraintEnd_toEndOf="@id/view_push_bottom"
-            app:layout_constraintStart_toStartOf="@id/view_push_bottom"
-            app:layout_constraintTop_toBottomOf="@id/view_push_top" />
-
-        <ImageView
-            android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="14dp"
-            android:src="@drawable/ic_close_dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_push_title"
-            style="@style/TextAppearance.Genti.Headline4"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="44dp"
-            android:layout_marginTop="26dp"
-            android:gravity="center"
-            android:text="@string/push_tv_title"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/shape_gray_fill_16_rect"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_push_alarm"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/img_alarm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_push_title" />
+            <ImageView
+                android:id="@+id/iv_push_alarm"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_alarm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_push_subtitle"
-            style="@style/TextAppearance.Genti.BodySmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:text="@string/push_tv_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_push_alarm" />
+            <TextView
+                android:id="@+id/tv_push_title"
+                style="@style/TextAppearance.Genti.Title_20_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="-8dp"
+                android:gravity="center"
+                android:text="@string/push_tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_push_alarm" />
 
-        <TextView
-            android:id="@+id/btn_get_alarm"
-            style="@style/TextAppearance.Genti.Headline4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="29dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/shape_green1_fill_6_rect"
-            android:gravity="center"
-            android:paddingVertical="6dp"
-            android:text="@string/push_btn_get_alarm"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_push_subtitle" />
+            <TextView
+                android:id="@+id/tv_push_subtitle"
+                style="@style/TextAppearance.Genti.Body_14_Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/push_tv_subtitle"
+                android:textColor="@color/white_80"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_push_title" />
+
+            <TextView
+                android:id="@+id/btn_close"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/shape_white_fill_10_rect"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@string/push_btn_close"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/btn_get_alarm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_push_subtitle" />
+
+            <TextView
+                android:id="@+id/btn_get_alarm"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/shape_green_gradation_fill_10_rect"
+                android:gravity="center"
+                android:paddingVertical="14dp"
+                android:text="@string/push_btn_get_alarm"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_close"
+                app:layout_constraintTop_toBottomOf="@id/tv_push_subtitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,7 +1,5 @@
 package kr.genti.presentation.main.feed
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -15,11 +13,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.initOnBackPressedListener
-import kr.genti.core.extension.setStatusBarColor
+import kr.genti.core.extension.dpToPx
+import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
+import kr.genti.core.util.RvItemLastDecoration
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentFeedBinding
 import kr.genti.presentation.util.AmplitudeManager
@@ -31,6 +30,8 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
     val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
+    private var feedInfoBottomSheet: FeedInfoBottomSheet? = null
+
     private val viewModel by activityViewModels<FeedViewModel>()
 
     override fun onViewCreated(
@@ -41,56 +42,63 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
 
         initView()
         initAdapter()
-        setLightningVisibility()
+        initTooltipCloseBtnListener()
+        initListScrollListener()
         observeGetExampleItemsState()
     }
 
     private fun initView() {
-        initOnBackPressedListener(binding.root)
-        setStatusBarColor(R.color.background_50)
         viewModel.getExamplePromptsFromServer()
     }
 
     private fun initAdapter() {
-        _adapter =
-            FeedAdapter(
-                genBtnClick = ::initGenBtnListener,
-            )
+        _adapter = FeedAdapter(genBtnClick = ::initGenBtnListener)
         binding.rvFeed.adapter = adapter
     }
 
     private fun initGenBtnListener(x: Boolean) {
-        Intent(Intent.ACTION_VIEW, Uri.parse(WEB_GENFLUENCER)).apply {
-            startActivity(this)
+        feedInfoBottomSheet = FeedInfoBottomSheet()
+        feedInfoBottomSheet?.show(parentFragmentManager, BOTTOM_SHEET_INFO)
+    }
+
+    private fun initTooltipCloseBtnListener() {
+        binding.tvFeedTooltip.setOnSingleClickListener {
+            binding.tvFeedTooltip.isVisible = false
+            viewModel.isTooltipClosed = true
         }
     }
 
-    private fun setLightningVisibility() {
-        with(binding) {
-            rvFeed.addOnScrollListener(
-                object : RecyclerView.OnScrollListener() {
-                    var accumScrollY = 0
+    private fun initListScrollListener() {
+        binding.rvFeed.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                var accumScrollY = 0
 
-                    override fun onScrolled(
-                        recyclerView: RecyclerView,
-                        dx: Int,
-                        dy: Int,
-                    ) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        accumScrollY += dy
-                        ivFeedLightning.alpha =
-                            max(0.0, (1 - accumScrollY / 130f).toDouble()).toFloat()
-                        if (accumScrollY > 4500 && !viewModel.isAmplitudeScrollTracked) {
-                            AmplitudeManager.apply {
-                                trackEvent("scroll_main_3pic")
-                                plusIntProperties("user_main_scroll")
-                            }
-                            viewModel.isAmplitudeScrollTracked = true
-                        }
+                override fun onScrolled(
+                    recyclerView: RecyclerView,
+                    dx: Int,
+                    dy: Int,
+                ) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    accumScrollY += dy
+
+                    if (!viewModel.isTooltipClosed && accumScrollY > 250) {
+                        binding.tvFeedTooltip.isVisible = true
                     }
-                },
-            )
-        }
+
+                    if (accumScrollY > 4500 && !viewModel.isAmplitudeScrollTracked) {
+                        AmplitudeManager.apply {
+                            trackEvent("scroll_main_3pic")
+                            plusIntProperties("user_main_scroll")
+                        }
+                        viewModel.isAmplitudeScrollTracked = true
+                    }
+
+                    binding.ivFeedBlurTop.alpha =
+                        1 - max(0.0, (1 - accumScrollY / 300f).toDouble()).toFloat()
+                }
+            }
+        )
     }
 
     private fun observeGetExampleItemsState() {
@@ -100,11 +108,18 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
                     is UiState.Success -> {
                         adapter.setItemList(state.data)
                         delay(500)
-                        setStatusBarColor(R.color.background_white)
                         with(binding) {
                             layoutLoading.isVisible = false
                             rvFeed.isVisible = true
-                            ivFeedLightning.isVisible = true
+                            rvFeed.addItemDecoration(
+                                RvItemLastDecoration(
+                                    requireContext(),
+                                    0,
+                                    0,
+                                    0,
+                                    70.dpToPx(requireContext())
+                                )
+                            )
                         }
                     }
 
@@ -116,11 +131,16 @@ class FeedFragment() : BaseFragment<FragmentFeedBinding>(R.layout.fragment_feed)
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         _adapter = null
+        feedInfoBottomSheet = null
+    }
+
+    fun scrollFeedListToTop() {
+        binding.rvFeed.smoothScrollToPosition(0)
     }
 
     companion object {
-        private const val WEB_GENFLUENCER =
-            "https://stealth-goose-156.notion.site/57a00e1d610b4c1786c6ab1fdb4c4659?pvs=4"
+        private const val BOTTOM_SHEET_INFO = "BOTTOM_SHEET_INFO"
     }
 }

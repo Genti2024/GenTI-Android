@@ -1,0 +1,81 @@
+name: Genti Firebase App Distribution Builder
+
+on:
+  push:
+    branches: [ production ]
+
+defaults:
+  run:
+    shell: bash
+    working-directory: .
+
+jobs:
+  build:
+    name: Firebase App Distribution Builder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Gradle cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Change gradlew permissions
+        run: chmod +x ./gradlew
+
+      - name: Create Local Properties
+        run: touch local.properties
+
+      - name: Access Local Properties
+        env:
+          base_url: ${{ secrets.BASE_URL }}
+          test_base_url: ${{ secrets.TEST_BASE_URL }}
+          native_app_key: ${{ secrets.NATIVE_APP_KEY }}
+          amplitude_api_key: ${{ secrets.AMPLITUDE_API_KEY }}
+          amplitude_test_key: ${{ secrets.AMPLITUDE_TEST_KEY }}
+        run: |
+          echo "base.url=\"$base_url\"" >> local.properties
+          echo "test.base.url=\"$test_base_url\"" >> local.properties
+          echo "native.app.key=\"$native_app_key\"" >> local.properties
+          echo "nativeAppKey=\"$native_app_key\"" >> local.properties
+          echo "amplitude.api.key=\"$amplitude_api_key\"" >> local.properties
+          echo "amplitude.test.key=\"$amplitude_test_key\"" >> local.properties
+
+      - name: Access Keystore Properties
+        env:
+          keystore_file: ${{ secrets.KEYSTORE_FILE }}
+          store_password: ${{ secrets.STORE_PASSWORD }}
+          key_password: ${{ secrets.KEY_PASSWORD }}
+          key_alias: ${{ secrets.KEY_ALIAS }}
+        run: |
+          echo "storeFile=keystore.jks" > keystore.properties
+          echo "storePassword=\"$store_password\"" >> keystore.properties
+          echo "keyAlias=\"$key_alias\"" >> keystore.properties
+          echo "keyPassword=\"$key_password\"" >> keystore.properties
+          echo "$keystore_file" | base64 -d > keystore.jks
+
+      - name: Access Firebase Service
+        run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
+
+      - name: Build release APK
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_KEY }}
+          groups: tester
+          file: app/build/outputs/apk/release/app-release.apk

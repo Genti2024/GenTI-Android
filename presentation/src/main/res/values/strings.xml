@@ -16,51 +16,82 @@
     <string name="btn_next">다음으로</string>
     <string name="btn_done">사진 생성하기</string>
 
+    <string name="btn_share">공유하기</string>
+    <string name="btn_download">저장하기</string>
+
     <string name="menu_feed">피드</string>
     <string name="menu_create">생성</string>
     <string name="menu_profile">프로필</string>
 
-    <string name="login_btn_kakao">카카오로 계속하기</string>
-    <string name="login_tv_title">내 마음대로 표현하는\n하나뿐인 AI 사진</string>
+    <string name="login_btn_kakao">카카오 로그인</string>
+    <string name="login_tv_title">내 마음대로 세상에 하나뿐인\n나의 AI 사진을 찍어 보세요.</string>
+    <string name="login_tv_subtitle">5초만에 가입해서 바로 시작할 수 있어요.</string>
 
-    <string name="signup_tv_title">사진을 더 나처럼 표현하기 위해\n아래의 정보가 필요해요!</string>
-    <string name="signup_tv_gender_title">성별을 알려주세요!</string>
-    <string name="signup_tv_gender_male">남자</string>
-    <string name="signup_tv_gender_female">여자</string>
-    <string name="signup_tv_birth_title">태어난 연도를 알려주세요!</string>
-    <string name="signup_btn_birth_guide">눌러서 태어난 연도 선택하기</string>
-    <string name="signup_btn_submit">입력 완료</string>
+    <string name="signup_tv_title">성별과 나이를 알려주세요.</string>
+    <string name="signup_tv_subtitle">사진을 더 잘 표현하기 위해 활용됩니다.</string>
+    <string name="signup_tv_gender_title">성별</string>
+    <string name="signup_tv_gender_male">남성</string>
+    <string name="signup_tv_gender_female">여성</string>
+    <string name="signup_tv_birth_title">출생년도</string>
+    <string name="signup_tv_birth_hint">YYYY</string>
+    <string name="signup_btn_submit">완료</string>
 
-    <string name="onboarding_tv_title">젠티가 처음인 당신을 위해!</string>
     <string name="onboarding_btn_next">다음으로</string>
     <string name="onboarding_btn_finish">젠티하러 가기</string>
+    <string name="onboarding_tv_title">젠티, 어떻게 사용하나요?</string>
+    <string name="onboarding_tv_first_subtitle">원하는 사진을 자유롭게 설명해요.</string>
+    <string name="onboarding_tv_first_body">의상, 배경 등 어떤 사진을 만들고 싶은지 입력해주세요.</string>
 
-    <string name="create_tv_script_title">만들고 싶은 사진을 설명해주세요✏️</string>
-    <string name="create_tv_script_subtitle">성적이거나 폭력적인 사진은 만들어지지 않아요</string>
-    <string name="create_et_script_hint">의상과 배경을 포함해서 설명해 주세요!\n\n*헤어스타일을 변경하는 기능은 준비 중이에요\n*너무 특정한 배경과 의상은 어려울 수 있어요\n(반포 한강 공원, 나이키 티셔츠 등)</string>
-    <string name="create_tv_plus_title">참고할 구도의 사진이 있다면 추가해주세요 (선택)</string>
-    <string name="create_tv_plus_subtitle">(선택)</string>
-    <string name="create_tv_plus_guide">(참고사진은 최대 1장 업로드 할 수 있어요)</string>
+    <string name="create_select_tv_default_title">내 사진 만들기</string>
+    <string name="create_select_tv_default_subtitle">찍고 싶은 내 사진을 AI로 마음껏 만들어 보세요!</string>
+    <string name="create_select_tv_default_body">일상적인 사진부터 판타지한 장면까지 모두 가능해요.</string>
+    <string name="create_select_tv_default_caption">내 사진 세 장만 있으면 만들 수 있어요.</string>
+    <string name="create_select_tv_parent_title">부모님 사진 만들기</string>
+    <string name="create_select_tv_parent_subtitle">사랑하는 부모님의 사진을 만들어 보세요!</string>
+    <string name="create_select_tv_parent_body">부모님의 독사진, 부모님과 함께 찍은 사진을 만들 수 있어요.</string>
+    <string name="create_select_tv_parent_caption">흑백 사진이거나 화질이 안좋은 사진도 괜찮아요.</string>
+
+    <string name="create_tv_title">사진 만들기</string>
+    <string name="create_phase_text">%1$d/3</string>
+
+    <string name="create_tv_script_title_parent">부모님의 어떤 모습을 담고 싶나요?</string>
+    <string name="create_tv_script_subtitle_2_parent">부모님과 함께 찍고 싶은 사진이나 보고 싶은 부모님의 모습을 설명해주세요.</string>
+    <string name="create_tv_script_title">어떤 사진을 만들고 싶나요?</string>
+    <string name="create_tv_script_subtitle_1">AI가 이해하지 못하는 장소나 의상은 생성이 어려울 수 있어요.</string>
+    <string name="create_tv_script_subtitle_2">성적이거나 폭력적인 사진은 생성되지 않아요.</string>
+    <string name="create_et_script_hint">만들고 싶은 사진을 설명해주세요.</string>
     <string name="create_tv_random_title">이런 사진은 어때요?</string>
     <string name="create_tv_example_1">프랑스 야경을 즐기는 모습을 그려주세요. 항공점퍼를 입고 테라스에 서 있는 모습이에요.</string>
 
-    <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요 📷</string>
-    <string name="pose_tv_ratio_none">비율은 자유롭게 맡길래요</string>
-    <string name="pose_tv_angle_title">카메라 앵글을 선택해주세요 📷</string>
-    <string name="pose_tv_angle_none">앵글은 자유롭게 맡길래요</string>
-    <string name="pose_tv_frame_title">원하는 프레임을 선택해주세요 📷</string>
-    <string name="pose_tv_frame_none">프레임은 자유롭게 맡길래요</string>
-    <string name="pose_btn_ratio_sero">3:2 비율\n(세로로 긴 사진)</string>
-    <string name="pose_btn_ratio_garo">2:3 비율\n(가로로 긴 사진)</string>
+    <string name="create_parent_tv_title">부모님 사진 만들기</string>
 
-    <string name="selfie_tv_title">사진 생성에 이용할 얼굴 3장을 업로드해주세요</string>
-    <string name="selfie_tv_guide_title">💡얼굴은 이런 사진을 사용해주세요!</string>
-    <string name="selfie_tv_guide_one">모자, 악세사리 등으로 얼굴이 잘 안보이는 사진을 사용하면 얼굴이 잘 안나올 수 있어요</string>
-    <string name="selfie_tv_guide_two">사진은 정면사진을 포함하여 오른쪽, 왼쪽 등 다양한 각도일수록 얼굴 생성에 도움이 돼요</string>
-    <string name="selfie_tv_guide_three">만들고자 하는 사진의 포즈와 비슷한 각도의 얼굴 사진을 사용하면 얼굴이 더욱 정확하게 반영돼요</string>
-    <string name="selfie_tv_guide_four">본인의 사진만 업로드해주세요. 타인의 사진을 이용할 경우 서비스 이용이 차단되며 법적인 제재를 받을 수도 있어요!</string>
-    <string name="selfie_tv_guide_example"><![CDATA[<예시>]]></string>
-    <string name="selfie_tv_angle_title">💡\n사진의 각도가 다양할수록 생성된 얼굴이 자연스러워져요!</string>
+    <string name="number_tv_title">어떤 사진을 찍고 싶나요?</string>
+    <string name="number_btn_one_title">1인 사진</string>
+    <string name="number_btn_one_subtitle">부모님 단독</string>
+    <string name="number_btn_two_title">2인 사진</string>
+    <string name="number_btn_two_subtitle">부모님 / 부모님과 나</string>
+
+    <string name="pose_tv_ratio_title">사진의 비율을 선택해주세요.</string>
+    <string name="pose_btn_sero_title">세로 사진</string>
+    <string name="pose_btn_sero_subtitle">3:2 비율</string>
+    <string name="pose_btn_garo_title">가로 사진</string>
+    <string name="pose_btn_garo_subtitle">2:3 비율</string>
+
+    <string name="selfie_tv_title">사진 생성에 사용할\n얼굴 사진 3장을 선택해주세요.</string>
+    <string name="selfie_tv_guide_1">정면을 포함하여 사진의 각도가 다양할수록 좋아요.</string>
+    <string name="selfie_tv_guide_2">모자, 악세사리 등으로 얼굴이 가려진 사진은 안돼요.</string>
+    <string name="selfie_tv_guide_3">얼굴 표정이 다양할 수록 더 실감나는 사진을 만들 수 있어요.</string>
+    <string name="selfie_tv_guide_parent">흑백 사진이거나, 화질이 좋지 않아도 괜찮아요.</string>
+    <string name="selfie_tv_warning">타인의 사진을 도용하면 서비스 이용이 정지되고,\n법적인 처벌을 받을 수 있습니다.</string>
+    <string name="selfie_tv_title_parent_one">사진 생성에 사용할 부모님 얼굴 사진\n3장을 선택해주세요</string>
+    <string name="selfie_tv_title_parent_two">사진 생성에 사용할 두 분의 사진을\n각각 3장씩 선택해주세요</string>
+    <string name="selfie_tv_input_title">이런 사진이 좋아요</string>
+    <string name="selfie_tv_first_parent">첫번째 인물</string>
+    <string name="selfie_tv_second_parent">두번째 인물</string>
+    <string name="selfie_tv_btn_select">사진 선택하기</string>
+    <string name="selfie_tv_btn_reselect">다시 선택하기</string>
+    <string name="selfie_btn_create">사진 생성하기</string>
+
     <string name="selfie_toast_old_picker_limit">3장의 이미지를 선택해 주세요</string>
     <string name="selfie_toast_picker_error">갤러리 이미지를 가져오는 과정에서 오류가 발생했습니다.</string>
 
@@ -71,72 +102,83 @@
     <string name="create_guide_tv_title_down">을 선택해야 해요!</string>
     <string name="create_guide_tv_ex">예시</string>
 
-    <string name="wait_tv_title">세상에 없던 나만의\n   사진을 찍고있어요!</string>
-    <string name="wait_tv_title_dot">• • •</string>
-    <string name="wait_tv_time">예상 소요시간은 2시간입니다.</string>
-    <string name="wait_tv_time_guide">미리 만들어놓은 컨셉에 얼굴만 바꾸는게 아니라\n’나만의 하나뿐인 사진’을 찍어드리기 위해 \n배경부터 의상, 구도까지 꼼꼼하게 준비하고 있어요</string>
     <string name="wait_btn_return">피드로 돌아가기</string>
+    <string name="wait_tv_header">사진 생성 중</string>
+    <string name="wait_tv_title">세상에 없던\n나만의 사진을 찍고 있어요!</string>
+    <string name="wait_tv_title_paid">소중한 사람과의 추억이 담긴\n사진을 찍고 있어요!</string>
+    <string name="wait_tv_subtitle">사진이 완성되면, 완료 알림을 보내드려요.</string>
+    <string name="wait_tv_time_title">예상 소요 시간</string>
+    <string name="wait_tv_time_subtitle">2시간 정도 걸릴 예정이에요.</string>
+    <string name="wait_tv_time_guide">세상에 하나뿐인 사진을 만들어 드리기 위해\n배경부터 의상까지 꼼꼼하게 준비하고 있어요.</string>
 
-    <string name="waiting_error_tv_title">정말 죄송합니다.</string>
-    <string name="waiting_error_tv_subtitle">서버에 오류가 발생해서\n사진이 만들어지지 않았어요.</string>
-    <string name="waiting_error_btn_again">사진 다시 생성하기</string>
+    <string name="waiting_error_tv_title">사진 생성에 실패했습니다.</string>
+    <string name="waiting_error_tv_subtitle">죄송합니다. 서버에 오류가 발생하였습니다.\n사진 생성을 다시 시도할까요? </string>
+    <string name="waiting_error_btn_exit">닫기</string>
+    <string name="waiting_error_btn_again">사진 다시 생성</string>
 
     <string name="main_dialog_tv_title">사진이 완성되었어요!</string>
-    <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 확인할까요?</string>
-    <string name="main_dialog_btn_move_to_finish">사진 확인하기</string>
+    <string name="main_dialog_tv_subtitle">다른 사진을 만들기 전에\n완성된 사진을 보러갈까요?</string>
+    <string name="main_dialog_btn_move_to_finish">사진 보기</string>
 
-    <string name="finished_tv_title">하나뿐인 나만의 사진이\n완성되었어요!</string>
-    <string name="finished_tv_saved">사진이 마이페이지에 저장되었어요!</string>
+    <string name="finished_tv_title">하나뿐인 나만의 사진 완성!</string>
+    <string name="finished_tv_saved">마이페이지에서 사진을 확인할 수 있습니다.</string>
     <string name="finished_btn_share">공유하기</string>
-    <string name="finished_btn_return_main">메인으로 이동하기</string>
-    <string name="finished_btn_unwanted"><u>혹시 만들려고 했던 사진과 전혀 다른 사진이 나왔나요?</u></string>
+    <string name="finished_btn_unwanted">사진이 잘못 나왔나요?</string>
+    <string name="finished_tv_title_paid">소중한 사진이 완성되었어요!</string>
+    <string name="finished_btn_save">사진 저장하기</string>
 
-    <string name="finished_error_input_tv_title">어떤 오류사항이 있었나요?</string>
-    <string name="finished_error_input_tv_subtitle">구체적으로 작성해 주실수록 오류 확인이 \n빠르게 진행됩니다!</string>
-    <string name="finished_error_input_btn_submit">제출하기</string>
-    <string name="finished_error_input_btn_back">취소</string>
+    <string name="finished_error_input_tv_title">사진에 어떤 문제가 있나요?</string>
+    <string name="finished_error_input_tv_subtitle">구체적으로 작성 해주실수록\n오류 확인이 빠르게 진행됩니다.</string>
+    <string name="finished_error_input_tv_hint">오류 사항을 입력해주세요.</string>
+    <string name="finished_error_input_btn_submit">제출</string>
+    <string name="finished_error_input_btn_back">닫기</string>
 
     <string name="finished_error_output_tv_title">의견 감사합니다!</string>
-    <string name="finished_error_output_tv_subtitle">작성해주신 내용 잘 확인하여 더 좋은\n서비스를 제공하는 젠티가 되겠습니다.</string>
-    <string name="finished_error_output_btn_okay">확인했습니다!</string>
+    <string name="finished_error_output_tv_subtitle">작성해주신 내용을 잘 확인하여\n더 좋은 서비스를 제공하는 젠티가 되겠습니다.</string>
+    <string name="finished_error_output_btn_okay">닫기</string>
 
     <string name="finished_rating_tv_title">사진은 어떠셨나요?</string>
     <string name="finished_rating_tv_subtitle">별점을 남겨주시면 앞으로 더 마음에 드는\n사진을 만들어 드릴 수 있어요!</string>
-    <string name="finished_rating_tv_btn_submit">제출하기</string>
-    <string name="finished_rating_tv_btn_skip"><u>건너뛰기</u></string>
+    <string name="finished_rating_tv_btn_skip">건너뛰기</string>
 
-    <string name="feed_tv_title">젠플루언서들이 만든 사진이에요</string>
+    <string name="feed_tv_title">젠플루언서들이 만든 사진들을 둘러보세요.</string>
     <string name="feed_btn_genfluencer"><u>젠플루언서란?</u></string>
-    <string name="feed_tv_genfluencer_guide">*여러분이 만든 사진은 자동으로 업로드 되지 않아요️</string>
+    <string name="feed_tv_genfluencer_guide">여러분이 만든 사진은 자동으로 업로드되지 않습니다.</string>
     <string name="feed_tv_item_title">사진 설명</string>
+    <string name="feed_info_tv_title">젠플루언서란?</string>
+    <string name="feed_info_tv_subtitle">젠티로 자신만의 독창적인 사진을 만드는 사람들로,\n다른 사용자들이 자신만의 사진을 잘 만들 수 있도록\n영감을 주는 역할을 합니다.</string>
+    <string name="feed_info_btn_more">어떤 혜택이 있나요?</string>
 
     <string name="profile_tv_title">마이페이지</string>
     <string name="profile_tv_waiting">세상에 없던 나만의 사진 찍는 중 ⋯</string>
     <string name="profile_tv_list_title">내가 만든 사진</string>
-    <string name="profile_tv_empty">아직 내가 만든 사진이 없어요</string>
+    <string name="profile_tv_empty">아직 내가 만든 사진이 없어요.</string>
+    <string name="profile_tv_empty_guide">세상에 하나뿐인 나만의 사진을 만들어보세요!</string>
     <string name="profile_image_download_success">사진이 저장되었어요\n친구들에게 공유해보세요!</string>
 
-    <string name="setting_tv_title">설정 및 개인정보</string>
+    <string name="setting_tv_title">설정</string>
     <string name="setting_btn_terms_of_service">이용 약관</string>
     <string name="setting_btn_privacy_policy">개인정보처리방침</string>
     <string name="setting_btn_android_version">앱 버전</string>
     <string name="setting_tv_android_version">v%s</string>
     <string name="setting_btn_company_info">사업자 정보</string>
+    <string name="setting_btn_question">문의하기</string>
     <string name="setting_btn_logout">로그아웃</string>
     <string name="setting_btn_quit">회원 탈퇴</string>
 
     <string name="setting_logout_tv_title">정말 로그아웃 하시겠어요?</string>
-    <string name="setting_logout_subtitle">사진 생성 중에 로그아웃 하시면\n오류가 발생할 수 있습니다. 주의해주세요!</string>
-    <string name="setting_logout_btn_return">취소하기</string>
+    <string name="setting_logout_subtitle">사진 생성 중에 로그아웃 하시면\n오류가 발생할 수 있으니 주의해주세요.</string>
+    <string name="setting_logout_btn_return">취소</string>
     <string name="setting_logout_btn_logout">로그아웃</string>
 
-    <string name="setting_quit_tv_title">정말 탈퇴 하시겠어요?</string>
-    <string name="setting_quit_tv_subtitle">생성한 사진 내역이 모두 사라집니다.\n주의해주세요!</string>
+    <string name="setting_quit_tv_title">정말 탈퇴하시겠어요?</string>
+    <string name="setting_quit_tv_subtitle">탈퇴 시, 생성한 사진 내역이 모두 사라집니다.\n그래도 탈퇴하시겠습니까?</string>
     <string name="setting_quit_btn_quit">탈퇴하기</string>
 
     <string name="push_tv_title">사진 완성 알림을 받아보세요!</string>
-    <string name="push_tv_subtitle">알림에 동의해 주시면\n사진이 완성되었을 때 알려드릴게요</string>
-    <string name="push_btn_get_alarm">사진 완성 알림 받기</string>
+    <string name="push_tv_subtitle">알림에 동의해 주시면\n사진이 완성되었을 때 알려드릴게요.</string>
+    <string name="push_btn_close">다음에</string>
+    <string name="push_btn_get_alarm">알림 받기</string>
 
     <string name="openchat_tv_title_up">내가 만든 특별한 사진,</string>
     <string name="openchat_tv_title_down">다른 사람에게 보여주고 싶다면?</string>
@@ -159,5 +201,8 @@
     <string name="verify_exit_tv_title">정말 나가시겠어요?</string>
     <string name="verify_exit_tv_subtitle">메인 화면으로 나가면 \n촬영한 사진은 자동으로 삭제됩니다.</string>
     <string name="verify_exit_btn_exit">나가기</string>
+
+    <string name="unable_tv_title">현재 점검 중입니다!</string>
+    <string name="unable_btn_close">닫기</string>
 
 </resources>

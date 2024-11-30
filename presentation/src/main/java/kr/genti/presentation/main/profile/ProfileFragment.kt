@@ -14,15 +14,19 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
-import kr.genti.core.extension.initOnBackPressedListener
 import kr.genti.core.extension.setOnSingleClickListener
-import kr.genti.core.extension.setStatusBarColor
 import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageModel
+import kr.genti.domain.enums.GenerateStatus
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.FragmentProfileBinding
+import kr.genti.presentation.generate.waiting.WaitingActivity
+import kr.genti.presentation.main.CreateErrorDialog
+import kr.genti.presentation.main.CreateFinishedDialog
+import kr.genti.presentation.main.CreateSelectDialog
+import kr.genti.presentation.main.CreateUnableDialog
 import kr.genti.presentation.setting.SettingActivity
 import kr.genti.presentation.util.AmplitudeManager
 
@@ -35,6 +39,10 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
     private val viewModel by activityViewModels<ProfileViewModel>()
 
     private var profileImageDialog: ProfileImageDialog? = null
+    private var createFinishedDialog: CreateFinishedDialog? = null
+    private var createErrorDialog: CreateErrorDialog? = null
+    private var createUnableDialog: CreateUnableDialog? = null
+    private var createSelectDialog: CreateSelectDialog? = null
 
     override fun onViewCreated(
         view: View,
@@ -48,38 +56,66 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         setListWithInfinityScroll()
         observeGenerateStatus()
         observePictureListPageState()
+        observeServerAvailableState()
     }
 
     private fun initView() {
-        initOnBackPressedListener(binding.root)
-        setStatusBarColor(R.color.green_3)
         with(viewModel) {
             getGenerateStatusFromServer()
+            if(_adapter != null) adapter.submitList(listOf())
+            resetPicturePagingValue()
             getPictureListFromServer()
         }
     }
 
     private fun initSettingBtnListener() {
         binding.btnSetting.setOnSingleClickListener {
-            Intent(requireActivity(), SettingActivity::class.java).apply {
-                startActivity(this)
-            }
+            startActivity(Intent(requireActivity(), SettingActivity::class.java))
         }
     }
 
     private fun initAdapter() {
-        _adapter =
-            ProfileAdapter(
-                imageClick = ::initImageClickListener,
-            )
+        _adapter = ProfileAdapter(
+            imageClick = ::initImageClickListener,
+            moveClick = ::initMoveClickListener,
+        )
         binding.rvProfilePictureList.adapter = adapter
     }
 
     private fun initImageClickListener(item: ImageModel) {
         AmplitudeManager.trackEvent("enlarge_mypage_picture")
         profileImageDialog =
-            ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name ?: "")
+            ProfileImageDialog.newInstance(item.id, item.url, item.pictureRatio?.name.orEmpty())
         profileImageDialog?.show(parentFragmentManager, IMAGE_VIEWER)
+    }
+
+    private fun initMoveClickListener(x: Boolean) {
+        when (viewModel.currentStatus) {
+            GenerateStatus.NEW_REQUEST_AVAILABLE -> {
+                viewModel.getIsServerAvailable()
+            }
+
+            GenerateStatus.AWAIT_USER_VERIFICATION -> {
+                createFinishedDialog = CreateFinishedDialog()
+                createFinishedDialog?.show(parentFragmentManager, DIALOG_FINISHED)
+            }
+
+            GenerateStatus.IN_PROGRESS -> {
+                startActivity(
+                    WaitingActivity.createIntent(
+                        requireContext(),
+                        viewModel.isCreatingParentPic
+                    )
+                )
+            }
+
+            GenerateStatus.CANCELED -> {
+                createErrorDialog = CreateErrorDialog()
+                createErrorDialog?.show(parentFragmentManager, DIALOG_ERROR)
+            }
+
+            GenerateStatus.EMPTY -> return
+        }
     }
 
     private fun setListWithInfinityScroll() {
@@ -110,10 +146,8 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         viewModel.getGenerateStatusState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    with(binding) {
-                        layoutProfileWaiting.isVisible = state.data == true
-                        layoutProfileNormal.isVisible = state.data != true
-                    }
+                    binding.ivProfileMaking.isVisible = state.data == true
+                    _adapter?.isMaking = state.data == true
                 }
 
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))
@@ -156,13 +190,44 @@ class ProfileFragment() : BaseFragment<FragmentProfileBinding>(R.layout.fragment
         }
     }
 
+    private fun observeServerAvailableState() {
+        viewModel.serverAvailableState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    if (state.data.status) {
+                        AmplitudeManager.trackEvent("click_createpictab")
+                        createSelectDialog = CreateSelectDialog()
+                        createSelectDialog?.show(parentFragmentManager, DIALOG_SELECT)
+                    } else {
+                        createUnableDialog =
+                            CreateUnableDialog.newInstance(state.data.message.orEmpty())
+                        createUnableDialog?.show(parentFragmentManager, DIALOG_UNABLE)
+                    }
+                }
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+            viewModel.resetIsServerAvailable()
+        }.launchIn(lifecycleScope)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
         profileImageDialog = null
+        createFinishedDialog = null
+        createErrorDialog = null
+        createUnableDialog = null
+        createSelectDialog = null
     }
 
     companion object {
         private const val IMAGE_VIEWER = "IMAGE_VIEWER"
+
+        private const val DIALOG_FINISHED = "DIALOG_FINISHED"
+        private const val DIALOG_ERROR = "DIALOG_ERROR"
+        private const val DIALOG_UNABLE = "DIALOG_UNABLE"
+        private const val DIALOG_SELECT = "DIALOG_SELECT"
     }
 }

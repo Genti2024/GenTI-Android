@@ -7,19 +7,36 @@
 
 <br>
 
-## TEAM _ 안드로이드 단독 개발
-![2024-08-01_00-28-32](https://github.com/user-attachments/assets/5179534b-09d6-428d-aa67-92afd1163cc7)
+## TEAM
+![2024-08-01_00-28-32](https://github.com/user-attachments/assets/64bb2fa3-cd67-430a-ae53-ff20c76d53b7)
+
+### Android Contributor
+
+[![contributors](https://contrib.rocks/image?repo=Genti2024/Genti-Android)](https://github.com/Genti2024/Genti-Android/contributors)
+
+<br>
+
+## PRODUCT
+![Group 8245](https://github.com/user-attachments/assets/6616126f-8be8-4011-afc8-d312145cd5e9)
 
 <br>
 
 ## SOLUTIONS
-![2024-08-01_00-34-24](https://github.com/user-attachments/assets/649fb66d-6788-4d6c-a6de-f4b673f9623b)
-![2024-08-01_00-34-43](https://github.com/user-attachments/assets/897c4340-d6d9-4f1a-b9bd-ff4c69675864)
+![Group 8250](https://github.com/user-attachments/assets/c96de744-a45f-4512-9896-cd4c6b278ecb)
+![Group 8251](https://github.com/user-attachments/assets/45c89b6e-6c74-498d-b498-aaa1bad0484f)
+![Group 8252](https://github.com/user-attachments/assets/27210a73-d53c-479c-be24-bc9fe4c5a060)
+
+<br>
+
+## PROGRESS
+![Group 8249](https://github.com/user-attachments/assets/30ab4785-68f0-4490-8bbe-a2b0a9a269e6)
+![Group 8248](https://github.com/user-attachments/assets/a78918f8-14e5-4853-b0f2-806e880d086a)
+![Group 8247](https://github.com/user-attachments/assets/cf32392b-c7f1-4966-9439-ffe150bdc4d0)
 
 <br>
 
 ## ACHIEVEMENT
-- 2024 정주영 창업경진대회 (아산나눔재단) 사업실행팀 선발
+- 2024 정주영 창업경진대회 (아산나눔재단) 사업실행팀 선발 및 본상 수상
 - 2024 고려대 KU 창업동아리 아이디어 트랙 선정
 - 2024 동국대 아이디어 사업화 지원사업 선발
 - 2024 KUCT 딥테크 스타트업 프론티어 선발전 도전상 수상

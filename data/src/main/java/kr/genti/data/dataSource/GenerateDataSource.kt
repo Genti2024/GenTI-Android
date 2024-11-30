@@ -33,4 +33,6 @@ interface GenerateDataSource {
     suspend fun getIsUserVerified(): BaseResponse<Boolean>
 
     suspend fun getIsServerAvailable(): BaseResponse<ServerAvailableDto>
+
+    suspend fun patchStatusInDevelop(): BaseResponse<Boolean>
 }

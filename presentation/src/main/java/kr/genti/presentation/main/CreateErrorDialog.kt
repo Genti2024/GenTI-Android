@@ -22,7 +22,7 @@ class CreateErrorDialog : BaseDialog<DialogCreateErrorBinding>(R.layout.dialog_c
         super.onStart()
         dialog?.window?.apply {
             setLayout(
-                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
             setBackgroundDrawableResource(R.color.transparent)

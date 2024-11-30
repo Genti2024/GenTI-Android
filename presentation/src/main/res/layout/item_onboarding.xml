@@ -8,62 +8,76 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_onboarding_first"
+        <ImageView
+            android:id="@+id/iv_onboarding_first"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingHorizontal="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="100dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_onboarding_first"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_onboarding_one"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_onboarding_one"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_onboarding_two"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:paddingBottom="20dp"
-                android:src="@drawable/img_onboarding_two"
-                app:layout_constraintBottom_toTopOf="@id/iv_onboarding_three"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_onboarding_one" />
-
-            <ImageView
-                android:id="@+id/iv_onboarding_three"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/img_onboarding_three"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_subtitle" />
 
         <ImageView
-            android:id="@+id/layout_onboarding_second"
-            android:layout_width="570dp"
-            android:layout_height="530dp"
-            android:src="@drawable/img_onboarding_finish"
+            android:id="@+id/iv_onboarding_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="23dp"
+            android:layout_marginBottom="92dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_onboarding_second"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_subtitle" />
+
+        <TextView
+            android:id="@+id/tv_onboarding_title"
+            style="@style/TextAppearance.Genti.Body_14_Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="90dp"
+            android:gravity="center"
+            android:text="@string/onboarding_tv_title"
+            android:textColor="@color/genti_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_onboarding_subtitle"
+            style="@style/TextAppearance.Genti.Title_20_Bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/onboarding_tv_first_subtitle"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_title" />
+
+        <TextView
+            android:id="@+id/tv_onboarding_body"
+            style="@style/TextAppearance.Genti.Body_14_Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:gravity="center"
+            android:text="@string/onboarding_tv_first_body"
+            android:textColor="@color/white_60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_subtitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

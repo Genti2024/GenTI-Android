@@ -1,5 +1,6 @@
 package kr.genti.core.base
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
+import kr.genti.core.R
 
 abstract class BaseDialog<T : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
@@ -24,6 +26,13 @@ abstract class BaseDialog<T : ViewDataBinding>(
         _binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState).apply {
+            window?.setWindowAnimations(R.style.DialogAnimation)
+            window?.setDimAmount(0.8f)
+        }
     }
 
     override fun onDestroyView() {

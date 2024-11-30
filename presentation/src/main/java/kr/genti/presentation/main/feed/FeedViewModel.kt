@@ -22,6 +22,7 @@ class FeedViewModel
         val getExampleItemsState: StateFlow<UiState<List<FeedItemModel>>> = _getExampleItemsState
 
         var isAmplitudeScrollTracked = false
+        var isTooltipClosed = false
 
         fun getExamplePromptsFromServer() {
             viewModelScope.launch {

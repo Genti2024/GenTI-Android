@@ -66,8 +66,8 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding>(R.layout.activity_ver
 
     private fun initView() {
         AmplitudeManager.trackEvent("view_verifyme1")
-        setStatusBarColorFromResource(R.color.verify_bg)
-        setNavigationBarColorFromResource(R.color.verify_bg)
+        setStatusBarColorFromResource(R.color.black)
+        setNavigationBarColorFromResource(R.color.black)
     }
 
     private fun initExitBtnListener() {
@@ -215,7 +215,7 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding>(R.layout.activity_ver
                         )
                 }
             }.onSuccess {
-                cameraLauncher.launch(photoUri)
+                photoUri?.let { cameraLauncher.launch(it) }
             }
         } else {
             toast(stringOf(R.string.error_msg))
@@ -229,7 +229,8 @@ class VerifyActivity : BaseActivity<ActivityVerifyBinding>(R.layout.activity_ver
             cacheDir,
         )
 
-    private fun getFileDateFormat() = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+    private fun getFileDateFormat() =
+        SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
 
     private fun observeGeneratingState() {
         viewModel.totalGeneratingState
