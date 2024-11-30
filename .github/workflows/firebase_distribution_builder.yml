@@ -57,6 +57,7 @@ jobs:
         env:
           keystore_file: ${{ secrets.KEYSTORE_FILE }}
         run: |
+          mkdir -p .keystore
           echo "$keystore_file" > .keystore/gentiKeyStore.b64
           base64 -d -i .keystore/gentiKeyStore.b64 > .keystore/gentiKeyStore.jks
 
