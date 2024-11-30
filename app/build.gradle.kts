@@ -18,15 +18,12 @@ android {
         manifestPlaceholders["NATIVE_APP_KEY"] =
             gradleLocalProperties(rootDir).getProperty("nativeAppKey")
 
-        val keystoreProperties = Properties()
         val keystorePropertiesFile = rootProject.file("keystore.properties")
-        if (keystorePropertiesFile.exists()) {
-            keystoreProperties.load(keystorePropertiesFile.inputStream())
-        }
-
+        val keystoreProperties = Properties()
+        keystoreProperties.load(keystorePropertiesFile.inputStream())
         signingConfigs {
             create("release") {
-                storeFile = file("app/keystore.jks")
+                storeFile = file(keystoreProperties["storeFile"] as String)
                 storePassword = keystoreProperties["storePassword"] as String
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
