@@ -66,20 +66,10 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "storeFile=/home/runner/work/Genti-Android/Genti-Android/app/gentiKeyStore.jks" > keystore.properties
+          echo "storeFile=gentiKeyStore.jks" > keystore.properties
           echo "storePassword=$store_password" >> keystore.properties
           echo "keyAlias=$key_alias" >> keystore.properties
           echo "keyPassword=$key_password" >> keystore.properties
-
-      - name: Verify keystore and properties
-        run: |
-          ls -la app/
-          cat keystore.properties
-          keytool -list -keystore app/gentiKeyStore.jks -storepass ${{ secrets.STORE_PASSWORD }}
-          keytool -exportcert -keystore app/gentiKeyStore.jks \
-              -storepass ${{ secrets.STORE_PASSWORD }} \
-              -keypass ${{ secrets.KEY_PASSWORD }} \
-              -alias ${{ secrets.KEY_ALIAS }} -rfc -file /dev/null
 
       - name: Access Firebase Service
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
@@ -87,12 +77,22 @@ jobs:
       - name: Build release APK
         run: ./gradlew assembleRelease --stacktrace
 
+      - name: Verify APK File
+        run: |
+          echo "Checking for APK file..."
+          if [ -f app/build/outputs/apk/release/app-release.apk ]; then
+            echo "APK file exists: app/build/outputs/apk/release/app-release.apk"
+          else
+            echo "APK file does not exist!" >&2
+            exit 1
+          fi
+
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_KEY }}
-          groups: tester
+          groups: genti
           file: app/build/outputs/apk/release/app-release.apk
 
       - name: Sync Production to Develop
