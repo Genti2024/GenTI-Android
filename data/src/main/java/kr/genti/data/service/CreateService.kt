@@ -4,6 +4,7 @@ import kr.genti.data.dto.BaseResponse
 import kr.genti.data.dto.request.CreateRequestDto
 import kr.genti.data.dto.request.CreateTwoRequestDto
 import kr.genti.data.dto.request.KeyRequestDto
+import kr.genti.data.dto.request.PurchaseValidationRequestDto
 import kr.genti.data.dto.request.S3RequestDto
 import kr.genti.data.dto.response.PromptExampleDto
 import kr.genti.data.dto.response.S3PresignedUrlDto
@@ -44,4 +45,9 @@ interface CreateService {
 
     @GET("api/v1/users/examples/with-picture-square")
     suspend fun getPromptExample(): BaseResponse<List<PromptExampleDto>>
+
+    @POST("api/v1/users/in-app-purchases/google/receipt-validation")
+    suspend fun postToValidatePurchase(
+        @Body request: PurchaseValidationRequestDto
+    ): BaseResponse<Boolean>
 }

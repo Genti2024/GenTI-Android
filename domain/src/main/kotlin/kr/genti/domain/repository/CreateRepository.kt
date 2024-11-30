@@ -23,5 +23,5 @@ interface CreateRepository {
 
     suspend fun getPromptExample(): Result<List<PromptExampleModel>>
 
-    suspend fun postToValidatePurchase(requestModel: PurchaseValidationRequestModel): Result<Boolean>
+    suspend fun postToValidatePurchase(request: PurchaseValidationRequestModel): Result<Boolean>
 }
