@@ -57,7 +57,7 @@ jobs:
         env:
           keystore_file: ${{ secrets.KEYSTORE_FILE }}
         run: |
-          echo "$keystore_file" | base64 --decode > app/gentiKeystore.jks
+          echo "$keystore_file" | base64 --decode > app/gentiKeyStore.jks
 
       - name: Access Keystore Properties
         env:
@@ -65,7 +65,7 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "storeFile=gentiKeystore.jks" > keystore.properties
+          echo "storeFile=gentiKeyStore.jks" > keystore.properties
           echo "storePassword=\"$store_password\"" >> keystore.properties
           echo "keyAlias=\"$key_alias\"" >> keystore.properties
           echo "keyPassword=\"$key_password\"" >> keystore.properties
@@ -74,7 +74,7 @@ jobs:
         run: |
           ls -la app/
           cat keystore.properties
-          keytool -list -keystore app/gentiKeystore.jks -storepass ${{ secrets.STORE_PASSWORD }}
+          keytool -list -keystore app/gentiKeyStore.jks -storepass ${{ secrets.STORE_PASSWORD }}
 
       - name: Access Firebase Service
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
