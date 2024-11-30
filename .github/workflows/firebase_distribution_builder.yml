@@ -53,6 +53,11 @@ jobs:
           echo "amplitude.api.key=\"$amplitude_api_key\"" >> local.properties
           echo "amplitude.test.key=\"$amplitude_test_key\"" >> local.properties
 
+      - name: Set up keystore
+        run: |
+          echo "$keystore_file" | base64 -d > app/keystore.jks
+          echo "Keystore file created at app/keystore.jks"
+
       - name: Access Keystore Properties
         env:
           keystore_file: ${{ secrets.KEYSTORE_FILE }}
@@ -60,8 +65,6 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "$keystore_file" | base64 -d > keystore.jks
-          echo "storeFile=keystore.jks" > keystore.properties
           echo "storePassword=\"$store_password\"" >> keystore.properties
           echo "keyAlias=\"$key_alias\"" >> keystore.properties
           echo "keyPassword=\"$key_password\"" >> keystore.properties
