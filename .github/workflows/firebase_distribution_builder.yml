@@ -65,7 +65,7 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "storeFile=app/gentiKeystore.jks" > keystore.properties
+          echo "storeFile=gentiKeystore.jks" > keystore.properties
           echo "storePassword=\"$store_password\"" >> keystore.properties
           echo "keyAlias=\"$key_alias\"" >> keystore.properties
           echo "keyPassword=\"$key_password\"" >> keystore.properties
