@@ -21,12 +21,18 @@ android {
         val keystorePropertiesFile = rootProject.file("keystore.properties")
         val keystoreProperties = Properties()
         if (keystorePropertiesFile.exists()) {
+            println("keystore.properties 파일이 존재합니다: ${keystorePropertiesFile.absolutePath}")
             keystoreProperties.load(keystorePropertiesFile.inputStream())
+            println("keystore.properties 파일 로드 성공!")
+            println("storePassword: ${keystoreProperties["storePassword"]}")
+            println("keyAlias: ${keystoreProperties["keyAlias"]}")
+            println("keyPassword: ${keystoreProperties["keyPassword"]}")
+        } else {
+            println("keystore.properties 파일이 존재하지 않습니다: ${keystorePropertiesFile.absolutePath}")
         }
         signingConfigs {
             create("release") {
-                val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/app/gentiKeyStore.jks"
-                storeFile = file(keystorePath)
+                storeFile = file(keystoreProperties["storeFile"] as String)
                 storePassword = keystoreProperties["storePassword"] as String
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
