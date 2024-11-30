@@ -55,7 +55,7 @@ jobs:
 
       - name: Set up keystore
         run: |
-          echo "$keystore_file" | base64 -d > app/gentiKeystore.jks
+          echo "$keystore_file" | base64 --decode > app/gentiKeystore.jks
 
       - name: Access Keystore Properties
         env:
