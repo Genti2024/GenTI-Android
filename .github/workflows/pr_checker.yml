@@ -53,19 +53,6 @@ jobs:
           echo "amplitude.api.key=\"$amplitude_api_key\"" >> local.properties
           echo "amplitude.test.key=\"$amplitude_test_key\"" >> local.properties
 
-      - name: Access Keystore Properties
-        env:
-          keystore_file: ${{ secrets.KEYSTORE_FILE }}
-          store_password: ${{ secrets.STORE_PASSWORD }}
-          key_password: ${{ secrets.KEY_PASSWORD }}
-          key_alias: ${{ secrets.KEY_ALIAS }}
-        run: |
-          echo "storeFile=keystore.jks" > keystore.properties
-          echo "storePassword=\"$store_password\"" >> keystore.properties
-          echo "keyAlias=\"$key_alias\"" >> keystore.properties
-          echo "keyPassword=\"$key_password\"" >> keystore.properties
-          echo "$keystore_file" | base64 -d > keystore.jks
-
       - name: Access Firebase Service
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
 

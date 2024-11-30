@@ -84,12 +84,3 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_KEY }}
           groups: genti
           file: app/build/outputs/apk/release/app-release.apk
-
-      - name: Sync Production to Develop
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin
-          git checkout develop
-          git merge production --no-ff --no-edit --allow-unrelated-histories
-          git push origin develop
