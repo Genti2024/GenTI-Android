@@ -91,5 +91,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch origin
           git checkout develop
-          git merge production --no-ff --no-edit
+          git merge production --no-ff --no-edit --allow-unrelated-histories
           git push origin develop
