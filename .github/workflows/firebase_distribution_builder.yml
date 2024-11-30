@@ -57,7 +57,8 @@ jobs:
         env:
           keystore_file: ${{ secrets.KEYSTORE_FILE }}
         run: |
-          echo "$keystore_file" | base64 --decode > app/gentiKeyStore.jks
+          echo "$keystore_file" > .keystore/gentiKeyStore.b64
+          base64 -d -i .keystore/gentiKeyStore.b64 > .keystore/gentiKeyStore.jks
 
       - name: Access Keystore Properties
         env:
@@ -65,7 +66,7 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "storeFile=gentiKeyStore.jks" > keystore.properties
+          echo "storeFile=.keystore/gentiKeyStore.jks" > keystore.properties
           echo "storePassword=\"$store_password\"" >> keystore.properties
           echo "keyAlias=\"$key_alias\"" >> keystore.properties
           echo "keyPassword=\"$key_password\"" >> keystore.properties
@@ -74,8 +75,8 @@ jobs:
         run: |
           ls -la app/
           cat keystore.properties
-          keytool -list -keystore app/gentiKeyStore.jks -storepass ${{ secrets.STORE_PASSWORD }}
-          keytool -exportcert -keystore app/gentiKeyStore.jks \
+          keytool -list -keystore .keystore/gentiKeyStore.jks -storepass ${{ secrets.STORE_PASSWORD }}
+          keytool -exportcert -keystore .keystore/gentiKeyStore.jks \
               -storepass ${{ secrets.STORE_PASSWORD }} \
               -keypass ${{ secrets.KEY_PASSWORD }} \
               -alias ${{ secrets.KEY_ALIAS }} -rfc -file /dev/null
