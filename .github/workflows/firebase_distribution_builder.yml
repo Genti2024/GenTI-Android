@@ -55,7 +55,7 @@ jobs:
 
       - name: Set up keystore
         run: |
-          echo "$keystore_file" | base64 -d > app/keystore.jks
+          echo "$keystore_file" | base64 -d > keystore.jks
           echo "Keystore file created at app/keystore.jks"
 
       - name: Access Keystore Properties
