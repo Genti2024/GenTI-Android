@@ -56,6 +56,7 @@ android {
                 "AMPLITUDE_KEY",
                 gradleLocalProperties(rootDir).getProperty("amplitude.api.key"),
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
