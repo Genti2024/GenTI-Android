@@ -59,6 +59,7 @@ jobs:
         run: |
           echo "$keystore_file" > app/gentiKeyStore.b64
           base64 -d -i app/gentiKeyStore.b64 > app/gentiKeyStore.jks
+          echo "KEYSTORE_PATH=/home/runner/work/Genti-Android/Genti-Android/app/gentiKeyStore.jks" >> $GITHUB_ENV
 
       - name: Access Keystore Properties
         env:
@@ -66,7 +67,6 @@ jobs:
           key_password: ${{ secrets.KEY_PASSWORD }}
           key_alias: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "storeFile=gentiKeyStore.jks" > keystore.properties
           echo "storePassword=\"$store_password\"" >> keystore.properties
           echo "keyAlias=\"$key_alias\"" >> keystore.properties
           echo "keyPassword=\"$key_password\"" >> keystore.properties
@@ -83,9 +83,6 @@ jobs:
 
       - name: Access Firebase Service
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
-
-      - name: Clean project
-        run: ./gradlew clean
 
       - name: Build release APK
         run: ./gradlew assembleRelease --stacktrace

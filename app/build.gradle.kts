@@ -25,7 +25,8 @@ android {
         }
         signingConfigs {
             create("release") {
-                storeFile = file(keystoreProperties["storeFile"] as String)
+                val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/app/gentiKeyStore.jks"
+                storeFile = file(keystorePath)
                 storePassword = keystoreProperties["storePassword"] as String
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
