@@ -51,9 +51,9 @@ constructor(
             createDataSource.postToVerify(request.toDto()).response
         }
 
-    override suspend fun getPromptExample(): Result<List<PromptExampleModel>> =
+    override suspend fun getPromptExample(type: String): Result<List<PromptExampleModel>> =
         runCatching {
-            createDataSource.getPromptExample().response.map { it.toModel() }
+            createDataSource.getPromptExample(type).response.map { it.toModel() }
         }
 
     override suspend fun postToValidatePurchase(request: PurchaseValidRequestModel): Result<Boolean> =
