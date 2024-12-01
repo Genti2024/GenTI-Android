@@ -18,7 +18,6 @@ import kr.genti.core.base.BaseActivity
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.ActivityWaitBinding
-import kr.genti.presentation.generate.finished.FinishedActivity
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
@@ -27,6 +26,8 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 @AndroidEntryPoint
 class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait) {
     private var pushDialog: PushDialog? = null
+
+    private var amplitudePage: Map<String, String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +41,7 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
     private fun initReturnBtnListener() {
         binding.btnWaitReturn.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "picwaiting"),
-                mapOf(PROPERTY_BTN to "gomain"),
+                EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "gomain"),
             )
             startPushDialogOrFinish()
         }
@@ -82,6 +81,9 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
     private fun setUiBuIsPaidIntent() {
         if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
             binding.tvWaitTitle.text = getString(R.string.wait_tv_title_paid)
+            amplitudePage = mapOf(PROPERTY_PAGE to "picwaiting_parents")
+        } else {
+            amplitudePage = mapOf(PROPERTY_PAGE to "picwaiting")
         }
     }
 

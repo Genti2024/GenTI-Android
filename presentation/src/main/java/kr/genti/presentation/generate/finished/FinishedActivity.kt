@@ -48,6 +48,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     private var finishedRatingDialog: FinishedRatingDialog? = null
 
     private var amplitudeType: Map<String, String>? = null
+    private var amplitudePage: Map<String, String>? = null
 
     private lateinit var tempFile: File
 
@@ -82,11 +83,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 
     private fun downloadImage() {
         AmplitudeManager.apply {
-            trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "picdone"),
-                mapOf(PROPERTY_BTN to "picdownload"),
-            )
+            trackEvent(EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "picdownload"))
             plusIntProperties("user_picturedownload")
         }
         downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
@@ -95,11 +92,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     private fun initShareBtnListener() {
         binding.btnShare.setOnSingleClickListener {
             AmplitudeManager.apply {
-                trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "picdone"),
-                    mapOf(PROPERTY_BTN to "picshare"),
-                )
+                trackEvent(EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "picshare"))
                 plusIntProperties("user_share")
             }
             tempFile = File(cacheDir, TEMP_FILE_NAME)
@@ -141,17 +134,17 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                 btnSavePaid.isVisible = true
             }
             amplitudeType = mapOf(PROPERTY_TYPE to TYPE_ORIGINAL)
+            amplitudePage = mapOf(PROPERTY_PAGE to "picdone")
         } else {
             amplitudeType = mapOf(PROPERTY_TYPE to TYPE_PARENT)
+            amplitudePage = mapOf(PROPERTY_PAGE to "picdone_parents")
         }
         AmplitudeManager.trackEvent("view_picdone", amplitudeType)
     }
 
     private fun showFinishedRatingDialog() {
         AmplitudeManager.trackEvent(
-            EVENT_CLICK_BTN,
-            mapOf(PROPERTY_PAGE to "picdone"),
-            mapOf(PROPERTY_BTN to "gomain"),
+            EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "gomain"),
         )
         finishedRatingDialog = FinishedRatingDialog()
         finishedRatingDialog?.show(supportFragmentManager, DIALOG_RATING)
