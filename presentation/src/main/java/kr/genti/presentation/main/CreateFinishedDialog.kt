@@ -48,14 +48,13 @@ class CreateFinishedDialog :
             if (viewModel.checkNewPictureInitialized()) {
                 with(viewModel.newPicture) {
                     startActivity(
-                        FinishedActivity
-                            .createIntent(
-                                requireContext(),
-                                this.response?.responseId ?: -1,
-                                this.response?.picture?.url.orEmpty(),
-                                this.response?.picture?.pictureRatio?.name.orEmpty(),
-                                this.paid,
-                            )
+                        FinishedActivity.createIntent(
+                            requireContext(),
+                            this.response?.responseId ?: -1,
+                            this.response?.picture?.url.orEmpty(),
+                            this.response?.picture?.pictureRatio?.name.orEmpty(),
+                            this.paid,
+                        )
                     )
                 }
             } else {

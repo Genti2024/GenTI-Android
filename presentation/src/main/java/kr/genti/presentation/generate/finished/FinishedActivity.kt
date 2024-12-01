@@ -32,6 +32,9 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
+import kr.genti.presentation.util.AmplitudeManager.PROPERTY_TYPE
+import kr.genti.presentation.util.AmplitudeManager.TYPE_ORIGINAL
+import kr.genti.presentation.util.AmplitudeManager.TYPE_PARENT
 import kr.genti.presentation.util.GlideResultListener
 import kr.genti.presentation.util.downloadImage
 import java.io.File
@@ -44,12 +47,13 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     private var finishedReportDialog: FinishedReportDialog? = null
     private var finishedRatingDialog: FinishedRatingDialog? = null
 
+    private var amplitudeType: Map<String, String>? = null
+
     private lateinit var tempFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initView()
         initImageBtnListener()
         initSaveBtnListener()
         initShareBtnListener()
@@ -61,13 +65,9 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         observeDownloadCacheImage()
     }
 
-    private fun initView() {
-        AmplitudeManager.trackEvent("view_picdone")
-    }
-
     private fun initImageBtnListener() {
         binding.ivFinishedImage.setOnSingleClickListener {
-            AmplitudeManager.trackEvent("enlarge_picdone_picture")
+            AmplitudeManager.trackEvent("enlarge_picdone_picture", amplitudeType)
             finishedImageDialog = FinishedImageDialog()
             finishedImageDialog?.show(supportFragmentManager, DIALOG_IMAGE)
         }
@@ -140,7 +140,11 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                 btnShare.isVisible = false
                 btnSavePaid.isVisible = true
             }
+            amplitudeType = mapOf(PROPERTY_TYPE to TYPE_ORIGINAL)
+        } else {
+            amplitudeType = mapOf(PROPERTY_TYPE to TYPE_PARENT)
         }
+        AmplitudeManager.trackEvent("view_picdone", amplitudeType)
     }
 
     private fun showFinishedRatingDialog() {
