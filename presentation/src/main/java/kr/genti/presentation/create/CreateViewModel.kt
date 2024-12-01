@@ -73,10 +73,6 @@ constructor(
     private var firstImageS3KeyList = listOf<KeyRequestModel>()
     private var secondImageS3KeyList = listOf<KeyRequestModel>()
 
-    init {
-        // getExamplePrompt()
-    }
-
     fun modCurrentPercent(amount: Int) {
         _currentPercent.value += amount
     }
@@ -116,11 +112,16 @@ constructor(
         _totalGeneratingState.value = UiState.Empty
     }
 
-    private fun getExamplePrompt() {
+    fun getExamplePrompt() {
         _getExampleState.value = UiState.Loading
+        val currentType = when {
+            !isCreatingParentPic -> TYPE_FREE_ONE
+            selectedNumber.value == PictureNumber.ONE -> TYPE_PAID_ONE
+            else -> TYPE_PAID_TWO
+        }
         viewModelScope.launch {
             runCatching {
-                createRepository.getPromptExample()
+                createRepository.getPromptExample(currentType)
             }.onSuccess {
                 _getExampleState.value = UiState.Success(it.getOrThrow())
             }.onFailure {
@@ -265,5 +266,9 @@ constructor(
     companion object {
         const val VALIDATION_FALSE = "VALIDATION_FALSE"
         const val SERVER_ERROR = "SERVER_ERROR"
+
+        const val TYPE_FREE_ONE = "FREE_ONE"
+        const val TYPE_PAID_ONE = "PAID_ONE"
+        const val TYPE_PAID_TWO = "PAID_TWO"
     }
 }
