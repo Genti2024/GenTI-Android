@@ -45,7 +45,7 @@ class BillingManager(private val activity: Activity, private val callback: Billi
                 .setListener(purchasesUpdatedListener)
                 .enablePendingPurchases(pendingPurchasesParams)
                 .build()
-                .apply { connectBillingClient() }
+        connectBillingClient()
     }
 
     /**
@@ -92,17 +92,17 @@ class BillingManager(private val activity: Activity, private val callback: Billi
     }
 
     /**
-     * 지정된 상품에 대해 Google Play 결제 UI 호출 및 결제 요청 실행
+     * 지정된 상품에 대해 Google Play 결제 UI 호출 및 결제 요청 실행 (구독 상품의 경우 offerToken 필요)
      */
     fun purchaseProduct() {
         inAppProductDetails?.let { productDetail ->
-            val offerToken =
-                productDetail.subscriptionOfferDetails?.getOrNull(0)?.offerToken
-            val productDetailsParams =
+            val productDetailsParamsBuilder =
                 BillingFlowParams.ProductDetailsParams.newBuilder()
                     .setProductDetails(productDetail)
-                    .setOfferToken(offerToken.orEmpty())
-                    .build()
+            productDetail.subscriptionOfferDetails?.getOrNull(0)?.offerToken?.let { offerToken ->
+                productDetailsParamsBuilder.setOfferToken(offerToken)
+            }
+            val productDetailsParams = productDetailsParamsBuilder.build()
             val billingFlowParams =
                 BillingFlowParams.newBuilder()
                     .setProductDetailsParamsList(listOf(productDetailsParams))
@@ -187,7 +187,7 @@ class BillingManager(private val activity: Activity, private val callback: Billi
         }
     }
 
-   fun endConnection() {
+    fun endConnection() {
         billingClient.endConnection()
     }
 

@@ -4,7 +4,7 @@ import kr.genti.data.dto.BaseResponse
 import kr.genti.data.dto.request.CreateRequestDto
 import kr.genti.data.dto.request.CreateTwoRequestDto
 import kr.genti.data.dto.request.KeyRequestDto
-import kr.genti.data.dto.request.PurchaseValidationRequestDto
+import kr.genti.data.dto.request.PurchaseValidRequestDto
 import kr.genti.data.dto.request.S3RequestDto
 import kr.genti.data.dto.response.PromptExampleDto
 import kr.genti.data.dto.response.S3PresignedUrlDto
@@ -24,5 +24,5 @@ interface CreateDataSource {
 
     suspend fun getPromptExample(): BaseResponse<List<PromptExampleDto>>
 
-    suspend fun postToValidatePurchase(request: PurchaseValidationRequestDto): BaseResponse<Boolean>
+    suspend fun postToValidatePurchase(request: PurchaseValidRequestDto): BaseResponse<Boolean>
 }

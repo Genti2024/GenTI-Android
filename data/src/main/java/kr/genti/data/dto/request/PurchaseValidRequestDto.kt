@@ -2,10 +2,10 @@ package kr.genti.data.dto.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kr.genti.domain.entity.request.PurchaseValidationRequestModel
+import kr.genti.domain.entity.request.PurchaseValidRequestModel
 
 @Serializable
-data class PurchaseValidationRequestDto(
+data class PurchaseValidRequestDto(
     @SerialName("packageName")
     val packageName: String,
     @SerialName("productId")
@@ -14,7 +14,7 @@ data class PurchaseValidationRequestDto(
     val purchaseToken: String,
 ) {
     companion object {
-        fun PurchaseValidationRequestModel.toDto() = PurchaseValidationRequestDto(
+        fun PurchaseValidRequestModel.toDto() = PurchaseValidRequestDto(
             packageName,
             productId,
             purchaseToken

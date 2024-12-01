@@ -3,17 +3,21 @@ package kr.genti.presentation.create
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.billingclient.api.Purchase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kr.genti.core.state.UiState
 import kr.genti.domain.entity.request.CreateRequestModel
 import kr.genti.domain.entity.request.CreateTwoRequestModel
 import kr.genti.domain.entity.request.KeyRequestModel
+import kr.genti.domain.entity.request.PurchaseValidRequestModel
 import kr.genti.domain.entity.request.S3RequestModel
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.entity.response.PromptExampleModel
@@ -62,12 +66,15 @@ constructor(
     private val _totalGeneratingState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val totalGeneratingState: StateFlow<UiState<Boolean>> = _totalGeneratingState
 
+    private val _purchaseValidError = MutableSharedFlow<String>()
+    val purchaseValidError: SharedFlow<String> = _purchaseValidError
+
     private var imageS3KeyList = listOf<KeyRequestModel>()
     private var firstImageS3KeyList = listOf<KeyRequestModel>()
     private var secondImageS3KeyList = listOf<KeyRequestModel>()
 
     init {
-        getExamplePrompt()
+        // getExamplePrompt()
     }
 
     fun modCurrentPercent(amount: Int) {
@@ -233,5 +240,30 @@ constructor(
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
             }
         }
+    }
+
+    fun checkPurchaseValidToServer(purchase: Purchase) {
+        viewModelScope.launch {
+            createRepository.postToValidatePurchase(
+                PurchaseValidRequestModel(
+                    purchase.packageName,
+                    purchase.products.first(),
+                    purchase.purchaseToken
+                )
+            ).onSuccess { isValidSuccess ->
+                if (isValidSuccess) {
+                    startSendingImages()
+                } else {
+                    _purchaseValidError.emit(VALIDATION_FALSE)
+                }
+            }.onFailure {
+                _purchaseValidError.emit(SERVER_ERROR)
+            }
+        }
+    }
+
+    companion object {
+        const val VALIDATION_FALSE = "VALIDATION_FALSE"
+        const val SERVER_ERROR = "SERVER_ERROR"
     }
 }

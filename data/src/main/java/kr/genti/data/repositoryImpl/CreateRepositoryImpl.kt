@@ -4,12 +4,12 @@ import kr.genti.data.dataSource.CreateDataSource
 import kr.genti.data.dto.request.CreateRequestDto.Companion.toDto
 import kr.genti.data.dto.request.CreateTwoRequestDto.Companion.toDto
 import kr.genti.data.dto.request.KeyRequestDto.Companion.toDto
-import kr.genti.data.dto.request.PurchaseValidationRequestDto.Companion.toDto
+import kr.genti.data.dto.request.PurchaseValidRequestDto.Companion.toDto
 import kr.genti.data.dto.request.S3RequestDto.Companion.toDto
 import kr.genti.domain.entity.request.CreateRequestModel
 import kr.genti.domain.entity.request.CreateTwoRequestModel
 import kr.genti.domain.entity.request.KeyRequestModel
-import kr.genti.domain.entity.request.PurchaseValidationRequestModel
+import kr.genti.domain.entity.request.PurchaseValidRequestModel
 import kr.genti.domain.entity.request.S3RequestModel
 import kr.genti.domain.entity.response.PromptExampleModel
 import kr.genti.domain.entity.response.S3PresignedUrlModel
@@ -56,7 +56,7 @@ constructor(
             createDataSource.getPromptExample().response.map { it.toModel() }
         }
 
-    override suspend fun postToValidatePurchase(request: PurchaseValidationRequestModel): Result<Boolean> =
+    override suspend fun postToValidatePurchase(request: PurchaseValidRequestModel): Result<Boolean> =
         runCatching {
             createDataSource.postToValidatePurchase(request.toDto()).response
         }

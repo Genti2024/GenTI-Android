@@ -2,6 +2,7 @@ package kr.genti.presentation.create
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -33,6 +34,8 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.enums.PictureNumber
 import kr.genti.presentation.R
+import kr.genti.presentation.create.CreateViewModel.Companion.SERVER_ERROR
+import kr.genti.presentation.create.CreateViewModel.Companion.VALIDATION_FALSE
 import kr.genti.presentation.create.billing.BillingCallback
 import kr.genti.presentation.create.billing.BillingManager
 import kr.genti.presentation.databinding.FragmentSelfieBinding
@@ -69,6 +72,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeGeneratingState()
+        observePurchaseValidResult()
     }
 
     override fun onResume() {
@@ -86,7 +90,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             requireActivity(),
             object : BillingCallback {
                 override fun onBillingSuccess(purchase: Purchase) {
-                    // viewModel.checkPurchaseValidToServer(purchase)
+                    viewModel.checkPurchaseValidToServer(purchase)
                 }
 
                 override fun onBillingFailure(responseCode: Int) {
@@ -292,6 +296,23 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 else -> return@onEach
             }
         }.launchIn(lifecycleScope)
+    }
+
+    private fun observePurchaseValidResult() {
+        viewModel.purchaseValidError.flowWithLifecycle(lifecycle).onEach { errorMsg ->
+            if (errorMsg == SERVER_ERROR) {
+                showErrorDialog()
+            } else {
+                toast(stringOf(R.string.error_msg))
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun showErrorDialog() {
+        AlertDialog.Builder(requireContext()).setTitle(getString(R.string.pay_error_dialog_title))
+            .setMessage(getString(R.string.pay_error_dialog_msg))
+            .setPositiveButton(getString(R.string.pay_error_dialog_btn)) { dialog, _ -> dialog.dismiss() }
+            .create().show()
     }
 
     override fun onDestroyView() {

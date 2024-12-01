@@ -1,6 +1,6 @@
 package kr.genti.domain.entity.request
 
-data class PurchaseValidationRequestModel(
+data class PurchaseValidRequestModel(
     val packageName: String,
     val productId: String,
     val purchaseToken: String,
