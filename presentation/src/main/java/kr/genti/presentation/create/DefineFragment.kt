@@ -18,6 +18,7 @@ import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.presentation.R
+import kr.genti.presentation.create.example.DefineAdapter
 import kr.genti.presentation.databinding.FragmentDefineBinding
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
