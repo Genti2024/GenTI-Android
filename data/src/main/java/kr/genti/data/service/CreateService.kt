@@ -11,6 +11,7 @@ import kr.genti.data.dto.response.S3PresignedUrlDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface CreateService {
     @POST("api/v1/presigned-url")
@@ -43,8 +44,10 @@ interface CreateService {
         @Body request: KeyRequestDto,
     ): BaseResponse<Boolean>
 
-    @GET("api/v1/users/examples/with-picture-square")
-    suspend fun getPromptExample(): BaseResponse<List<PromptExampleDto>>
+    @GET("api/v1/users/examples/with-picture-square/{type}")
+    suspend fun getPromptExample(
+        @Path("type") type: String
+    ): BaseResponse<List<PromptExampleDto>>
 
     @POST("api/v1/users/in-app-purchases/google/receipt-validation")
     suspend fun postToValidatePurchase(

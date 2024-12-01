@@ -35,8 +35,8 @@ constructor(
     override suspend fun postToVerify(request: KeyRequestDto): BaseResponse<Boolean> =
         createService.postToVerify(request)
 
-    override suspend fun getPromptExample(): BaseResponse<List<PromptExampleDto>> =
-        createService.getPromptExample()
+    override suspend fun getPromptExample(type: String): BaseResponse<List<PromptExampleDto>> =
+        createService.getPromptExample(type)
 
     override suspend fun postToValidatePurchase(request: PurchaseValidRequestDto): BaseResponse<Boolean> =
         createService.postToValidatePurchase(request)

@@ -49,6 +49,7 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
 
     private fun initView() {
         binding.vm = viewModel
+        viewModel.getExamplePrompt()
     }
 
     private fun initCreateBtnListener() {
@@ -118,19 +119,17 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
     }
 
     private fun observeGetExampleState() {
-        viewModel.getExampleState
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        adapter.submitList(state.data)
-                        binding.dotIndicator.setViewPager(binding.vpCreateRandom)
-                    }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
+        viewModel.getExampleState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    adapter.submitList(state.data)
+                    binding.dotIndicator.setViewPager(binding.vpCreateRandom)
                 }
-            }.launchIn(lifecycleScope)
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+        }.launchIn(lifecycleScope)
     }
 
 }

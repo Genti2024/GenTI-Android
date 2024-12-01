@@ -22,7 +22,7 @@ interface CreateDataSource {
 
     suspend fun postToVerify(request: KeyRequestDto): BaseResponse<Boolean>
 
-    suspend fun getPromptExample(): BaseResponse<List<PromptExampleDto>>
+    suspend fun getPromptExample(type: String): BaseResponse<List<PromptExampleDto>>
 
     suspend fun postToValidatePurchase(request: PurchaseValidRequestDto): BaseResponse<Boolean>
 }
