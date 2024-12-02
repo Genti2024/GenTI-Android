@@ -25,6 +25,7 @@ import kr.genti.domain.enums.PictureNumber
 import kr.genti.domain.enums.PictureRatio
 import kr.genti.domain.repository.CreateRepository
 import kr.genti.domain.repository.UploadRepository
+import kr.genti.presentation.util.AmplitudeManager
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +36,7 @@ constructor(
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
     var isCreatingParentPic = false
+    var currentType: String = TYPE_FREE_ONE
 
     val prompt = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
@@ -112,11 +114,7 @@ constructor(
 
     fun getExamplePrompt() {
         _getExampleState.value = UiState.Loading
-        val currentType = when {
-            !isCreatingParentPic -> TYPE_FREE_ONE
-            selectedNumber.value == PictureNumber.ONE -> TYPE_PAID_ONE
-            else -> TYPE_PAID_TWO
-        }
+        setCurrentType()
         viewModelScope.launch {
             runCatching {
                 createRepository.getPromptExample(currentType)
@@ -124,6 +122,20 @@ constructor(
                 _getExampleState.value = UiState.Success(it.getOrThrow())
             }.onFailure {
                 _getExampleState.value = UiState.Failure(it.message.toString())
+            }
+        }
+    }
+
+    private fun setCurrentType() {
+        currentType = when {
+            !isCreatingParentPic -> TYPE_FREE_ONE
+
+            selectedNumber.value == PictureNumber.ONE -> TYPE_PAID_ONE.also {
+                AmplitudeManager.trackEvent("view_oneparentpreset")
+            }
+
+            else -> TYPE_PAID_TWO.also {
+                AmplitudeManager.trackEvent("view_twoparentpreset")
             }
         }
     }

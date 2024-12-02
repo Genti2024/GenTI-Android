@@ -33,6 +33,8 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
     private val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
+    private var amplitudePage: Map<String, String>? = null
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -50,14 +52,17 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
     private fun initView() {
         binding.vm = viewModel
         viewModel.getExamplePrompt()
+        if (viewModel.isCreatingParentPic) {
+            amplitudePage = mapOf(PROPERTY_PAGE to "createparent1")
+        } else {
+            amplitudePage = mapOf(PROPERTY_PAGE to "create1")
+        }
     }
 
     private fun initCreateBtnListener() {
         binding.btnCreateNext.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "create1"),
-                mapOf(PROPERTY_BTN to "next"),
+                EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "next"),
             )
             findNavController().navigate(R.id.action_define_to_pose)
             viewModel.modCurrentPercent(33)
