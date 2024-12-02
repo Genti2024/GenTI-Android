@@ -11,6 +11,7 @@ import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.DialogCreateSelectBinding
+import kr.genti.presentation.util.AmplitudeManager
 
 class CreateSelectDialog : BaseDialog<DialogCreateSelectBinding>(R.layout.dialog_create_select) {
 
@@ -37,9 +38,11 @@ class CreateSelectDialog : BaseDialog<DialogCreateSelectBinding>(R.layout.dialog
     private fun initCreateBtnListeners() {
         with(binding) {
             layoutDefaultCreate.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_mypicture")
                 navigateToCreate(false)
             }
             layoutParentCreate.setOnSingleClickListener {
+                AmplitudeManager.trackEvent("click_parentpicture")
                 navigateToCreate(true)
             }
         }

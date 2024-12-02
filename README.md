@@ -62,6 +62,9 @@
 ## EXPERIENCE
 
 - AWS S3 Presigned Url를 활용하며 직접 클라우드에 이미지를 전송하는 기능을 도입하는 경험 ✔️
+- 기존 buildSrc를 build-logic으로 전환하고 버전 카탈로그를 적용하여 의존성 관리의 효율성과 가독성을 개선하는 경험 ✔️
+- Google Play 결제 라이브러리 v7로 인앱결제를 구현하는 경험 ✔️
+- Github Actions를 활용해 Firebase App Distribution으로 앱을 자동 배포하는 CI/CD를 구현하는 경험 ✔️
 - 버전 분기처리를 통해 PhotoPicker와 기존 갤러리 파일 탐색기를 활용해 유저가 사진을 선택할 수 있도록 구현하는 경험 ✔️
 - 여러개의 사진을 업로드하는 과정을 coroutine을 통해 병렬로 비동기적 수행하도록 마이그레이션하여, 사진 전송 시간을 단축시키는 경험 ✔️
 - FileProvider와 cacheDirectory를 활용해 카메라로 직접 찍은 사진을 업로드하도록 구현하는 경험 ✔️

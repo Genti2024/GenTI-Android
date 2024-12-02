@@ -55,14 +55,12 @@ class CreateErrorDialog : BaseDialog<DialogCreateErrorBinding>(R.layout.dialog_c
     }
 
     private fun observeResetResult() {
-        viewModel.postResetResult
-            .flowWithLifecycle(lifecycle)
-            .onEach { result ->
-                if (!result) {
-                    toast(stringOf(R.string.error_msg))
-                } else {
-                    dismiss()
-                }
-            }.launchIn(lifecycleScope)
+        viewModel.postResetResult.flowWithLifecycle(lifecycle).onEach { result ->
+            if (!result) {
+                toast(stringOf(R.string.error_msg))
+            } else {
+                dismiss()
+            }
+        }.launchIn(lifecycleScope)
     }
 }

@@ -34,6 +34,8 @@
     <string name="signup_tv_gender_female">여성</string>
     <string name="signup_tv_birth_title">출생년도</string>
     <string name="signup_tv_birth_hint">YYYY</string>
+    <string name="signup_tv_phone_title">전화번호</string>
+    <string name="signup_tv_phone_hint">010XXXXXXXX</string>
     <string name="signup_btn_submit">완료</string>
 
     <string name="onboarding_btn_next">다음으로</string>
@@ -154,7 +156,7 @@
     <string name="profile_tv_list_title">내가 만든 사진</string>
     <string name="profile_tv_empty">아직 내가 만든 사진이 없어요.</string>
     <string name="profile_tv_empty_guide">세상에 하나뿐인 나만의 사진을 만들어보세요!</string>
-    <string name="profile_image_download_success">사진이 저장되었어요\n친구들에게 공유해보세요!</string>
+    <string name="profile_image_download_success">사진이 저장되었어요</string>
 
     <string name="setting_tv_title">설정</string>
     <string name="setting_btn_terms_of_service">이용 약관</string>
@@ -204,5 +206,9 @@
 
     <string name="unable_tv_title">현재 점검 중입니다!</string>
     <string name="unable_btn_close">닫기</string>
+
+    <string name="pay_error_dialog_title">결제 오류</string>
+    <string name="pay_error_dialog_msg">오류로 인해 상품이 지급되지 않았어요. 고객센터로 문의 주시면 해결을 도와드리겠습니다.</string>
+    <string name="pay_error_dialog_btn">확인</string>
 
 </resources>

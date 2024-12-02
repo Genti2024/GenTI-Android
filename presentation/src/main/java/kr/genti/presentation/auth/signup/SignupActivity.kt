@@ -33,6 +33,7 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
         initSubmitBtnListener()
         observePostSignupState()
         observeYearInputState()
+        observePhoneInputState()
     }
 
     private fun initView() {
@@ -48,9 +49,7 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
     }
 
     private fun observePostSignupState() {
-        viewModel.postSignupState
-            .flowWithLifecycle(lifecycle)
-            .distinctUntilChanged()
+        viewModel.postSignupState.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { state ->
                 when (state) {
                     is UiState.Success -> {
@@ -76,6 +75,15 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
             }.launchIn(lifecycleScope)
     }
 
+    private fun observePhoneInputState() {
+        viewModel.isPhoneAllSelected.flowWithLifecycle(lifecycle).distinctUntilChanged()
+            .onEach { isAllSelected ->
+                if (isAllSelected) {
+                    hideKeyboard(binding.root)
+                }
+            }.launchIn(lifecycleScope)
+    }
+
     private fun setAmplitudeUserProperty(state: UiState.Success<SignUpUserModel>) {
         AmplitudeManager.apply {
             trackEvent("complete_infoget")
@@ -88,7 +96,10 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
             updateIntProperties("user_picturedownload", 0)
             updateIntProperties("user_main_scroll", 0)
             updateIntProperties("user_promptsuggest_refresh", 0)
-            updateIntProperties("user_piccreate", 0)
+            updateIntProperties("user_piccreate_total", 0)
+            updateIntProperties("user_piccreate_original", 0)
+            updateIntProperties("user_piccreate_oneparent", 0)
+            updateIntProperties("user_piccreate_twoparents", 0)
             updateBooleanProperties("user_alarm", false)
             updateBooleanProperties("user_verified", false)
         }

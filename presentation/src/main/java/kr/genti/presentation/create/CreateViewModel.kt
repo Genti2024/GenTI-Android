@@ -3,6 +3,7 @@ package kr.genti.presentation.create
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.billingclient.api.Purchase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -14,6 +15,7 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.request.CreateRequestModel
 import kr.genti.domain.entity.request.CreateTwoRequestModel
 import kr.genti.domain.entity.request.KeyRequestModel
+import kr.genti.domain.entity.request.PurchaseValidRequestModel
 import kr.genti.domain.entity.request.S3RequestModel
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.entity.response.PromptExampleModel
@@ -23,6 +25,7 @@ import kr.genti.domain.enums.PictureNumber
 import kr.genti.domain.enums.PictureRatio
 import kr.genti.domain.repository.CreateRepository
 import kr.genti.domain.repository.UploadRepository
+import kr.genti.presentation.util.AmplitudeManager
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +36,7 @@ constructor(
     private val uploadRepository: UploadRepository,
 ) : ViewModel() {
     var isCreatingParentPic = false
+    var currentType: String = TYPE_FREE_ONE
 
     val prompt = MutableLiveData<String>()
     val isWritten = MutableLiveData(false)
@@ -62,13 +66,12 @@ constructor(
     private val _totalGeneratingState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val totalGeneratingState: StateFlow<UiState<Boolean>> = _totalGeneratingState
 
+    private val _purchaseValidState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+    val purchaseValidState: StateFlow<UiState<Boolean>> = _purchaseValidState
+
     private var imageS3KeyList = listOf<KeyRequestModel>()
     private var firstImageS3KeyList = listOf<KeyRequestModel>()
     private var secondImageS3KeyList = listOf<KeyRequestModel>()
-
-    init {
-        getExamplePrompt()
-    }
 
     fun modCurrentPercent(amount: Int) {
         _currentPercent.value += amount
@@ -109,15 +112,30 @@ constructor(
         _totalGeneratingState.value = UiState.Empty
     }
 
-    private fun getExamplePrompt() {
+    fun getExamplePrompt() {
         _getExampleState.value = UiState.Loading
+        setCurrentType()
         viewModelScope.launch {
             runCatching {
-                createRepository.getPromptExample()
+                createRepository.getPromptExample(currentType)
             }.onSuccess {
                 _getExampleState.value = UiState.Success(it.getOrThrow())
             }.onFailure {
                 _getExampleState.value = UiState.Failure(it.message.toString())
+            }
+        }
+    }
+
+    private fun setCurrentType() {
+        currentType = when {
+            !isCreatingParentPic -> TYPE_FREE_ONE
+
+            selectedNumber.value == PictureNumber.ONE -> TYPE_PAID_ONE.also {
+                AmplitudeManager.trackEvent("view_oneparentpreset")
+            }
+
+            else -> TYPE_PAID_TWO.also {
+                AmplitudeManager.trackEvent("view_twoparentspreset")
             }
         }
     }
@@ -211,6 +229,12 @@ constructor(
                 createRepository.postToCreate(request)
             }
             result.onSuccess {
+                if (isCreatingParentPic) {
+                    AmplitudeManager.plusIntProperties("user_piccreate_oneparent")
+                } else {
+                    AmplitudeManager.plusIntProperties("user_piccreate_original")
+                }
+                AmplitudeManager.plusIntProperties("user_piccreate_total")
                 _totalGeneratingState.value = UiState.Success(it)
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
@@ -228,10 +252,56 @@ constructor(
                     selectedRatio.value ?: return@launch,
                 )
             ).onSuccess {
+                AmplitudeManager.plusIntProperties("user_piccreate_twoparents")
+                AmplitudeManager.plusIntProperties("user_piccreate_total")
                 _totalGeneratingState.value = UiState.Success(isCreatingParentPic)
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
             }
         }
+    }
+
+    fun checkPurchaseValidToServer(purchase: Purchase) {
+        viewModelScope.launch {
+            createRepository.postToValidatePurchase(
+                PurchaseValidRequestModel(
+                    purchase.packageName,
+                    purchase.products.first(),
+                    purchase.purchaseToken
+                )
+            ).onSuccess { isValidSuccess ->
+                if (isValidSuccess) {
+                    _purchaseValidState.value = UiState.Success(true)
+                    when (currentType) {
+                        TYPE_PAID_ONE -> AmplitudeManager.trackEvent(
+                            "complete_payment", mapOf("picture_type" to "oneparent")
+                        )
+
+                        TYPE_PAID_TWO -> AmplitudeManager.trackEvent(
+                            "complete_payment", mapOf("picture_type" to "twoparents")
+                        )
+                    }
+                    startSendingImages()
+                } else {
+                    _purchaseValidState.value = UiState.Failure(false.toString())
+                }
+            }.onFailure {
+                _purchaseValidState.value = UiState.Failure(it.message.orEmpty())
+            }
+        }
+    }
+
+    fun startValidProcessLoading() {
+        _purchaseValidState.value = UiState.Loading
+    }
+
+    fun resetValidProcessLoading() {
+        _purchaseValidState.value = UiState.Empty
+    }
+
+    companion object {
+        const val TYPE_FREE_ONE = "FREE_ONE"
+        const val TYPE_PAID_ONE = "PAID_ONE"
+        const val TYPE_PAID_TWO = "PAID_TWO"
     }
 }

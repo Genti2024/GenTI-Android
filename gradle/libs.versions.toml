@@ -50,7 +50,10 @@ amplitude = "1.17.3"
 
 # Firebase
 firebase-bom = "33.1.2"
-crashlytics = "2.9.9"
+firebase-crashlytics = "3.0.2"
+
+# In-App Purchase
+billing-client = "7.1.1"
 
 # Kakao
 kakao = "2.20.3"
@@ -131,6 +134,9 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 # App Update
 app-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "app-update" }
 
+# In-App Purchase
+billing-client = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing-client" }
+
 # Timber
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
@@ -186,4 +192,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
-google-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }

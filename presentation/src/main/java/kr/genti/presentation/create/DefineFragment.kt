@@ -18,6 +18,7 @@ import kr.genti.core.extension.stringOf
 import kr.genti.core.extension.toast
 import kr.genti.core.state.UiState
 import kr.genti.presentation.R
+import kr.genti.presentation.create.example.DefineAdapter
 import kr.genti.presentation.databinding.FragmentDefineBinding
 import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
@@ -31,6 +32,8 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
     private var _adapter: DefineAdapter? = null
     private val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
+
+    private var amplitudePage: Map<String, String>? = null
 
     override fun onViewCreated(
         view: View,
@@ -48,14 +51,18 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
 
     private fun initView() {
         binding.vm = viewModel
+        viewModel.getExamplePrompt()
+        if (viewModel.isCreatingParentPic) {
+            amplitudePage = mapOf(PROPERTY_PAGE to "createparent1")
+        } else {
+            amplitudePage = mapOf(PROPERTY_PAGE to "create1")
+        }
     }
 
     private fun initCreateBtnListener() {
         binding.btnCreateNext.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "create1"),
-                mapOf(PROPERTY_BTN to "next"),
+                EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "next"),
             )
             findNavController().navigate(R.id.action_define_to_pose)
             viewModel.modCurrentPercent(33)
@@ -117,19 +124,17 @@ class DefineFragment() : BaseFragment<FragmentDefineBinding>(R.layout.fragment_d
     }
 
     private fun observeGetExampleState() {
-        viewModel.getExampleState
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        adapter.submitList(state.data)
-                        binding.dotIndicator.setViewPager(binding.vpCreateRandom)
-                    }
-
-                    is UiState.Failure -> toast(stringOf(R.string.error_msg))
-                    else -> return@onEach
+        viewModel.getExampleState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    adapter.submitList(state.data)
+                    binding.dotIndicator.setViewPager(binding.vpCreateRandom)
                 }
-            }.launchIn(lifecycleScope)
+
+                is UiState.Failure -> toast(stringOf(R.string.error_msg))
+                else -> return@onEach
+            }
+        }.launchIn(lifecycleScope)
     }
 
 }

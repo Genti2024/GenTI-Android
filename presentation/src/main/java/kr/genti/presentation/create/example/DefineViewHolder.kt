@@ -1,4 +1,4 @@
-package kr.genti.presentation.create
+package kr.genti.presentation.create.example
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load

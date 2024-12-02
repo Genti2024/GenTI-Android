@@ -27,4 +27,5 @@ dependencies {
     implementation(libs.kakao)
     implementation(libs.app.update)
     implementation(libs.amplitude)
+    implementation(libs.billing.client)
 }

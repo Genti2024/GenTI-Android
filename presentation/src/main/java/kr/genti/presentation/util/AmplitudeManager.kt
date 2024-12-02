@@ -71,7 +71,10 @@ object AmplitudeManager {
 
     const val EVENT_CLICK_BTN = "click_button"
 
-    const val PROPERTY_METHOD = "signup_method"
     const val PROPERTY_PAGE = "page_name"
     const val PROPERTY_BTN = "button_name"
+    const val PROPERTY_TYPE = "picdone_type"
+
+    const val TYPE_ORIGINAL = "original"
+    const val TYPE_PARENT = "parents"
 }

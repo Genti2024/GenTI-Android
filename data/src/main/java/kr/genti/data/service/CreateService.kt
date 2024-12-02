@@ -4,12 +4,14 @@ import kr.genti.data.dto.BaseResponse
 import kr.genti.data.dto.request.CreateRequestDto
 import kr.genti.data.dto.request.CreateTwoRequestDto
 import kr.genti.data.dto.request.KeyRequestDto
+import kr.genti.data.dto.request.PurchaseValidRequestDto
 import kr.genti.data.dto.request.S3RequestDto
 import kr.genti.data.dto.response.PromptExampleDto
 import kr.genti.data.dto.response.S3PresignedUrlDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface CreateService {
     @POST("api/v1/presigned-url")
@@ -42,6 +44,13 @@ interface CreateService {
         @Body request: KeyRequestDto,
     ): BaseResponse<Boolean>
 
-    @GET("api/v1/users/examples/with-picture-square")
-    suspend fun getPromptExample(): BaseResponse<List<PromptExampleDto>>
+    @GET("api/v2/users/examples/with-picture-square/{type}")
+    suspend fun getPromptExample(
+        @Path("type") type: String
+    ): BaseResponse<List<PromptExampleDto>>
+
+    @POST("api/v1/users/in-app-purchases/google/receipt-validation")
+    suspend fun postToValidatePurchase(
+        @Body request: PurchaseValidRequestDto
+    ): BaseResponse<Boolean>
 }

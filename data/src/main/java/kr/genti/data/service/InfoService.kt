@@ -8,7 +8,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.POST
 
 interface InfoService {
-    @POST("api/v1/users/signup")
+    @POST("api/v2/users/signup")
     suspend fun postSignupData(
         @Body request: SignupRequestDto,
     ): BaseResponse<SignUpUserDto>

@@ -3,6 +3,7 @@ package kr.genti.domain.repository
 import kr.genti.domain.entity.request.CreateRequestModel
 import kr.genti.domain.entity.request.CreateTwoRequestModel
 import kr.genti.domain.entity.request.KeyRequestModel
+import kr.genti.domain.entity.request.PurchaseValidRequestModel
 import kr.genti.domain.entity.request.S3RequestModel
 import kr.genti.domain.entity.response.PromptExampleModel
 import kr.genti.domain.entity.response.S3PresignedUrlModel
@@ -20,5 +21,7 @@ interface CreateRepository {
 
     suspend fun postToVerify(request: KeyRequestModel): Result<Boolean>
 
-    suspend fun getPromptExample(): Result<List<PromptExampleModel>>
+    suspend fun getPromptExample(type: String): Result<List<PromptExampleModel>>
+
+    suspend fun postToValidatePurchase(request: PurchaseValidRequestModel): Result<Boolean>
 }

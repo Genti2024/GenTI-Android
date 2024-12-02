@@ -189,7 +189,6 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_40"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_signup_birth_title" />
 
@@ -203,6 +202,50 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_signup_birth_year"
                 tools:background="@drawable/shape_green_gradation_fill_100_rect" />
+
+            <TextView
+                android:id="@+id/tv_signup_phone_title"
+                style="@style/TextAppearance.Genti.Body_14_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:gravity="center"
+                android:text="@string/signup_tv_phone_title"
+                android:textColor="@color/genti_green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_signup_birth_year" />
+
+            <EditText
+                android:id="@+id/et_signup_phone_year"
+                style="@style/TextAppearance.Genti.Subtitle2_16_Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:afterTextChanged="@{(text) -> vm.checkPhone()}"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="@string/signup_tv_phone_hint"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingVertical="16dp"
+                android:text="@={vm.selectedPhone}"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_40"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_signup_phone_title" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginHorizontal="41dp"
+                android:layout_marginTop="-8dp"
+                android:background="@{vm.isPhoneSelected ? @drawable/shape_green_gradation_fill_100_rect : @drawable/shape_white40_fill_100_rect}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_signup_phone_year"
+                tools:background="@drawable/shape_green_gradation_fill_100_rect" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -32,6 +32,9 @@ import kr.genti.presentation.util.AmplitudeManager
 import kr.genti.presentation.util.AmplitudeManager.EVENT_CLICK_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_BTN
 import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
+import kr.genti.presentation.util.AmplitudeManager.PROPERTY_TYPE
+import kr.genti.presentation.util.AmplitudeManager.TYPE_ORIGINAL
+import kr.genti.presentation.util.AmplitudeManager.TYPE_PARENT
 import kr.genti.presentation.util.GlideResultListener
 import kr.genti.presentation.util.downloadImage
 import java.io.File
@@ -44,12 +47,14 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     private var finishedReportDialog: FinishedReportDialog? = null
     private var finishedRatingDialog: FinishedRatingDialog? = null
 
+    private var amplitudeType: Map<String, String>? = null
+    private var amplitudePage: Map<String, String>? = null
+
     private lateinit var tempFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initView()
         initImageBtnListener()
         initSaveBtnListener()
         initShareBtnListener()
@@ -61,13 +66,9 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         observeDownloadCacheImage()
     }
 
-    private fun initView() {
-        AmplitudeManager.trackEvent("view_picdone")
-    }
-
     private fun initImageBtnListener() {
         binding.ivFinishedImage.setOnSingleClickListener {
-            AmplitudeManager.trackEvent("enlarge_picdone_picture")
+            AmplitudeManager.trackEvent("enlarge_picdone_picture", amplitudeType)
             finishedImageDialog = FinishedImageDialog()
             finishedImageDialog?.show(supportFragmentManager, DIALOG_IMAGE)
         }
@@ -82,11 +83,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
 
     private fun downloadImage() {
         AmplitudeManager.apply {
-            trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "picdone"),
-                mapOf(PROPERTY_BTN to "picdownload"),
-            )
+            trackEvent(EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "picdownload"))
             plusIntProperties("user_picturedownload")
         }
         downloadImage(viewModel.finishedImageId, viewModel.finishedImageUrl)
@@ -95,11 +92,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
     private fun initShareBtnListener() {
         binding.btnShare.setOnSingleClickListener {
             AmplitudeManager.apply {
-                trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "picdone"),
-                    mapOf(PROPERTY_BTN to "picshare"),
-                )
+                trackEvent(EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "picshare"))
                 plusIntProperties("user_share")
             }
             tempFile = File(cacheDir, TEMP_FILE_NAME)
@@ -140,14 +133,18 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                 btnShare.isVisible = false
                 btnSavePaid.isVisible = true
             }
+            amplitudeType = mapOf(PROPERTY_TYPE to TYPE_ORIGINAL)
+            amplitudePage = mapOf(PROPERTY_PAGE to "picdone")
+        } else {
+            amplitudeType = mapOf(PROPERTY_TYPE to TYPE_PARENT)
+            amplitudePage = mapOf(PROPERTY_PAGE to "picdone_parents")
         }
+        AmplitudeManager.trackEvent("view_picdone", amplitudeType)
     }
 
     private fun showFinishedRatingDialog() {
         AmplitudeManager.trackEvent(
-            EVENT_CLICK_BTN,
-            mapOf(PROPERTY_PAGE to "picdone"),
-            mapOf(PROPERTY_BTN to "gomain"),
+            EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "gomain"),
         )
         finishedRatingDialog = FinishedRatingDialog()
         finishedRatingDialog?.show(supportFragmentManager, DIALOG_RATING)
@@ -172,9 +169,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                 Glide.with(this.context)
                     .load(viewModel.finishedImageUrl)
                     .apply(RequestOptions.bitmapTransform(BlurTransformation(50)))
-                    .listener(GlideResultListener {
-                        binding.layoutLoading.isVisible = false
-                    })
+                    .listener(GlideResultListener { binding.layoutLoading.isVisible = false })
                     .into(this)
             }
         }
@@ -204,12 +199,11 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             .onEach { isDownloaded ->
                 if (isDownloaded) {
                     Intent().apply {
-                        val uri =
-                            FileProvider.getUriForFile(
-                                this@FinishedActivity,
-                                FILE_PROVIDER_AUTORITY,
-                                tempFile,
-                            )
+                        val uri = FileProvider.getUriForFile(
+                            this@FinishedActivity,
+                            FILE_PROVIDER_AUTORITY,
+                            tempFile,
+                        )
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_STREAM, uri)
                         type = IMAGE_TYPE
