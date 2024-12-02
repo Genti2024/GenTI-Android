@@ -135,7 +135,7 @@ constructor(
             }
 
             else -> TYPE_PAID_TWO.also {
-                AmplitudeManager.trackEvent("view_twoparentpreset")
+                AmplitudeManager.trackEvent("view_twoparentspreset")
             }
         }
     }
