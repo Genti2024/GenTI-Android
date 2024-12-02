@@ -264,6 +264,15 @@ constructor(
             ).onSuccess { isValidSuccess ->
                 if (isValidSuccess) {
                     _purchaseValidState.value = UiState.Success(true)
+                    when (currentType) {
+                        TYPE_PAID_ONE -> AmplitudeManager.trackEvent(
+                            "complete_payment", mapOf("picture_type" to "oneparent")
+                        )
+
+                        TYPE_PAID_TWO -> AmplitudeManager.trackEvent(
+                            "complete_payment", mapOf("picture_type" to "twoparents")
+                        )
+                    }
                     startSendingImages()
                 } else {
                     _purchaseValidState.value = UiState.Failure(false.toString())

@@ -156,9 +156,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     private fun initRequestCreateBtnListener() {
         binding.btnCreate.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "create3"),
-                mapOf(PROPERTY_BTN to "createpic"),
+                EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "createpic"),
             )
             with(viewModel) {
                 isCompleted.value = false
