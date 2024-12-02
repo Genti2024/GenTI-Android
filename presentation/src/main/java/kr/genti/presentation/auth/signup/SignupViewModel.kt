@@ -31,6 +31,12 @@ constructor(
     private val _isYearAllSelected = MutableStateFlow<Boolean>(false)
     val isYearAllSelected: StateFlow<Boolean> = _isYearAllSelected
 
+    val selectedPhone = MutableLiveData<String?>()
+    val isPhoneSelected = MutableLiveData<Boolean>(false)
+
+    private val _isPhoneAllSelected = MutableStateFlow<Boolean>(false)
+    val isPhoneAllSelected: StateFlow<Boolean> = _isPhoneAllSelected
+
     val isAllSelected = MutableLiveData<Boolean>(false)
 
     private val _postSignupState = MutableStateFlow<UiState<SignUpUserModel>>(UiState.Empty)
@@ -49,6 +55,11 @@ constructor(
         checkAllSelected()
     }
 
+    fun checkPhone() {
+        isPhoneSelected.value = selectedPhone.value?.isNotEmpty()
+        _isPhoneAllSelected.value = selectedPhone.value?.length == 11
+    }
+
     private fun checkAllSelected() {
         isAllSelected.value = isGenderSelected.value == true && isYearAllSelected.value == true
     }
@@ -60,6 +71,7 @@ constructor(
                 SignupRequestModel(
                     selectedYear.value.toString(),
                     selectedGender.value.toString(),
+                    selectedPhone.value
                 ),
             ).onSuccess {
                 userRepository.setUserRole(ROLE_USER)

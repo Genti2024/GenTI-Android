@@ -34,6 +34,8 @@
     <string name="signup_tv_gender_female">여성</string>
     <string name="signup_tv_birth_title">출생년도</string>
     <string name="signup_tv_birth_hint">YYYY</string>
+    <string name="signup_tv_phone_title">전화번호</string>
+    <string name="signup_tv_phone_hint">010XXXXXXXX</string>
     <string name="signup_btn_submit">완료</string>
 
     <string name="onboarding_btn_next">다음으로</string>
