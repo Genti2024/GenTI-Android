@@ -34,8 +34,7 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.enums.PictureNumber
 import kr.genti.presentation.R
-import kr.genti.presentation.create.CreateViewModel.Companion.SERVER_ERROR
-import kr.genti.presentation.create.CreateViewModel.Companion.VALIDATION_FALSE
+import kr.genti.presentation.create.CreateViewModel.Companion.PURCHASED_WITH_ERROR
 import kr.genti.presentation.create.billing.BillingCallback
 import kr.genti.presentation.create.billing.BillingManager
 import kr.genti.presentation.databinding.FragmentSelfieBinding
@@ -300,7 +299,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private fun observePurchaseValidResult() {
         viewModel.purchaseValidError.flowWithLifecycle(lifecycle).onEach { errorMsg ->
-            if (errorMsg == SERVER_ERROR) {
+            if (errorMsg == PURCHASED_WITH_ERROR) {
                 showErrorDialog()
             } else {
                 toast(stringOf(R.string.error_msg))

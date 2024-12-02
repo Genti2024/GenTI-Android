@@ -255,17 +255,17 @@ constructor(
                 if (isValidSuccess) {
                     startSendingImages()
                 } else {
-                    _purchaseValidError.emit(VALIDATION_FALSE)
+                    _purchaseValidError.emit(PURCHASED_WITH_ERROR)
                 }
             }.onFailure {
-                _purchaseValidError.emit(SERVER_ERROR)
+                _purchaseValidError.emit(PURCHASE_FAILURE)
             }
         }
     }
 
     companion object {
-        const val VALIDATION_FALSE = "VALIDATION_FALSE"
-        const val SERVER_ERROR = "SERVER_ERROR"
+        const val PURCHASE_FAILURE = "PURCHASE_FAILURE"
+        const val PURCHASED_WITH_ERROR = "PURCHASED_WITH_ERROR"
 
         const val TYPE_FREE_ONE = "FREE_ONE"
         const val TYPE_PAID_ONE = "PAID_ONE"

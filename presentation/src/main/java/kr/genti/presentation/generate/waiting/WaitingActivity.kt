@@ -34,7 +34,7 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
 
         initReturnBtnListener()
         setOnBackPressed()
-        setUiBuIsPaidIntent()
+        setUiByIsPaidIntent()
         setStatusBarTransparent()
     }
 
@@ -48,12 +48,11 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
     }
 
     private fun setOnBackPressed() {
-        val onBackPressedCallback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    startPushDialogOrFinish()
-                }
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startPushDialogOrFinish()
             }
+        }
         this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
@@ -78,7 +77,7 @@ class WaitingActivity : BaseActivity<ActivityWaitBinding>(R.layout.activity_wait
             false
         }
 
-    private fun setUiBuIsPaidIntent() {
+    private fun setUiByIsPaidIntent() {
         if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
             binding.tvWaitTitle.text = getString(R.string.wait_tv_title_paid)
             amplitudePage = mapOf(PROPERTY_PAGE to "picwaiting_parents")

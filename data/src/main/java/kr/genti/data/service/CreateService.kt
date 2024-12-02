@@ -44,7 +44,7 @@ interface CreateService {
         @Body request: KeyRequestDto,
     ): BaseResponse<Boolean>
 
-    @GET("api/v1/users/examples/with-picture-square/{type}")
+    @GET("api/v2/users/examples/with-picture-square/{type}")
     suspend fun getPromptExample(
         @Path("type") type: String
     ): BaseResponse<List<PromptExampleDto>>

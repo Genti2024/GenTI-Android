@@ -169,9 +169,7 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
                 Glide.with(this.context)
                     .load(viewModel.finishedImageUrl)
                     .apply(RequestOptions.bitmapTransform(BlurTransformation(50)))
-                    .listener(GlideResultListener {
-                        binding.layoutLoading.isVisible = false
-                    })
+                    .listener(GlideResultListener { binding.layoutLoading.isVisible = false })
                     .into(this)
             }
         }
@@ -201,12 +199,11 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
             .onEach { isDownloaded ->
                 if (isDownloaded) {
                     Intent().apply {
-                        val uri =
-                            FileProvider.getUriForFile(
-                                this@FinishedActivity,
-                                FILE_PROVIDER_AUTORITY,
-                                tempFile,
-                            )
+                        val uri = FileProvider.getUriForFile(
+                            this@FinishedActivity,
+                            FILE_PROVIDER_AUTORITY,
+                            tempFile,
+                        )
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_STREAM, uri)
                         type = IMAGE_TYPE
