@@ -74,8 +74,8 @@ jobs:
       - name: Access Firebase Service
         run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
 
-      - name: Build release APK
-        run: ./gradlew assembleRelease --stacktrace
+      - name: Build release AAB
+        run: ./gradlew bundleRelease --stacktrace
 
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -83,4 +83,4 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_KEY }}
           groups: genti
-          file: app/build/outputs/apk/release/app-release.apk
+          file: app/build/outputs/bundle/release/app-release.aab
