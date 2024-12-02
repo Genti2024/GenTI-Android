@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -25,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kr.genti.core.base.BaseFragment
+import kr.genti.core.extension.colorOf
 import kr.genti.core.extension.getFileName
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.core.extension.setTextWithImage
@@ -34,8 +36,9 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.enums.PictureNumber
 import kr.genti.presentation.R
-import kr.genti.presentation.create.CreateViewModel.Companion.SERVER_ERROR
-import kr.genti.presentation.create.CreateViewModel.Companion.VALIDATION_FALSE
+import kr.genti.presentation.create.CreateViewModel.Companion.TYPE_FREE_ONE
+import kr.genti.presentation.create.CreateViewModel.Companion.TYPE_PAID_ONE
+import kr.genti.presentation.create.CreateViewModel.Companion.TYPE_PAID_TWO
 import kr.genti.presentation.create.billing.BillingCallback
 import kr.genti.presentation.create.billing.BillingManager
 import kr.genti.presentation.databinding.FragmentSelfieBinding
@@ -56,6 +59,8 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     private lateinit var photoPickerResult: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var galleryPickerResult: ActivityResultLauncher<Intent>
 
+    private var amplitudePage: Map<String, String>? = null
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -72,7 +77,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeGeneratingState()
-        observePurchaseValidResult()
+        observePurchaseValidState()
     }
 
     override fun onResume() {
@@ -83,6 +88,19 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private fun initView() {
         binding.vm = viewModel
+        when (viewModel.currentType) {
+            TYPE_FREE_ONE -> amplitudePage = mapOf(PROPERTY_PAGE to "create3")
+
+            TYPE_PAID_ONE -> {
+                amplitudePage = mapOf(PROPERTY_PAGE to "createoneparent3")
+                AmplitudeManager.trackEvent("view_createoneparent")
+            }
+
+            TYPE_PAID_TWO -> {
+                amplitudePage = mapOf(PROPERTY_PAGE to "createtwoparents3")
+                AmplitudeManager.trackEvent("view_createtwoparents")
+            }
+        }
     }
 
     private fun initBillingManager() {
@@ -94,7 +112,9 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 }
 
                 override fun onBillingFailure(responseCode: Int) {
+                    viewModel.resetValidProcessLoading()
                     toast(stringOf(R.string.error_msg))
+
                 }
             },
         )
@@ -113,29 +133,35 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
     private fun initAddImageBtnListener() {
         with(binding) {
-            btnSelfieAdd.setOnSingleClickListener {
-                AmplitudeManager.trackEvent(
-                    EVENT_CLICK_BTN,
-                    mapOf(PROPERTY_PAGE to "create3"),
-                    mapOf(PROPERTY_BTN to "selectpic"),
+            val buttonConfig = with(viewModel) {
+                listOf(
+                    Triple(btnSelfieAdd, imageList, "selectpic" to "reselectpic"),
+                    Triple(btnSelfieAddFirst, firstImageList, "selectpic1" to "reselectpic1"),
+                    Triple(btnSelfieAddSecond, secondImageList, "selectpic2" to "reselectpic2")
                 )
-                checkAndGetImages(0)
             }
-            btnSelfieAddFirst.setOnSingleClickListener { checkAndGetImages(1) }
-            btnSelfieAddSecond.setOnSingleClickListener { checkAndGetImages(2) }
+            buttonConfig.forEachIndexed { index, (button, imageList, eventPair) ->
+                button.setOnSingleClickListener {
+                    val amplitudeEvent =
+                        if (imageList.isEmpty()) eventPair.first else eventPair.second
+                    AmplitudeManager.trackEvent(
+                        EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to amplitudeEvent)
+                    )
+                    checkAndGetImages(index)
+                }
+            }
         }
     }
 
     private fun initRequestCreateBtnListener() {
         binding.btnCreate.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "create3"),
-                mapOf(PROPERTY_BTN to "createpic"),
+                EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "createpic"),
             )
             with(viewModel) {
                 isCompleted.value = false
                 if (isCreatingParentPic) {
+                    startValidProcessLoading()
                     manager.purchaseProduct()
                 } else {
                     startSendingImages()
@@ -237,9 +263,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 1 to ::firstImageList,
                 2 to ::secondImageList
             )
-            listMap[currentAddingList]?.set(uris.map { uri ->
-                uri.toImageFileModel()
-            })
+            listMap[currentAddingList]?.set(uris.map { uri -> uri.toImageFileModel() })
             updateCompletionState(uris.size)
         }
         setSavedImages()
@@ -268,6 +292,8 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                     .resetAndLoadImages(viewModel.firstImageList)
                 listOf(ivAddedSecondImage1, ivAddedSecondImage2, ivAddedSecondImage3)
                     .resetAndLoadImages(viewModel.secondImageList)
+                btnSelfieAddFirst.updateButton(viewModel.firstImageList.isEmpty())
+                btnSelfieAddSecond.updateButton(viewModel.secondImageList.isEmpty())
             }
         }
     }
@@ -279,11 +305,19 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         }
     }
 
+    private fun TextView.updateButton(isEmpty: Boolean) {
+        text = if (isEmpty) stringOf(R.string.selfie_tv_btn_select)
+        else stringOf(R.string.selfie_tv_btn_reselect)
+        setTextColor(
+            if (isEmpty) colorOf(R.color.genti_green)
+            else colorOf(R.color.white_60)
+        )
+    }
+
     private fun observeGeneratingState() {
         viewModel.totalGeneratingState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    AmplitudeManager.plusIntProperties("user_piccreate")
                     startActivity(WaitingActivity.createIntent(requireContext(), state.data))
                     requireActivity().finish()
                 }
@@ -298,12 +332,13 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         }.launchIn(lifecycleScope)
     }
 
-    private fun observePurchaseValidResult() {
-        viewModel.purchaseValidError.flowWithLifecycle(lifecycle).onEach { errorMsg ->
-            if (errorMsg == SERVER_ERROR) {
-                showErrorDialog()
-            } else {
-                toast(stringOf(R.string.error_msg))
+    private fun observePurchaseValidState() {
+        viewModel.purchaseValidState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> binding.layoutLoading.isVisible = false
+                is UiState.Failure -> showErrorDialog()
+                is UiState.Loading -> binding.layoutLoading.isVisible = true
+                is UiState.Empty -> binding.layoutLoading.isVisible = false
             }
         }.launchIn(lifecycleScope)
     }

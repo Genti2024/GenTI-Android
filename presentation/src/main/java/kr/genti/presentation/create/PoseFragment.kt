@@ -19,6 +19,8 @@ import kr.genti.presentation.util.AmplitudeManager.PROPERTY_PAGE
 class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose) {
     private val viewModel by activityViewModels<CreateViewModel>()
 
+    private var amplitudePage: Map<String, String>? = null
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?,
@@ -32,14 +34,17 @@ class PoseFragment() : BaseFragment<FragmentPoseBinding>(R.layout.fragment_pose)
 
     private fun initView() {
         binding.vm = viewModel
+        if (viewModel.isCreatingParentPic) {
+            amplitudePage = mapOf(PROPERTY_PAGE to "createparent2")
+        } else {
+            amplitudePage = mapOf(PROPERTY_PAGE to "create2")
+        }
     }
 
     private fun initNextBtnListener() {
         binding.btnPoseNext.setOnSingleClickListener {
             AmplitudeManager.trackEvent(
-                EVENT_CLICK_BTN,
-                mapOf(PROPERTY_PAGE to "create2"),
-                mapOf(PROPERTY_BTN to "next"),
+                EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "next"),
             )
             findNavController().navigate(R.id.action_pose_to_selfie)
             viewModel.modCurrentPercent(34)
