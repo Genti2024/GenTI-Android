@@ -77,7 +77,7 @@
 🗃️app
  ┗ 📂di
 
-🗃️buildSrc
+🗃️build-logic
 
 🗃️core
  ┣ 📂base
