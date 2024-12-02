@@ -266,6 +266,10 @@ constructor(
         _purchaseValidState.value = UiState.Loading
     }
 
+    fun resetValidProcessLoading() {
+        _purchaseValidState.value = UiState.Empty
+    }
+
     companion object {
         const val TYPE_FREE_ONE = "FREE_ONE"
         const val TYPE_PAID_ONE = "PAID_ONE"

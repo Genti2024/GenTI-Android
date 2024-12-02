@@ -92,7 +92,9 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 }
 
                 override fun onBillingFailure(responseCode: Int) {
+                    viewModel.resetValidProcessLoading()
                     toast(stringOf(R.string.error_msg))
+
                 }
             },
         )
@@ -303,7 +305,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 is UiState.Success -> binding.layoutLoading.isVisible = false
                 is UiState.Failure -> showErrorDialog()
                 is UiState.Loading -> binding.layoutLoading.isVisible = true
-                is UiState.Empty -> return@onEach
+                is UiState.Empty -> binding.layoutLoading.isVisible = false
             }
         }.launchIn(lifecycleScope)
     }
