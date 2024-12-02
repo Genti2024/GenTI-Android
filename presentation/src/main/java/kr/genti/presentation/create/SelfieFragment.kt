@@ -34,7 +34,6 @@ import kr.genti.core.state.UiState
 import kr.genti.domain.entity.response.ImageFileModel
 import kr.genti.domain.enums.PictureNumber
 import kr.genti.presentation.R
-import kr.genti.presentation.create.CreateViewModel.Companion.PURCHASED_WITH_ERROR
 import kr.genti.presentation.create.billing.BillingCallback
 import kr.genti.presentation.create.billing.BillingManager
 import kr.genti.presentation.databinding.FragmentSelfieBinding
@@ -71,7 +70,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         setGalleryImageWithPhotoPicker()
         setGalleryImageWithGalleryPicker()
         observeGeneratingState()
-        observePurchaseValidResult()
+        observePurchaseValidState()
     }
 
     override fun onResume() {
@@ -135,6 +134,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             with(viewModel) {
                 isCompleted.value = false
                 if (isCreatingParentPic) {
+                    startValidProcessLoading()
                     manager.purchaseProduct()
                 } else {
                     startSendingImages()
@@ -297,12 +297,13 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         }.launchIn(lifecycleScope)
     }
 
-    private fun observePurchaseValidResult() {
-        viewModel.purchaseValidError.flowWithLifecycle(lifecycle).onEach { errorMsg ->
-            if (errorMsg == PURCHASED_WITH_ERROR) {
-                showErrorDialog()
-            } else {
-                toast(stringOf(R.string.error_msg))
+    private fun observePurchaseValidState() {
+        viewModel.purchaseValidState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> binding.layoutLoading.isVisible = false
+                is UiState.Failure -> showErrorDialog()
+                is UiState.Loading -> binding.layoutLoading.isVisible = true
+                is UiState.Empty -> return@onEach
             }
         }.launchIn(lifecycleScope)
     }

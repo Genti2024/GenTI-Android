@@ -8,9 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kr.genti.core.state.UiState
@@ -66,8 +64,8 @@ constructor(
     private val _totalGeneratingState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
     val totalGeneratingState: StateFlow<UiState<Boolean>> = _totalGeneratingState
 
-    private val _purchaseValidError = MutableSharedFlow<String>()
-    val purchaseValidError: SharedFlow<String> = _purchaseValidError
+    private val _purchaseValidState = MutableStateFlow<UiState<Boolean>>(UiState.Empty)
+    val purchaseValidState: StateFlow<UiState<Boolean>> = _purchaseValidState
 
     private var imageS3KeyList = listOf<KeyRequestModel>()
     private var firstImageS3KeyList = listOf<KeyRequestModel>()
@@ -253,20 +251,22 @@ constructor(
                 )
             ).onSuccess { isValidSuccess ->
                 if (isValidSuccess) {
+                    _purchaseValidState.value = UiState.Success(true)
                     startSendingImages()
                 } else {
-                    _purchaseValidError.emit(PURCHASED_WITH_ERROR)
+                    _purchaseValidState.value = UiState.Failure(false.toString())
                 }
             }.onFailure {
-                _purchaseValidError.emit(PURCHASE_FAILURE)
+                _purchaseValidState.value = UiState.Failure(it.message.orEmpty())
             }
         }
     }
 
-    companion object {
-        const val PURCHASE_FAILURE = "PURCHASE_FAILURE"
-        const val PURCHASED_WITH_ERROR = "PURCHASED_WITH_ERROR"
+    fun startValidProcessLoading() {
+        _purchaseValidState.value = UiState.Loading
+    }
 
+    companion object {
         const val TYPE_FREE_ONE = "FREE_ONE"
         const val TYPE_PAID_ONE = "PAID_ONE"
         const val TYPE_PAID_TWO = "PAID_TWO"
