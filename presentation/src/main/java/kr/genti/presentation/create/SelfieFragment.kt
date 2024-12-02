@@ -318,7 +318,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
         viewModel.totalGeneratingState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    AmplitudeManager.plusIntProperties("user_piccreate")
                     startActivity(WaitingActivity.createIntent(requireContext(), state.data))
                     requireActivity().finish()
                 }

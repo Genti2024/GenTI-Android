@@ -229,6 +229,12 @@ constructor(
                 createRepository.postToCreate(request)
             }
             result.onSuccess {
+                if (isCreatingParentPic) {
+                    AmplitudeManager.plusIntProperties("user_piccreate_oneparent")
+                } else {
+                    AmplitudeManager.plusIntProperties("user_piccreate_original")
+                }
+                AmplitudeManager.plusIntProperties("user_piccreate_total")
                 _totalGeneratingState.value = UiState.Success(it)
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())
@@ -246,6 +252,8 @@ constructor(
                     selectedRatio.value ?: return@launch,
                 )
             ).onSuccess {
+                AmplitudeManager.plusIntProperties("user_piccreate_twoparents")
+                AmplitudeManager.plusIntProperties("user_piccreate_total")
                 _totalGeneratingState.value = UiState.Success(isCreatingParentPic)
             }.onFailure {
                 _totalGeneratingState.value = UiState.Failure(it.message.toString())

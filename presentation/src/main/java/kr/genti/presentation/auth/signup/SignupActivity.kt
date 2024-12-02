@@ -96,7 +96,10 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
             updateIntProperties("user_picturedownload", 0)
             updateIntProperties("user_main_scroll", 0)
             updateIntProperties("user_promptsuggest_refresh", 0)
-            updateIntProperties("user_piccreate", 0)
+            updateIntProperties("user_piccreate_total", 0)
+            updateIntProperties("user_piccreate_original", 0)
+            updateIntProperties("user_piccreate_oneparent", 0)
+            updateIntProperties("user_piccreate_twoparents", 0)
             updateBooleanProperties("user_alarm", false)
             updateBooleanProperties("user_verified", false)
         }
