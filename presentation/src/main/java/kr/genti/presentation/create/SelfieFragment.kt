@@ -351,7 +351,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             .setMessage(getString(R.string.pay_error_dialog_msg))
             .setPositiveButton(getString(R.string.pay_error_dialog_btn)) { dialog, _ -> dialog.dismiss() }
             .create().show()
-        binding.layoutLoading.isVisible = false
+        viewModel.resetValidProcessLoading()
     }
 
     override fun onDestroyView() {
