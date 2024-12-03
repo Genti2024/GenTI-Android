@@ -21,6 +21,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -113,7 +114,9 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
                 override fun onBillingFailure(responseCode: Int) {
                     viewModel.resetValidProcessLoading()
-                    toast(stringOf(R.string.error_msg))
+                    if (responseCode != BillingClient.BillingResponseCode.USER_CANCELED) {
+                        toast(stringOf(R.string.error_msg))
+                    }
 
                 }
             },
