@@ -46,35 +46,42 @@
                 android:id="@+id/bg_number_one"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="4dp"
                 android:background="@drawable/shape_green_gradation_6_rect"
                 android:visibility="@{vm.selectedNumber == pictureNumber.ONE ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toStartOf="@id/bg_number_two"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_number_title" />
+                app:layout_constraintBottom_toBottomOf="@id/btn_number_one"
+                app:layout_constraintEnd_toEndOf="@id/btn_number_one"
+                app:layout_constraintStart_toStartOf="@id/btn_number_one"
+                app:layout_constraintTop_toTopOf="@id/btn_number_one" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btn_number_one"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="1dp"
-                android:background="@{vm.selectedNumber == pictureNumber.ONE ? @drawable/shape_gray_green_fill_6_rect : @drawable/shape_gray_fill_6_rect}"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="4dp"
                 android:onClick="@{() -> vm.selectNumber(pictureNumber.ONE)}"
-                app:layout_constraintBottom_toBottomOf="@id/bg_number_one"
-                app:layout_constraintEnd_toEndOf="@id/bg_number_one"
-                app:layout_constraintStart_toStartOf="@id/bg_number_one"
-                app:layout_constraintTop_toTopOf="@id/bg_number_one"
-                tools:background="@drawable/shape_gray_green_fill_6_rect">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_number_two"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_number_title">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="1dp"
+                    android:background="@{vm.selectedNumber == pictureNumber.ONE ? @drawable/shape_gray_green_fill_6_rect : @drawable/shape_gray_fill_6_rect}"
+                    app:layout_constraintBottom_toBottomOf="@id/view_bottom_one"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_number_one"
+                    tools:background="@drawable/shape_gray_green_fill_6_rect" />
 
                 <ImageView
                     android:id="@+id/iv_number_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:paddingTop="16dp"
                     android:src="@drawable/img_number_one"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,25 +92,32 @@
                     style="@style/TextAppearance.Genti.Body_14_Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/number_btn_one_title"
-                    app:layout_constraintBottom_toTopOf="@id/tv_number_one_subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_number_one"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_number_one" />
 
                 <TextView
                     android:id="@+id/tv_number_one_subtitle"
                     style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/number_btn_one_subtitle"
                     android:textColor="@color/white_60"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_number_one_title" />
+
+                <View
+                    android:id="@+id/view_bottom_one"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_one_subtitle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,35 +125,42 @@
                 android:id="@+id/bg_number_two"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="40dp"
                 android:background="@drawable/shape_green_gradation_6_rect"
                 android:visibility="@{vm.selectedNumber == pictureNumber.TWO ? View.VISIBLE : View.INVISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/bg_number_one"
-                app:layout_constraintTop_toBottomOf="@id/tv_number_title" />
+                app:layout_constraintBottom_toBottomOf="@id/btn_number_two"
+                app:layout_constraintEnd_toEndOf="@id/btn_number_two"
+                app:layout_constraintStart_toStartOf="@id/btn_number_two"
+                app:layout_constraintTop_toTopOf="@id/btn_number_two" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btn_number_two"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="1dp"
-                android:background="@{vm.selectedNumber == pictureNumber.TWO ? @drawable/shape_gray_green_fill_6_rect : @drawable/shape_gray_fill_6_rect}"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="40dp"
                 android:onClick="@{() -> vm.selectNumber(pictureNumber.TWO)}"
-                app:layout_constraintBottom_toBottomOf="@id/bg_number_two"
-                app:layout_constraintEnd_toEndOf="@id/bg_number_two"
-                app:layout_constraintStart_toStartOf="@id/bg_number_two"
-                app:layout_constraintTop_toTopOf="@id/bg_number_two"
-                tools:background="@drawable/shape_gray_green_fill_6_rect">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_number_one"
+                app:layout_constraintTop_toBottomOf="@id/tv_number_title">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="1dp"
+                    android:background="@{vm.selectedNumber == pictureNumber.TWO ? @drawable/shape_gray_green_fill_6_rect : @drawable/shape_gray_fill_6_rect}"
+                    app:layout_constraintBottom_toBottomOf="@id/view_bottom_two"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_number_two"
+                    tools:background="@drawable/shape_gray_green_fill_6_rect" />
 
                 <ImageView
                     android:id="@+id/iv_number_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:paddingTop="16dp"
                     android:src="@drawable/img_number_two"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,25 +171,32 @@
                     style="@style/TextAppearance.Genti.Body_14_Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/number_btn_two_title"
-                    app:layout_constraintBottom_toTopOf="@id/tv_number_two_subtitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_number_two"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_number_two" />
 
                 <TextView
                     android:id="@+id/tv_number_two_subtitle"
                     style="@style/TextAppearance.Genti.Body_14_Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/number_btn_two_subtitle"
                     android:textColor="@color/white_60"
                     android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_number_two_title" />
+
+                <View
+                    android:id="@+id/view_bottom_two"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_two_subtitle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
