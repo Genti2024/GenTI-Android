@@ -39,8 +39,8 @@ class CreateSelectDialog : BaseDialog<DialogCreateSelectBinding>(R.layout.dialog
 
     private fun initCreateBtnListeners() {
         with(binding) {
-            layoutDefaultCreate.setCustomTouchListener(true)
-            layoutParentCreate.setCustomTouchListener(false)
+            layoutDefaultCreate.setCustomTouchListener(false)
+            layoutParentCreate.setCustomTouchListener(true)
         }
     }
 

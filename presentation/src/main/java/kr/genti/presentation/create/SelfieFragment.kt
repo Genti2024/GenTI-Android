@@ -162,7 +162,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "createpic"),
             )
             with(viewModel) {
-                isCompleted.value = false
                 if (isCreatingParentPic) {
                     startValidProcessLoading()
                     manager.purchaseProduct()
