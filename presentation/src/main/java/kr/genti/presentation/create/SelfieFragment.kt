@@ -206,6 +206,9 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             if (viewModel.isCreatingParentPic) {
                 if (viewModel.selectedNumber.value == PictureNumber.ONE) {
                     tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_one)
+                    ivExImage1.load(R.drawable.img_parent_ex_1)
+                    ivExImage2.load(R.drawable.img_parent_ex_2)
+                    ivExImage3.load(R.drawable.img_parent_ex_3)
                 } else {
                     tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_two)
                     layoutExampleImage.isVisible = false
