@@ -1,13 +1,15 @@
 package kr.genti.presentation.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kr.genti.core.base.BaseDialog
-import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.create.CreateActivity
 import kr.genti.presentation.databinding.DialogCreateSelectBinding
@@ -37,13 +39,36 @@ class CreateSelectDialog : BaseDialog<DialogCreateSelectBinding>(R.layout.dialog
 
     private fun initCreateBtnListeners() {
         with(binding) {
-            layoutDefaultCreate.setOnSingleClickListener {
-                AmplitudeManager.trackEvent("click_mypicture")
-                navigateToCreate(false)
-            }
-            layoutParentCreate.setOnSingleClickListener {
-                AmplitudeManager.trackEvent("click_parentpicture")
-                navigateToCreate(true)
+            layoutDefaultCreate.setCustomTouchListener(true)
+            layoutParentCreate.setCustomTouchListener(false)
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun ConstraintLayout.setCustomTouchListener(isCreatingParentPic: Boolean) {
+        this.setOnTouchListener { view, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    if (isCreatingParentPic) {
+                        this.setBackgroundResource(R.drawable.shape_gray_fill_green_line_6_rect)
+                        binding.layoutDefaultCreate.alpha = 0.6F
+                    } else {
+                        this.setBackgroundResource(R.drawable.shape_gray_fill_green_line_6_rect)
+                        binding.layoutParentCreate.alpha = 0.6F
+                    }
+                    view.performClick()
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (isCreatingParentPic) {
+                        AmplitudeManager.trackEvent("click_parentpicture")
+                    } else {
+                        AmplitudeManager.trackEvent("click_mypicture")
+                    }
+                    navigateToCreate(isCreatingParentPic)
+                    true
+                }
+                else -> false
             }
         }
     }
