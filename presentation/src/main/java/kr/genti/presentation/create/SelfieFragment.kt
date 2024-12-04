@@ -21,6 +21,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -113,7 +114,9 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
 
                 override fun onBillingFailure(responseCode: Int) {
                     viewModel.resetValidProcessLoading()
-                    toast(stringOf(R.string.error_msg))
+                    if (responseCode != BillingClient.BillingResponseCode.USER_CANCELED) {
+                        toast(stringOf(R.string.error_msg))
+                    }
 
                 }
             },
@@ -159,7 +162,6 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
                 EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "createpic"),
             )
             with(viewModel) {
-                isCompleted.value = false
                 if (isCreatingParentPic) {
                     startValidProcessLoading()
                     manager.purchaseProduct()
@@ -203,6 +205,9 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             if (viewModel.isCreatingParentPic) {
                 if (viewModel.selectedNumber.value == PictureNumber.ONE) {
                     tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_one)
+                    ivExImage1.load(R.drawable.img_parent_ex_1)
+                    ivExImage2.load(R.drawable.img_parent_ex_2)
+                    ivExImage3.load(R.drawable.img_parent_ex_3)
                 } else {
                     tvSelfieTitle.text = stringOf(R.string.selfie_tv_title_parent_two)
                     layoutExampleImage.isVisible = false
@@ -306,12 +311,13 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
     }
 
     private fun TextView.updateButton(isEmpty: Boolean) {
-        text = if (isEmpty) stringOf(R.string.selfie_tv_btn_select)
-        else stringOf(R.string.selfie_tv_btn_reselect)
-        setTextColor(
-            if (isEmpty) colorOf(R.color.genti_green)
-            else colorOf(R.color.white_60)
-        )
+        if (isEmpty) {
+            text = stringOf(R.string.selfie_tv_btn_select)
+            setTextColor(colorOf(R.color.genti_green))
+        } else {
+            text = stringOf(R.string.selfie_tv_btn_reselect)
+            setTextColor(colorOf(R.color.white_60))
+        }
     }
 
     private fun observeGeneratingState() {
@@ -348,6 +354,7 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             .setMessage(getString(R.string.pay_error_dialog_msg))
             .setPositiveButton(getString(R.string.pay_error_dialog_btn)) { dialog, _ -> dialog.dismiss() }
             .create().show()
+        viewModel.resetValidProcessLoading()
     }
 
     override fun onDestroyView() {

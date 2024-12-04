@@ -3,6 +3,7 @@ package kr.genti.presentation.generate.finished
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -128,10 +129,10 @@ class FinishedActivity : BaseActivity<ActivityFinishedBinding>(R.layout.activity
         if (intent.getBooleanExtra(EXTRA_IS_PAID, false)) {
             with(binding) {
                 tvFinishedTitle.text = stringOf(R.string.finished_tv_title_paid)
-                btnDownload.isVisible = false
-                ivFinishedTooltip.isVisible = false
-                btnShare.isVisible = false
-                btnSavePaid.isVisible = true
+                btnDownload.visibility = View.INVISIBLE
+                ivFinishedTooltip.visibility = View.INVISIBLE
+                btnShare.visibility = View.INVISIBLE
+                btnSavePaid.visibility = View.VISIBLE
             }
             amplitudeType = mapOf(PROPERTY_TYPE to TYPE_ORIGINAL)
             amplitudePage = mapOf(PROPERTY_PAGE to "picdone")
