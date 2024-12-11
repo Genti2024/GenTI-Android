@@ -33,7 +33,6 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
         initSubmitBtnListener()
         observePostSignupState()
         observeYearInputState()
-        observePhoneInputState()
     }
 
     private fun initView() {
@@ -54,9 +53,7 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
                 when (state) {
                     is UiState.Success -> {
                         setAmplitudeUserProperty(state)
-                        Intent(this, OnboardingActivity::class.java).apply {
-                            startActivity(this)
-                        }
+                        startActivity(Intent(this, OnboardingActivity::class.java))
                         finish()
                     }
 
@@ -69,18 +66,7 @@ class SignupActivity : BaseActivity<ActivitySignupBinding>(R.layout.activity_sig
     private fun observeYearInputState() {
         viewModel.isYearAllSelected.flowWithLifecycle(lifecycle).distinctUntilChanged()
             .onEach { isAllSelected ->
-                if (isAllSelected) {
-                    hideKeyboard(binding.root)
-                }
-            }.launchIn(lifecycleScope)
-    }
-
-    private fun observePhoneInputState() {
-        viewModel.isPhoneAllSelected.flowWithLifecycle(lifecycle).distinctUntilChanged()
-            .onEach { isAllSelected ->
-                if (isAllSelected) {
-                    hideKeyboard(binding.root)
-                }
+                if (isAllSelected) hideKeyboard(binding.root)
             }.launchIn(lifecycleScope)
     }
 
