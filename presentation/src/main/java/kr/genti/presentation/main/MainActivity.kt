@@ -196,13 +196,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         viewModel.serverAvailableState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    if (state.data.status) {
-                        viewModel.getIsUserVerifiedFromServer()
-                    } else {
-                        createUnableDialog =
-                            CreateUnableDialog.newInstance(state.data.message.orEmpty())
-                        createUnableDialog?.show(supportFragmentManager, DIALOG_UNABLE)
-                    }
+                    createUnableDialog =
+                        CreateUnableDialog.newInstance(state.data.message.orEmpty())
+                    createUnableDialog?.show(supportFragmentManager, DIALOG_UNABLE)
                 }
 
                 is UiState.Failure -> toast(stringOf(R.string.error_msg))

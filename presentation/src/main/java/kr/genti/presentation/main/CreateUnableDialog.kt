@@ -3,12 +3,16 @@ package kr.genti.presentation.main
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.fragment.app.activityViewModels
 import kr.genti.core.base.BaseDialog
 import kr.genti.core.extension.setOnSingleClickListener
 import kr.genti.presentation.R
 import kr.genti.presentation.databinding.DialogCreateUnableBinding
 
 class CreateUnableDialog : BaseDialog<DialogCreateUnableBinding>(R.layout.dialog_create_unable) {
+
+    private val viewModel by activityViewModels<MainViewModel>()
+
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {
@@ -31,7 +35,10 @@ class CreateUnableDialog : BaseDialog<DialogCreateUnableBinding>(R.layout.dialog
     }
 
     private fun initCloseBtnListener() {
-        binding.btnReturn.setOnSingleClickListener { dismiss() }
+        binding.btnReturn.setOnSingleClickListener {
+            viewModel.getIsUserVerifiedFromServer()
+            dismiss()
+        }
     }
 
     private fun setBodyText() {
