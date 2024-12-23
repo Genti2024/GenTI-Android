@@ -161,14 +161,15 @@ class SelfieFragment : BaseFragment<FragmentSelfieBinding>(R.layout.fragment_sel
             AmplitudeManager.trackEvent(
                 EVENT_CLICK_BTN, amplitudePage, mapOf(PROPERTY_BTN to "createpic"),
             )
-            with(viewModel) {
-                if (isCreatingParentPic) {
-                    startValidProcessLoading()
-                    manager.purchaseProduct()
-                } else {
-                    startSendingImages()
-                }
-            }
+//            with(viewModel) {
+//                if (isCreatingParentPic) {
+//                    startValidProcessLoading()
+//                    manager.purchaseProduct()
+//                } else {
+//                    startSendingImages()
+//                }
+//            }
+            toast(stringOf(R.string.toast_service_finished))
         }
     }
 
