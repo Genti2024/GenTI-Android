@@ -211,4 +211,6 @@
     <string name="pay_error_dialog_msg">오류로 인해 상품이 지급되지 않았어요. 고객센터로 문의 주시면 해결을 도와드리겠습니다.</string>
     <string name="pay_error_dialog_btn">확인</string>
 
+    <string name="toast_service_finished">서비스가 종료되어 생성이 불가능해요.</string>
+
 </resources>
